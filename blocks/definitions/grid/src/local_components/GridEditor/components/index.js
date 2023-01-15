@@ -26,8 +26,8 @@ export const GridHelperLabel = (props) => {
 		lableType,
 		lableCount
 	} = props;
-	return <div class={`grid-cols-rows-helper-wrap`}>
-		<div class={`grid-${lableType.substring(0, 3).toLowerCase()}s-helper`} />
+	return <div className={`grid-cols-rows-helper-wrap`}>
+		<div className={`grid-${lableType.substring(0, 3).toLowerCase()}s-helper`} />
 		{Array.from(Array(lableCount)).map((_, lableIndex) => (
 			<div
 				key={`${lableType}-lable-cell-${lableIndex}`}
@@ -56,7 +56,7 @@ export const GridHelperCell = (props) => {
 		onMouseEnter
 	} = props;
 	return <div
-		class="grid-area-helper"
+		className="grid-area-helper"
 		{...{ onMouseDown, onMouseEnter }}
 		data-xcoords={cellX}
 		data-ycoords={cellY}
@@ -75,7 +75,7 @@ export const GridHelperAppender = (props) => {
 	} = props;
 	return (
 		<div
-			class="grid-grid-area-appender"
+			className="grid-grid-area-appender"
 			area={props.area ? props.area : null}
 			{...{ style }}
 		>

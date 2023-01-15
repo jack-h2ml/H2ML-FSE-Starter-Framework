@@ -58,7 +58,7 @@ import {
 import { GridEditor } from './local_components/GridEditor'
 
 /*
-* Redux store for holding the currently selected h2ml/grid-area, 
+* Redux store htmlFor holding the currently selected h2ml/grid-area, 
 * This is used to ensure the currently selected h2ml/grid-area is visually on top in the editor.
 */
 
@@ -126,8 +126,8 @@ const GridEdit = ({
 }) => {
 
 	//
-	// Get Information about the current Block, and its children. 
-	// (Used for setting the editor stacking order, and adding / editing Grid-Area's)
+	// Get InhtmlFormation about the current Block, and its children. 
+	// (Used htmlFor setting the editor stacking order, and adding / editing Grid-Area's)
 	//
 
 	const { selectedGridItemClientId, selectedGridItemRootBlockClientId, gridChildren } = useSelect((select) => {
@@ -146,7 +146,7 @@ const GridEdit = ({
 	}, []);
 
 	//
-	// Handle updating the stacking order for any currently selected Grid Area's within the editor.
+	// Handle updating the stacking order htmlFor any currently selected Grid Area's within the editor.
 	//
 
 	useEffect(() => {
@@ -301,15 +301,15 @@ const GridEdit = ({
 					rowCount={rowCount}
 					editing={editing}
 				/>
-				<div class="grid-grid-areas">
+				<div className="grid-grid-areas">
 					{!(editing) && (
 						<>
 							{children}
-							<div class="grid-grid-area-appender-wrap">
-								<div class="addNewGridAreaContainer">
+							<div className="grid-grid-area-appender-wrap">
+								<div className="addNewGridAreaContainer">
 									<Tooltip text={newGridAreaText}>
-										<div class="addNewGridAreaWrap">
-											<label for="addNewGridArea">{newGridAreaText}</label>
+										<div className="addNewGridAreaWrap">
+											<label htmlFor="addNewGridArea">{newGridAreaText}</label>
 											<Button
 												id="addNewGridArea"
 												className="addNewGridArea"
@@ -366,7 +366,7 @@ const GridEditWrapper = withDispatch(
 			setAttributes({ [`${type}Definitions`]: definitions });
 		},
 		//
-		// Update templates for specific Columns / Rows.
+		// Update templates htmlFor specific Columns / Rows.
 		//
 		setGridTemplateColumnOrRow(type, index, template) {
 			const { attributes, setAttributes } = ownProps;
@@ -389,7 +389,7 @@ const GridEditWrapper = withDispatch(
 		},
 		//
 		// When a Grid-Area or any of it's children are selcted, visually move that item to the top of the 
-		// stacking context. (this is not saved as an attribute, and is purely for convenience in the editor).
+		// stacking context. (this is not saved as an attribute, and is purely htmlFor convenience in the editor).
 		//
 		setGridAreasEditorStackingOrder(selectedGridItemClientId, selectedGridItemRootBlockClientId) {
 			const { clientId } = ownProps;

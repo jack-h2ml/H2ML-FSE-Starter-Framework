@@ -81,7 +81,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /*
-* Redux store for holding the currently selected h2ml/grid-area, 
+* Redux store htmlFor holding the currently selected h2ml/grid-area, 
 * This is used to ensure the currently selected h2ml/grid-area is visually on top in the editor.
 */
 
@@ -152,8 +152,8 @@ const GridEdit = _ref => {
     clientId
   } = _ref;
   //
-  // Get Information about the current Block, and its children. 
-  // (Used for setting the editor stacking order, and adding / editing Grid-Area's)
+  // Get InhtmlFormation about the current Block, and its children. 
+  // (Used htmlFor setting the editor stacking order, and adding / editing Grid-Area's)
   //
 
   const {
@@ -180,7 +180,7 @@ const GridEdit = _ref => {
   }, []);
 
   //
-  // Handle updating the stacking order for any currently selected Grid Area's within the editor.
+  // Handle updating the stacking order htmlFor any currently selected Grid Area's within the editor.
   //
 
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -319,17 +319,17 @@ const GridEdit = _ref => {
     rowCount: rowCount,
     editing: editing
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "grid-grid-areas"
+    className: "grid-grid-areas"
   }, !editing && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, children, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "grid-grid-area-appender-wrap"
+    className: "grid-grid-area-appender-wrap"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "addNewGridAreaContainer"
+    className: "addNewGridAreaContainer"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Tooltip, {
     text: newGridAreaText
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "addNewGridAreaWrap"
+    className: "addNewGridAreaWrap"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    for: "addNewGridArea"
+    htmlFor: "addNewGridArea"
   }, newGridAreaText), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     id: "addNewGridArea",
     className: "addNewGridArea",
@@ -393,7 +393,7 @@ const GridEditWrapper = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.withDisp
     });
   },
   //
-  // Update templates for specific Columns / Rows.
+  // Update templates htmlFor specific Columns / Rows.
   //
   setGridTemplateColumnOrRow(type, index, template) {
     const {
@@ -427,7 +427,7 @@ const GridEditWrapper = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.withDisp
   },
   //
   // When a Grid-Area or any of it's children are selcted, visually move that item to the top of the 
-  // stacking context. (this is not saved as an attribute, and is purely for convenience in the editor).
+  // stacking context. (this is not saved as an attribute, and is purely htmlFor convenience in the editor).
   //
   setGridAreasEditorStackingOrder(selectedGridItemClientId, selectedGridItemRootBlockClientId) {
     const {
@@ -570,9 +570,9 @@ const GridHelperLabel = props => {
     lableCount
   } = props;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: `grid-cols-rows-helper-wrap`
+    className: `grid-cols-rows-helper-wrap`
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: `grid-${lableType.substring(0, 3).toLowerCase()}s-helper`
+    className: `grid-${lableType.substring(0, 3).toLowerCase()}s-helper`
   }), Array.from(Array(lableCount)).map((_, lableIndex) => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     key: `${lableType}-lable-cell-${lableIndex}`,
     className: "grid-cols-rows-helper",
@@ -593,7 +593,7 @@ const GridHelperCell = props => {
     onMouseEnter
   } = props;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "grid-area-helper",
+    className: "grid-area-helper",
     onMouseDown,
     onMouseEnter,
     "data-xcoords": cellX,
@@ -609,7 +609,7 @@ const GridHelperAppender = props => {
     children
   } = props;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "grid-grid-area-appender",
+    className: "grid-grid-area-appender",
     area: props.area ? props.area : null,
     style
   }, children);
@@ -752,7 +752,7 @@ const GridEditor = props => {
   const [gridHelperCoordRes, setGridHelperCoordRes] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   // The JSX.
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "grid-helpers"
+    className: "grid-helpers"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components__WEBPACK_IMPORTED_MODULE_6__.GridHelperLabel, {
     lableType: "Column",
     lableCount: colCount
@@ -797,9 +797,9 @@ const GridEditor = props => {
       } : undefined
     });
   }), editing && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, editing?.clientId ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "grid-adding-grid-areas-notice"
+    className: "grid-adding-grid-areas-notice"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Click and drag", 'h2ml')), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("to edit the Grid Area, when you're done click", 'h2ml'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Save Grid Area", 'h2ml')), ", ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("press", 'h2ml'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("E", 'h2ml')), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("or", 'h2ml'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("C", 'h2ml')), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("to cancel.", 'h2ml'), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Don't forget to "), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Update", 'h2ml')), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)(" the post when you're done.", 'h2ml'))) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "grid-adding-grid-areas-notice"
+    className: "grid-adding-grid-areas-notice"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Click and drag", 'h2ml')), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("to add a new Grid Area, when you're done click", 'h2ml'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Save Grid Area", 'h2ml')), ", ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("press", 'h2ml'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("E", 'h2ml')), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("or", 'h2ml'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("C", 'h2ml')), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("to cancel.", 'h2ml'), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Don't forget to "), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Update", 'h2ml')), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)(" the post when you're done.", 'h2ml'))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components__WEBPACK_IMPORTED_MODULE_6__.GridHelperAppender, {
     className: "grid-grid-area-appender",
     style: gridHelperCoordRes ? {

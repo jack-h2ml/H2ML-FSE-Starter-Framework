@@ -121,7 +121,7 @@ export const GridEditor = (props) => {
 	const [gridHelperCanSave, setGridHelperCanSave] = useState(false);
 	const [gridHelperCoordRes, setGridHelperCoordRes] = useState(null);
 	// The JSX.
-	return <div class="grid-helpers">
+	return <div className="grid-helpers">
 		<GridHelperLabel
 			lableType="Column"
 			lableCount={colCount}
@@ -167,11 +167,11 @@ export const GridEditor = (props) => {
 		{editing && (
 			<>
 				{editing?.clientId ? (
-					<div class="grid-adding-grid-areas-notice">
+					<div className="grid-adding-grid-areas-notice">
 						<p><strong>{__("Click and drag", 'h2ml')}</strong> {__("to edit the Grid Area, when you're done click", 'h2ml')} <strong>{__("Save Grid Area", 'h2ml')}</strong>, {__("press", 'h2ml')} <strong>{__("E", 'h2ml')}</strong> {__("or", 'h2ml')} <strong>{__("C", 'h2ml')}</strong> {__("to cancel.", 'h2ml')}<br />{__("Don't forget to ")}<strong>{__("Update", 'h2ml')}</strong>{__(" the post when you're done.", 'h2ml')}</p>
 					</div>
 				) : (
-					<div class="grid-adding-grid-areas-notice">
+					<div className="grid-adding-grid-areas-notice">
 						<p><strong>{__("Click and drag", 'h2ml')}</strong> {__("to add a new Grid Area, when you're done click", 'h2ml')} <strong>{__("Save Grid Area", 'h2ml')}</strong>, {__("press", 'h2ml')} <strong>{__("E", 'h2ml')}</strong> {__("or", 'h2ml')} <strong>{__("C", 'h2ml')}</strong> {__("to cancel.", 'h2ml')}<br />{__("Don't forget to ")}<strong>{__("Update", 'h2ml')}</strong>{__(" the post when you're done.", 'h2ml')}</p>
 					</div>
 				)}
