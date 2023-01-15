@@ -1,21 +1,6 @@
-/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!../../common/styles/grid-styles/style.scss ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************/
-:root {
-  --base-padding: 0.8rem;
-  --mobile-breakpoint: 900px;
-  --quotation-width: 32px;
-  --columns-width: calc((var(--mobile-breakpoint) - ((var(--quotation-width) * 1.25) + (var(--base-padding) * 14))) / 12);
-}
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/style.scss ***!
   \***************************************************************************************************************************************************************************************************************************************/
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
 .wp-block-h2ml-grid-area {
   border: 0;
   position: relative;

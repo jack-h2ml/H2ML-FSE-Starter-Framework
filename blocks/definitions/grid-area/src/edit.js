@@ -39,8 +39,6 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 
-import './../../../common/styles/grid-styles/editor.scss';
-
 import './editor.scss';
 
 /*

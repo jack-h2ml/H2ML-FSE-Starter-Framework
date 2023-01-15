@@ -1,64 +1,51 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "h2ml/grid-area",
+	"name": "h2ml/grid",
 	"version": "0.1.0",
-	"title": "Grid Area",
-	"parent": [
-		"h2ml/grid"
-	],
+	"title": "Grid",
 	"category": "design",
-	"description": "A single Grid Area within a Grid block.",
+	"description": "Display content in a Grid, across multiple Grid Area's, with blocks added to each Grid Area.",
 	"textdomain": "h2ml",
+	"keywords": [
+		"h2ml",
+		"grid"
+	],
 	"attributes": {
 		"verticalAlignment": {
-			"type": "string",
-			"default": "start"
-		},
-		"backgroundColor": {
 			"type": "string"
 		},
-		"textColor": {
-			"type": "string"
-		},
-		"style": {
+		"colDefinitions": {
 			"type": "object",
 			"default": {
-				"color": {
-					"background": null
-				}
+				"count": 3,
+				"templates": [
+					"1fr",
+					"1fr",
+					"1fr"
+				]
 			}
 		},
-		"gridArea": {
+		"rowDefinitions": {
 			"type": "object",
 			"default": {
-				"start": {
-					"x": 1,
-					"y": 1
-				},
-				"end": {
-					"x": 1,
-					"y": 1
-				},
-				"parsed": "MS8x"
+				"count": 4,
+				"templates": [
+					"max-content",
+					"max-content",
+					"max-content",
+					"max-content"
+				]
 			}
-		},
-		"stackingOrder": {
-			"type": "number",
-			"default": 0
-		},
-		"requestEdit": {
-			"type": "boolean",
-			"default": false
 		}
 	},
 	"supports": {
-		"__experimentalSettings": true,
-		"__experimentalLayout": {
-			"allowSizingOnChildren": false
-		},
 		"anchor": true,
-		"reusable": false,
+		"align": [
+			"wide",
+			"full"
+		],
+		"reusable": true,
 		"html": false,
 		"color": {
 			"gradients": true,
@@ -69,10 +56,13 @@
 			}
 		},
 		"spacing": {
-			"blockGap": true,
+			"blockGap": false,
+			"margin": [
+				"top",
+				"bottom"
+			],
 			"padding": true,
 			"__experimentalDefaultControls": {
-				"blockGap": true,
 				"padding": true
 			}
 		},
@@ -102,18 +92,7 @@
 			}
 		}
 	},
-	"styles": [
-		{
-			"name": "default",
-			"label": "Default",
-			"isDefault": true
-		},
-		{
-			"name": "border",
-			"label": "Border"
-		}
-	],
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css"
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
 }

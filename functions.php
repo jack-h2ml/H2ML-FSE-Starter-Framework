@@ -16,21 +16,11 @@
  *
  */
 
- /*
 add_action('init', function() {
-	$blockDefinitionDirectories = new RecursiveDirectoryIterator(__DIR__ . '/blocks', RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::CURRENT_AS_FILEINFO);
-	foreach ($blockDefinitionDirectories as $blockDefinitionDirectory) { 
-		if($blockDefinitionDirectory->isDir()) {
-			$blockDefinitionDirectoryBuildPath = $blockDefinitionDirectory->getPathname() . '/build';
-			register_block_type_from_metadata($blockDefinitionDirectoryBuildPath);
-		}	
-	}	
+	foreach(glob(get_stylesheet_directory() . "/blocks/definitions/*") as $blockDefinitionDirectoryBuildPath) {
+		register_block_type_from_metadata($blockDefinitionDirectoryBuildPath);
+	}
 });
-*/
-
-foreach(glob(get_template_directory() . "/blocks/definitions/*/build/block.json") as $file) {
-    register_block_type($file);
-}
 
 /**
  * 
