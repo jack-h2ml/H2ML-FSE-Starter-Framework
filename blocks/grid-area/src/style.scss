@@ -1,0 +1,42 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-h2ml-grid-area {
+	// Styles
+	border: 0;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	//
+	> .fillGridArea {
+		// Styles
+		max-height: 100% !important;
+		max-width: 100% !important;
+		height: 100% !important;
+		width: 100% !important;
+		object-fit: cover;
+		// Descendent Selectors
+		figure, div, img, iframe, video {
+			// Styles
+			max-height: inherit !important;
+			max-width: inherit !important;
+			height: inherit !important;
+			width: inherit !important;
+			object-fit: inherit !important;
+		}
+		> div > div:has(.components-resizable-box__handle) {
+			// Styles
+			display: none !important;
+		}
+	}
+	//
+	&.is-style-border{
+		border: 2px solid #000;
+        border-radius: 16px;
+        background-color: #F6F6F6;
+	}
+}

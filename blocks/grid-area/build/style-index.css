@@ -1,0 +1,50 @@
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!../common/styles/style.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+:root {
+  --base-padding: 0.8rem;
+  --mobile-breakpoint: 900px;
+  --quotation-width: 32px;
+  --columns-width: calc((var(--mobile-breakpoint) - ((var(--quotation-width) * 1.25) + (var(--base-padding) * 14))) / 12);
+}
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-h2ml-grid-area {
+  border: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.wp-block-h2ml-grid-area > .fillGridArea {
+  max-height: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  width: 100% !important;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.wp-block-h2ml-grid-area > .fillGridArea figure, .wp-block-h2ml-grid-area > .fillGridArea div, .wp-block-h2ml-grid-area > .fillGridArea img, .wp-block-h2ml-grid-area > .fillGridArea iframe, .wp-block-h2ml-grid-area > .fillGridArea video {
+  max-height: inherit !important;
+  max-width: inherit !important;
+  height: inherit !important;
+  width: inherit !important;
+  -o-object-fit: inherit !important;
+     object-fit: inherit !important;
+}
+.wp-block-h2ml-grid-area > .fillGridArea > div > div:has(.components-resizable-box__handle) {
+  display: none !important;
+}
+.wp-block-h2ml-grid-area.is-style-border {
+  border: 2px solid #000;
+  border-radius: 16px;
+  background-color: #F6F6F6;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "h2ml/grid-area",
+  "version": "0.1.0",
+  "title": "Grid Area",
+  "parent": [
+    "h2ml/grid"
+  ],
+  "category": "design",
+  "description": "A single Grid Area within a Grid block.",
+  "textdomain": "h2ml",
+  "attributes": {
+    "verticalAlignment": {
+      "type": "string",
+      "default": "start"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "style": {
+      "type": "object",
+      "default": {
+        "color": {
+          "background": null
+        }
+      }
+    },
+    "gridArea": {
+      "type": "object",
+      "default": {
+        "start": {
+          "x": 1,
+          "y": 1
+        },
+        "end": {
+          "x": 1,
+          "y": 1
+        },
+        "parsed": "MS8x"
+      }
+    },
+    "stackingOrder": {
+      "type": "number",
+      "default": 0
+    },
+    "requestEdit": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "__experimentalSettings": true,
+    "__experimentalLayout": {
+      "allowSizingOnChildren": false
+    },
+    "anchor": true,
+    "reusable": false,
+    "html": false,
+    "color": {
+      "gradients": true,
+      "link": true,
+      "__experimentalDefaultControls": {
+        "background": true,
+        "text": true
+      }
+    },
+    "spacing": {
+      "blockGap": true,
+      "padding": true,
+      "__experimentalDefaultControls": {
+        "blockGap": true,
+        "padding": true
+      }
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true,
+      "__experimentalDefaultControls": {
+        "color": true,
+        "radius": true,
+        "style": true,
+        "width": true
+      }
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    }
+  },
+  "styles": [
+    {
+      "name": "default",
+      "label": "Default",
+      "isDefault": true
+    },
+    {
+      "name": "border",
+      "label": "Border"
+    }
+  ],
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

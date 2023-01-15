@@ -1,0 +1,36 @@
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!../common/styles/editor.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+:root {
+  --h2ml-grid-helper-spacing: 10px;
+  --h2ml-grid-helper-border-radius: 5px;
+  --h2ml-grid-helper-font-size: 0.75rem;
+  --h2ml-grid-helper-dont-size: calc(var(--grid-helper-font-size) / 1.6);
+  --h2ml-grid-background-color: #f3f3f3;
+  --h2ml-grid-contrast-color: #d7d7d7;
+}
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/editor.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-h2ml-grid-area {
+  position: relative;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  /*
+  *:not(.block-list-appender) {
+  	height: 100% !important;
+  	width: 100% !important;
+  }
+  */
+}
+.wp-block-h2ml-grid-area > .block-list-appender.block-list-appender {
+  margin: var(--h2ml-grid-helper-spacing);
+  width: calc(100% - 2 * var(--h2ml-grid-helper-spacing));
+}
+
+/*# sourceMappingURL=index.css.map*/

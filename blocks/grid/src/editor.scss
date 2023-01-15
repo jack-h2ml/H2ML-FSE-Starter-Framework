@@ -1,0 +1,190 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+ .wp-block-h2ml-grid {
+	// Styles
+	display: grid;
+	grid-auto-columns: 1fr;
+	padding: calc(var(--h2ml-grid-helper-spacing) / 2);
+	// Descendent Selectors
+	> div {
+		// Styles
+		display: contents;
+	}
+	> .grid-helpers {
+		// Descendent Selectors
+		> .grid-cols-rows-helper-wrap {
+			// Styles
+			display: contents;
+			line-height: 1;
+			// Descendent Selectors
+			> .grid-cols-helper, > .grid-rows-helper {
+				background: var(--h2ml-grid-background-color);
+				border-radius: var(--h2ml-grid-helper-border-radius);
+			}
+			> .grid-cols-helper {
+				// Styles
+				grid-column: 2/-1;
+				grid-row: 1;
+    			height: calc(100% - var(--h2ml-grid-helper-spacing));
+			}
+			> .grid-rows-helper {
+				// Styles
+				grid-column: 1;
+				grid-row: 2/-1;
+				width: calc(100% - var(--h2ml-grid-helper-spacing));
+			}
+			> .grid-cols-helper ~ .grid-cols-rows-helper {
+				// Styles
+				margin-bottom: calc(var(--h2ml-grid-helper-spacing) * 2) !important;
+			}
+			> .grid-rows-helper ~ .grid-cols-rows-helper {
+				// Styles
+				margin-right: calc(var(--h2ml-grid-helper-spacing) * 2) !important;
+			}
+			> .grid-cols-rows-helper {
+				// Styles
+				margin: var(--h2ml-grid-helper-spacing);
+				border-radius: var(--h2ml-grid-helper-border-radius);
+				font-size: var(--h2ml-grid-helper-font-size);
+				font-weight: bold;
+				background: var(--h2ml-grid-contrast-color);
+				user-select: none;
+				// Descendent Selectors
+				> div {
+					// Styles
+					display: flex;
+    				align-items: center;
+    				justify-content: center;
+					box-sizing: border-box;
+					width: 100%;
+					height: 100%;
+					padding: var(--h2ml-grid-helper-spacing);
+				}
+			}
+		}
+		> .grid-area-helper {
+			// Styles
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: calc(var(--h2ml-grid-helper-font-size) / 4);
+			box-sizing: border-box;
+			padding: var(--h2ml-grid-helper-spacing) calc(var(--h2ml-grid-helper-spacing) * 2);
+			margin: calc(var(--h2ml-grid-helper-spacing) / 3);
+			background: var(--h2ml-grid-background-color);
+			font-size: var(--h2ml-grid-helper-font-size);
+			font-weight: bold;
+			user-select: none;
+			border-radius: calc(var(--h2ml-grid-helper-border-radius) / 2);
+			border: 1px dotted var(--h2ml-grid-contrast-color);
+			// Descendent Selectors
+			> sub {
+				// Styles
+				font-weight: normal;
+				translate: 0 calc(var(--h2ml-grid-helper-font-size) / 3);
+			}
+		}
+		> .grid-adding-grid-areas-notice {
+			// Styles
+			display: none;
+			align-items: center;
+			justify-content: center;
+			grid-column: 1 / -1;
+			font-size: 0.75rem;
+			text-align: center;
+			user-select: none;
+		}
+		> .grid-grid-area-appender {
+			// Styles
+			position: relative;
+			z-index: 1;
+			display: none; // This is set to 'flex' later.
+    		align-items: flex-end;
+    		justify-content: flex-end;
+			border-radius: 2px;
+    		box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+    		outline: 2px solid transparent;
+			pointer-events: none;
+			// Descendent Selectors
+			button {
+				// Styles
+				margin: var(--h2ml-grid-helper-spacing);
+			}
+		}
+	}
+	> .grid-grid-areas {
+		// Descendent Selectors
+		.grid-grid-area-appender-wrap {
+			// Styles
+			display: contents;
+			// Descendent Selectors
+			> .addNewGridAreaContainer {
+				// Styles
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				grid-column: 1 / -1;
+				padding: calc(var(--h2ml-grid-helper-spacing) / 2) 0;
+				font-size: 0.75rem;
+			}
+			> .addNewGridAreaContainer > .addNewGridAreaWrap {
+				// Styles
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+			> .addNewGridAreaContainer > .addNewGridAreaWrap button {
+				// Styles
+				padding: 0;
+				background: #1e1e1e;
+				color: #fff;
+			}
+			> .addNewGridAreaContainer > .addNewGridAreaWrap button:hover {
+				// Styles
+				background: var(--wp-admin-theme-color);
+			}
+		}
+	}
+	&:not(.is-selected) {
+		// Descendent Selectors
+		> .grid-helpers {
+			// Descendent Selectors
+			> .grid-grid-area-appender {
+				// Descendent Selectors
+				button {
+					// Styles
+					pointer-events: none;
+				}
+			}
+		}
+		> .grid-grid-areas {
+			// Descendent Selectors
+			> .grid-grid-area-appender-wrap {
+				// Styles
+				display: none;
+			}
+		}
+	}
+	&.is-selected {
+		// Descendent Selectors
+		> .grid-helpers {
+			// Descendent Selectors
+			> .grid-adding-grid-areas-notice {
+				// Styles
+				display: flex;
+			}
+			> .grid-grid-area-appender {
+				// Descendent Selectors
+				button {
+					// Styles
+					pointer-events: all;
+				}
+			}
+		}
+	}
+}

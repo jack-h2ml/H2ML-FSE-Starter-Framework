@@ -1,0 +1,9 @@
+:root {
+    // Variables
+	--h2ml-grid-helper-spacing: 10px;
+	--h2ml-grid-helper-border-radius: 5px;
+	--h2ml-grid-helper-font-size: 0.75rem;
+	--h2ml-grid-helper-dont-size: calc(var(--grid-helper-font-size) / 1.6);
+	--h2ml-grid-background-color: #f3f3f3;
+	--h2ml-grid-contrast-color: #d7d7d7;
+}
