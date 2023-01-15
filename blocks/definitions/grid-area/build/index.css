@@ -5,12 +5,6 @@
   position: relative;
   -webkit-backdrop-filter: blur(2px);
           backdrop-filter: blur(2px);
-  /*
-  *:not(.block-list-appender) {
-  	height: 100% !important;
-  	width: 100% !important;
-  }
-  */
 }
 .wp-block-h2ml-grid-area > .block-list-appender.block-list-appender {
   margin: var(--h2ml-grid-helper-spacing);
