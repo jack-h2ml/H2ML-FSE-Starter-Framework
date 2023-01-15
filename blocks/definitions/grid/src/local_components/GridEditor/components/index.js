@@ -30,7 +30,8 @@ export const GridHelperLabel = (props) => {
 		<div class={`grid-${lableType.substring(0, 3).toLowerCase()}s-helper`} />
 		{Array.from(Array(lableCount)).map((_, lableIndex) => (
 			<div
-				class="grid-cols-rows-helper"
+				key={`${lableType}-lable-cell-${lableIndex}`}
+				className="grid-cols-rows-helper"
 				style={{
 					[`grid${lableType}Start`]: ++lableIndex + 1,
 					[`grid${lableType === 'Column' ? 'Row' : 'Column'}Start`]: 1,

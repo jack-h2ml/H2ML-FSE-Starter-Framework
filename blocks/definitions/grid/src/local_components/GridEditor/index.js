@@ -136,6 +136,7 @@ export const GridEditor = (props) => {
 			const cellY = Math.floor((cellIndex - 1) / colCount) + 1;
 			return <GridHelperCell
 				{...{
+					key: `grid-cell-${cellIndex}`,
 					cellLabel: cellIndex,
 					cellX,
 					cellY,
@@ -175,7 +176,7 @@ export const GridEditor = (props) => {
 					</div>
 				)}
 				<GridHelperAppender
-					class="grid-grid-area-appender"
+					className="grid-grid-area-appender"
 					style={gridHelperCoordRes ? {
 						gridArea: gridHelperCoordRes.parsed,
 						display: 'flex'
