@@ -188,7 +188,7 @@ const GridEdit = ({
 				setGridEditing(childRequestedEdit);
 			}
 		}
-	}, [gridChildren, ...gridChildren.map(child => child.attributes.requestEdit)]);
+	}, [gridChildren, gridChildren.includes(child => child.attributes.requestEdit)]);
 
 	//
 	// If the Grid's 'editing' attribute changes to false, and a focusTarget is set, then .focus() on the focusTarget's DOM element,
@@ -276,6 +276,7 @@ const GridEdit = ({
 						<PanelBody title={__('Grid Columns Settings', 'h2ml')} initialOpen={false}>
 							{[...Array(colCount)].map((_, i) => (
 								<TextControl
+									key={`col-settings-${i}`}
 									label={sprintf(__("Column %1$d Width", 'h2ml'), i + 1)}
 									value={colTemplates[i]}
 									onChange={value => setGridTemplateColumnOrRow(0, i, value /* 0 === 'col' */)}
@@ -285,6 +286,7 @@ const GridEdit = ({
 						<PanelBody title={__('Grid Rows Settings', 'h2ml')} initialOpen={false}>
 							{[...Array(rowCount)].map((_, i) => (
 								<TextControl
+									key={`row-settings-${i}`}
 									label={sprintf(__("Row %1$d Height", 'h2ml'), i + 1)}
 									value={rowTemplates[i]}
 									onChange={value => setGridTemplateColumnOrRow(1, i, value) /* 0 === 'row' */}

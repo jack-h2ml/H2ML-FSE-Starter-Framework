@@ -53,7 +53,7 @@ export const GridHelperCell = (props) => {
 		cellX,
 		cellY,
 		onMouseDown,
-		onMouseEnter
+		onMouseEnter,
 	} = props;
 	return <div
 		className="grid-area-helper"

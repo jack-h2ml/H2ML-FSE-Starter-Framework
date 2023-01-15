@@ -136,7 +136,7 @@ export const GridEditor = (props) => {
 			const cellY = Math.floor((cellIndex - 1) / colCount) + 1;
 			return <GridHelperCell
 				{...{
-					key: `grid-cell-${cellIndex}`,
+					key: `helper-cell-${cellIndex}`,
 					cellLabel: cellIndex,
 					cellX,
 					cellY,
