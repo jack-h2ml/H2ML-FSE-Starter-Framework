@@ -46,7 +46,7 @@ import {
  * Internal dependencies.
  */
 
-import './../../common/styles/grid-styles/editor.scss';
+import './../../../common/styles/grid-styles/editor.scss';
 
 import './editor.scss';
 

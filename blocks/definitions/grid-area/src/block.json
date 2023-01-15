@@ -1,39 +1,64 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "h2ml/grid",
+	"name": "h2ml/grid-area",
 	"version": "0.1.0",
-	"title": "Grid",
-	"category": "design",
-	"description": "Display content in a Grid, across multiple Grid Area's, with blocks added to each Grid Area.",
-	"textdomain": "h2ml",
-	"keywords": [ 
-		"h2ml", 
-		"grid" 
+	"title": "Grid Area",
+	"parent": [
+		"h2ml/grid"
 	],
+	"category": "design",
+	"description": "A single Grid Area within a Grid block.",
+	"textdomain": "h2ml",
 	"attributes": {
 		"verticalAlignment": {
+			"type": "string",
+			"default": "start"
+		},
+		"backgroundColor": {
 			"type": "string"
 		},
-		"colDefinitions": {
+		"textColor": {
+			"type": "string"
+		},
+		"style": {
 			"type": "object",
 			"default": {
-				"count": 3,
-				"templates": ["1fr", "1fr", "1fr"]
+				"color": {
+					"background": null
+				}
 			}
 		},
-		"rowDefinitions": {
+		"gridArea": {
 			"type": "object",
 			"default": {
-				"count": 4,
-				"templates": ["max-content", "max-content", "max-content", "max-content"]
+				"start": {
+					"x": 1,
+					"y": 1
+				},
+				"end": {
+					"x": 1,
+					"y": 1
+				},
+				"parsed": "MS8x"
 			}
+		},
+		"stackingOrder": {
+			"type": "number",
+			"default": 0
+		},
+		"requestEdit": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"supports": {
+		"__experimentalSettings": true,
+		"__experimentalLayout": {
+			"allowSizingOnChildren": false
+		},
 		"anchor": true,
-		"align": ["wide", "full"],
-		"reusable": true,
+		"reusable": false,
 		"html": false,
 		"color": {
 			"gradients": true,
@@ -44,10 +69,10 @@
 			}
 		},
 		"spacing": {
-			"blockGap": false,
-			"margin": [ "top", "bottom" ],
+			"blockGap": true,
 			"padding": true,
 			"__experimentalDefaultControls": {
+				"blockGap": true,
 				"padding": true
 			}
 		},
@@ -77,6 +102,17 @@
 			}
 		}
 	},
+	"styles": [
+		{
+			"name": "default",
+			"label": "Default",
+			"isDefault": true
+		},
+		{
+			"name": "border",
+			"label": "Border"
+		}
+	],
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css"

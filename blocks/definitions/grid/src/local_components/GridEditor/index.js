@@ -32,7 +32,7 @@ import {
 	GridHelperAppender
 } from './components'
 
-import { generateGridAreaStartEnd } from './../../utils.js'
+import { generateGridAreaStartEnd } from '../../utils.js'
 
 /**
 * Event callback Function for starting / updating the selecting of a Grid-Area Area
