@@ -56,14 +56,16 @@
 			}
 		},
 		"spacing": {
-			"blockGap": false,
+			"blockGap": [ "horizontal", "vertical" ],
 			"margin": [
 				"top",
 				"bottom"
 			],
 			"padding": true,
 			"__experimentalDefaultControls": {
-				"padding": true
+				"padding": true,
+				"margin": true,
+				"blockGap": true
 			}
 		},
 		"__experimentalBorder": {

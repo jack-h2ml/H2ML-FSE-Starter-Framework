@@ -15,12 +15,6 @@
 			"type": "string",
 			"default": "start"
 		},
-		"backgroundColor": {
-			"type": "string"
-		},
-		"textColor": {
-			"type": "string"
-		},
 		"style": {
 			"type": "object",
 			"default": {

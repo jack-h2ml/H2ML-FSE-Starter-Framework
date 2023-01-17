@@ -112,7 +112,8 @@ const GridEdit = ({
 			count: rowCount,
 			templates: rowTemplates
 		},
-		editing
+		editing,
+		style
 	},
 	// Attribute Setters.
 	setAlignment,
@@ -124,9 +125,9 @@ const GridEdit = ({
 	// Other.
 	clientId
 }) => {
-
+	console.log(style);
 	//
-	// Get InhtmlFormation about the current Block, and its children. 
+	// Get information about the current Block, and its children. 
 	// (Used htmlFor setting the editor stacking order, and adding / editing Grid-Area's)
 	//
 

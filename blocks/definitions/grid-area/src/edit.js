@@ -49,7 +49,6 @@ const GridAreaEdit = ({
 	// Attributes.
 	attributes: {
 		verticalAlignment,
-		backgroundColor,
 		gridArea,
 		stackingOrder,
 		requestEdit,
@@ -140,7 +139,7 @@ const GridAreaEdit = ({
 			],
 			style: {
 				justifyContent: verticalAlignment,
-				backgroundColor: customBackgroundColor ? customBackgroundColor : backgroundColor,
+				backgroundColor: customBackgroundColor ? customBackgroundColor : 'null',
 				gridArea: gridArea.parsed,
 				zIndex: isSelectedGridArea ? isSelectedGridArea.editorStackingOrder : stackingOrder
 			},
