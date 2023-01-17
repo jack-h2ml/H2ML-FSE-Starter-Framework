@@ -125,7 +125,7 @@ const GridEdit = ({
 	// Other.
 	clientId
 }) => {
-	console.log(style);
+	if(style) console.log(style);
 	//
 	// Get information about the current Block, and its children. 
 	// (Used htmlFor setting the editor stacking order, and adding / editing Grid-Area's)
@@ -175,7 +175,9 @@ const GridEdit = ({
 	//
 
 	useEffect(() => {
+		console.log('TEST');
 		if(editing) {
+			console.log('Hello World!');
 			// Set the focusTarget if needed. 
 			if(editing.clientId) setFocusTarget(editing);
 			// Reset the Grid's 'editing' attribute. 
@@ -184,8 +186,9 @@ const GridEdit = ({
 			// Determine if a Grid Area is requesting to be updated. 
 			const childRequestedEdit = gridChildren.find(child => child.attributes.requestEdit);
 			if(childRequestedEdit) {
+				console.log(clientId);
 				// Re-focus on the Grid, as focus will have been captured by the Grid Area.
-				document.querySelector(`[data-block="${clientId}"]`).focus();
+				//document.querySelector(`[data-block="${clientId}"]`).focus();
 				setGridEditing(childRequestedEdit);
 			}
 		}
@@ -195,11 +198,14 @@ const GridEdit = ({
 	// If the Grid's 'editing' attribute changes to false, and a focusTarget is set, then .focus() on the focusTarget's DOM element,
 	// then reset the focusTarget to null.
 	//
+	
 
+	/*
 	useEffect(() => {
 		if(!editing && focusTarget) document.querySelector(`[data-block="${focusTarget.clientId}"]`).focus();
 		setFocusTarget(null)
 	}, [editing]);
+	*/
 
 	//
 	// Register the Block / InnerBlock Props.
@@ -223,7 +229,6 @@ const GridEdit = ({
 					// Bind keys to attribute setters.
 					if (editKeys.includes(key) && !editing) setGridEditing(true);
 					else if (exitKeys.includes(key)) {
-						setGridEditing(false);
 						setGridEditing(false);
 					};
 				}

@@ -18,9 +18,15 @@ import {
 
 import { createBlock } from '@wordpress/blocks';
 
-import { useState } from '@wordpress/element';
+import { 
+	useState, 
+} from '@wordpress/element';
 
 import { Button } from '@wordpress/components';
+
+import {
+	useRefEffect 
+} from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -30,7 +36,7 @@ import {
 	GridHelperLabel,
 	GridHelperCell,
 	GridHelperAppender
-} from './components'
+} from './components';
 
 import { generateGridAreaStartEnd } from '../../utils.js'
 
@@ -120,8 +126,22 @@ export const GridEditor = (props) => {
 	const [gridHelperIsDrawing, setGridHelperIsDrawing] = useState(false);
 	const [gridHelperCanSave, setGridHelperCanSave] = useState(false);
 	const [gridHelperCoordRes, setGridHelperCoordRes] = useState(null);
+	//
+	const ref = useRefEffect( ( element ) => {
+		const { ownerDocument } = element;
+		const { defaultView } = ownerDocument;
+		//defaultView.addEventListener( ... );
+		console.log(ownerDocument);
+		return () => {
+		  //defaultView.removeEventListener( ... );
+		};
+	}, [] );
+
 	// The JSX.
-	return <div className="grid-helpers">
+	return <div 
+		className="grid-helpers"
+		ref={ref}
+	>
 		<GridHelperLabel
 			lableType="Column"
 			lableCount={colCount}
@@ -141,6 +161,7 @@ export const GridEditor = (props) => {
 					cellX,
 					cellY,
 					onMouseDown: (editing ? (e) => {
+						console.log('test mouse down.', document);
 						// End Grid Area Selection.
 						const finishSelectingGridArea = () => {
 							// Reset State.
@@ -148,9 +169,9 @@ export const GridEditor = (props) => {
 							// Set State.
 							setGridHelperCanSave(true);
 							// Cleanup this Document event listener.
-							document.removeEventListener('mouseup', finishSelectingGridArea);
+							window.removeEventListener('mouseup', finishSelectingGridArea);
 						}
-						document.addEventListener('mouseup', finishSelectingGridArea);
+						window.addEventListener('mouseup', finishSelectingGridArea);
 						// Reset State.
 						setGridHelperCanSave(false);
 						// Set State.
