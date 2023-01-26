@@ -16,14 +16,12 @@
 
 require 'plugin-update-checker-5.0/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
- 
+  
 $themeUpdateChecker = PucFactory::buildUpdateChecker(
 	'https://github.com/jack-h2ml/H2ML-FSE-Starter-Framework/',
 	__FILE__,
-	get_option('stylesheet')
+	'H2ML-FSE-Starter-Framework'
 );
- 
-//Set the branch that contains the stable release.
 $themeUpdateChecker->setBranch('main');
 
 /**
