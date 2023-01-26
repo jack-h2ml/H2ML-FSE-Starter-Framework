@@ -24,6 +24,19 @@ $themeUpdateChecker = PucFactory::buildUpdateChecker(
 );
 $themeUpdateChecker->setBranch('main');
 
+add_filter('upgrader_source_selection', function($source, $remote_source, $upgrader) {
+	if(!strpos($source, 'H2ML-FSE-Starter-Framework')) {
+		// Not our theme
+		return $source;
+	} else {
+		// Remove GitHub's Release versioning from our ZIP.
+		$pathParts = pathinfo($source);
+    	$newSource = trailingslashit($pathParts['dirname']) . trailingslashit('H2ML-FSE-Starter-Framework');
+    	rename($source, $newSource);
+    	return $newSource;
+	}
+}, 1, 3);
+
 /**
  * 
  * Registers the themes custom blocks using the metadata loaded from the respective `block.json` files.
