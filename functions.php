@@ -10,6 +10,24 @@
 
 /**
  * 
+ * 
+ * 
+ */
+
+require 'plugin-update-checker-5.0/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+ 
+$themeUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://github.com/jack-h2ml/H2ML-FSE-Starter-Framework/',
+	__FILE__,
+	get_option('stylesheet')
+);
+ 
+//Set the branch that contains the stable release.
+$themeUpdateChecker->setBranch('main');
+
+/**
+ * 
  * Registers the themes custom blocks using the metadata loaded from the respective `block.json` files.
  * Behind the scenes, it registers also all assets so they can be enqueued through the block editor in 
  * the corresponding context.
@@ -17,7 +35,7 @@
  */
 
 add_action('init', function() {
-	foreach(glob(get_stylesheet_directory() . "/blocks/definitions/*") as $blockDefinitionDirectoryBuildPath) {
+	foreach(glob(get_template_directory() . "/blocks/definitions/*") as $blockDefinitionDirectoryBuildPath) {
 		register_block_type_from_metadata($blockDefinitionDirectoryBuildPath);
 	}
 });
