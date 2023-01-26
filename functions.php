@@ -16,26 +16,12 @@
 
 require 'plugin-update-checker-5.0/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-  
+   
 $themeUpdateChecker = PucFactory::buildUpdateChecker(
 	'https://github.com/jack-h2ml/H2ML-FSE-Starter-Framework/',
-	__FILE__,
-	'H2ML-FSE-Starter-Framework'
+	__FILE__
 );
 $themeUpdateChecker->setBranch('main');
-
-add_filter('upgrader_source_selection', function($source, $remote_source, $upgrader) {
-	if(!strpos($source, 'H2ML-FSE-Starter-Framework')) {
-		// Not our theme
-		return $source;
-	} else {
-		// Remove GitHub's Release versioning from our ZIP.
-		$pathParts = pathinfo($source);
-    	$newSource = trailingslashit($pathParts['dirname']) . trailingslashit('H2ML-FSE-Starter-Framework');
-    	rename($source, $newSource);
-    	return $newSource;
-	}
-}, 1, 3);
 
 /**
  * 
