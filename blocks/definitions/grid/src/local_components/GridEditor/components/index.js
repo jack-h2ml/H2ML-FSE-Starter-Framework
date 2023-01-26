@@ -71,12 +71,13 @@ export const GridHelperCell = (props) => {
 export const GridHelperAppender = (props) => {
 	const {
 		style,
-		children
+		children,
+		area
 	} = props;
 	return (
 		<div
 			className="grid-grid-area-appender"
-			area={props.area ? props.area : null}
+			area={area ? area : null}
 			{...{ style }}
 		>
 			{children}

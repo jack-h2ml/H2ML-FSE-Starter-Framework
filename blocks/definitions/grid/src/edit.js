@@ -42,6 +42,11 @@ import {
 	register
 } from '@wordpress/data';
 
+
+import {
+	useRefEffect 
+} from '@wordpress/compose';
+
 /**
  * Internal dependencies.
  */
@@ -125,7 +130,6 @@ const GridEdit = ({
 	// Other.
 	clientId
 }) => {
-	if(style) console.log(style);
 	//
 	// Get information about the current Block, and its children. 
 	// (Used htmlFor setting the editor stacking order, and adding / editing Grid-Area's)
@@ -175,37 +179,33 @@ const GridEdit = ({
 	//
 
 	useEffect(() => {
-		console.log('TEST');
-		if(editing) {
-			console.log('Hello World!');
-			// Set the focusTarget if needed. 
-			if(editing.clientId) setFocusTarget(editing);
-			// Reset the Grid's 'editing' attribute. 
-			setGridEditing(false);
-		} else {
+		if(!editing) {
 			// Determine if a Grid Area is requesting to be updated. 
 			const childRequestedEdit = gridChildren.find(child => child.attributes.requestEdit);
-			if(childRequestedEdit) {
-				console.log(clientId);
-				// Re-focus on the Grid, as focus will have been captured by the Grid Area.
-				//document.querySelector(`[data-block="${clientId}"]`).focus();
-				setGridEditing(childRequestedEdit);
-			}
+			if(childRequestedEdit) setGridEditing(childRequestedEdit);
 		}
-	}, [gridChildren, gridChildren.includes(child => child.attributes.requestEdit)]);
+		return () => {
+			// Set the focusTarget if needed. 
+			if(editing?.clientId) setFocusTarget(editing);
+			// Reset the Grid's 'editing' attribute. 
+			setGridEditing(false);
+		}
+	}, [gridChildren]);
 
 	//
 	// If the Grid's 'editing' attribute changes to false, and a focusTarget is set, then .focus() on the focusTarget's DOM element,
 	// then reset the focusTarget to null.
 	//
 	
-
-	/*
-	useEffect(() => {
-		if(!editing && focusTarget) document.querySelector(`[data-block="${focusTarget.clientId}"]`).focus();
-		setFocusTarget(null)
+	const ref = useRefEffect((element) => {
+		const { ownerDocument } = element;
+		if(editing) {
+			ownerDocument.querySelector(`[data-block="${clientId}"]`).focus();
+		} else if(focusTarget) {
+			ownerDocument.querySelector(`[data-block="${focusTarget.clientId}"]`).focus();
+			setFocusTarget(null)
+		}
 	}, [editing]);
-	*/
 
 	//
 	// Register the Block / InnerBlock Props.
@@ -233,6 +233,7 @@ const GridEdit = ({
 					};
 				}
 			},
+			ref: ref
 		}), {
 			allowedBlocks: ['h2ml/grid-area'],
 		}

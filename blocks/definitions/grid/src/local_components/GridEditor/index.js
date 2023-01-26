@@ -18,15 +18,11 @@ import {
 
 import { createBlock } from '@wordpress/blocks';
 
-import { 
-	useState, 
-} from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 
 import { Button } from '@wordpress/components';
 
-import {
-	useRefEffect 
-} from '@wordpress/compose';
+import { useRefEffect } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -127,17 +123,29 @@ export const GridEditor = (props) => {
 	const [gridHelperCanSave, setGridHelperCanSave] = useState(false);
 	const [gridHelperCoordRes, setGridHelperCoordRes] = useState(null);
 	//
-	const ref = useRefEffect( ( element ) => {
+	// Handle Finish Editing.
+	//
+	const ref = useRefEffect((element) => {
 		const { ownerDocument } = element;
-		const { defaultView } = ownerDocument;
-		//defaultView.addEventListener( ... );
-		console.log(ownerDocument);
+		const finishSelectingGridArea = () => {
+			//
+			console.log('x2')
+			// Reset State.
+			setGridHelperIsDrawing(false);
+			// Set State.
+			setGridHelperCanSave(true);
+		}
+		if(gridHelperIsDrawing) {
+			ownerDocument.addEventListener('mouseup', finishSelectingGridArea);
+		}
 		return () => {
-		  //defaultView.removeEventListener( ... );
+			// Cleanup this Document event listener.
+			ownerDocument.removeEventListener('mouseup', finishSelectingGridArea);
 		};
-	}, [] );
-
+	}, [gridHelperIsDrawing]);
+	//
 	// The JSX.
+	//
 	return <div 
 		className="grid-helpers"
 		ref={ref}
@@ -161,17 +169,6 @@ export const GridEditor = (props) => {
 					cellX,
 					cellY,
 					onMouseDown: (editing ? (e) => {
-						console.log('test mouse down.', document);
-						// End Grid Area Selection.
-						const finishSelectingGridArea = () => {
-							// Reset State.
-							setGridHelperIsDrawing(false);
-							// Set State.
-							setGridHelperCanSave(true);
-							// Cleanup this Document event listener.
-							window.removeEventListener('mouseup', finishSelectingGridArea);
-						}
-						window.addEventListener('mouseup', finishSelectingGridArea);
 						// Reset State.
 						setGridHelperCanSave(false);
 						// Set State.
@@ -179,6 +176,7 @@ export const GridEditor = (props) => {
 						setGridHelperCoordRes(doGridHelperSelection(e, { cellX, cellY }, gridHelperCoordRes));
 					} : undefined),
 					onMouseEnter: (gridHelperIsDrawing ? (e) => {
+						console.log('aye')
 						// Update Grid Area Selection.
 						setGridHelperCoordRes(doGridHelperSelection(e, { cellX, cellY }, gridHelperCoordRes));
 					} : undefined)
@@ -219,7 +217,7 @@ export const GridEditor = (props) => {
 							doGridHelperSave(gridClientId, editing, gridHelperCoordRes); 
 							// Reset state.
 							setGridHelperIsDrawing(false);
-							setGridHelperCanSave(false);
+							setGridHelperIsDrawing(false);
 							setGridHelperCoordRes(null);
 							// We use useEffect in the main component to reset the Grids 'editing' attriubte, so we don't
 							// need to worry about doing it here, this allows us to more easily focus on the correct blocks.
