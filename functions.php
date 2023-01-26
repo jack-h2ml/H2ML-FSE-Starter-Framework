@@ -19,7 +19,8 @@ use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
    
 $themeUpdateChecker = PucFactory::buildUpdateChecker(
 	'https://github.com/jack-h2ml/H2ML-FSE-Starter-Framework/',
-	__FILE__
+	__FILE__,
+	'H2ML-FSE-Starter-Framework'
 );
 $themeUpdateChecker->setBranch('main');
 
