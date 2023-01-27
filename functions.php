@@ -32,7 +32,7 @@ $themeUpdateChecker->setBranch('main');
  * 
  */
 
- add_action('init', function() {
+add_action('init', function() {
 	//
 	// The filter function for overriding `get_theme_file_path()`
 	//
