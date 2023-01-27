@@ -128,8 +128,6 @@ export const GridEditor = (props) => {
 	const ref = useRefEffect((element) => {
 		const { ownerDocument } = element;
 		const finishSelectingGridArea = () => {
-			//
-			console.log('x2')
 			// Reset State.
 			setGridHelperIsDrawing(false);
 			// Set State.
@@ -176,7 +174,6 @@ export const GridEditor = (props) => {
 						setGridHelperCoordRes(doGridHelperSelection(e, { cellX, cellY }, gridHelperCoordRes));
 					} : undefined),
 					onMouseEnter: (gridHelperIsDrawing ? (e) => {
-						console.log('aye')
 						// Update Grid Area Selection.
 						setGridHelperCoordRes(doGridHelperSelection(e, { cellX, cellY }, gridHelperCoordRes));
 					} : undefined)
