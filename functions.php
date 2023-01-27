@@ -37,15 +37,14 @@ add_action('init', function() {
 	// The filter function for overriding `get_theme_file_path()`
 	//
 	function overrideThemeFilePath($_, $file) {
-    	$path = get_template_directory() . '/' . $file;
-    	return $path;
+		$path = get_template_directory() . '/' . $file;
+		return $path;
 	}
 	//
 	// Add the filter where appropriate.
 	//
 	add_filter('block_type_metadata', function($metadata) {
-		// 
-		if(array_key_exists('file', $metadata)) {	
+		if(array_key_exists('file', $metadata)) {
 			// Normalize the block path
 			$blockPathNorm = wp_normalize_path($metadata['file']);
 			// Cache the $templatePathNorm and $stylesheetPathNorm to avoid unnecessary additional calls.
@@ -60,7 +59,7 @@ add_action('init', function() {
 			$isStylesheetBlock   = str_starts_with($blockPathNorm, $stylesheetPathNorm);
 			if($isTemplateBlock && !$isStylesheetBlock) {
 				add_filter('theme_file_path', 'overrideThemeFilePath', 10, 2);
-			}		
+			}
 		}
 		return $metadata;
 	}, 10, 1);
