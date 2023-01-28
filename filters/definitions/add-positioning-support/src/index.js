@@ -46,7 +46,7 @@ const SelectHelpText = (props) => {
  * Global
  */
 
-const allowedPositioningBlocksNames = ['core/group', 'core/columns', 'h2ml/grid'];
+const allowedPositioningBlocksNames = ['core/group', 'core/columns', 'h2ml/grid', 'core/template-part'];
 
 /** 
  * The Filter
