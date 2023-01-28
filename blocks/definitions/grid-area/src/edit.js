@@ -92,10 +92,10 @@ const GridAreaEdit = ({
 	//
 	// If the Grid's number of children changes, determine if there are one or more children. 
 	// 
-	// If there is one, and that is a Media or an Embed block then update the child's 'canFillGridArea' attribute to true,
+	// If there is one, and that is a Media or an Embed block then update the child's 'h2mlCanFillGridArea' attribute to true,
 	// allowing the child to cover the Grid Area (this is added in our filters).
 	//
-	// If there is multiple, set the 'canFillGridArea' attribute to false.
+	// If there is multiple, set the 'h2mlCanFillGridArea' attribute to false.
 	//
 	
 	useEffect(() => {
@@ -104,7 +104,7 @@ const GridAreaEdit = ({
 				const {clientId: childClientId, name} = childBlock;
 				const {category} = getBlockType(name);
 				if(['media', 'embed'].includes(category)) {
-					dispatch(blockEditorStore).updateBlockAttributes(childClientId, {canFillGridArea: true});	
+					dispatch(blockEditorStore).updateBlockAttributes(childClientId, {h2mlCanFillGridArea: true});	
 				}
 			});
 		} else if(childBlocks) { 
@@ -112,7 +112,7 @@ const GridAreaEdit = ({
 				const {clientId: childClientId, name} = childBlock;
 				const {category} = getBlockType(name);
 				if(['media', 'embed'].includes(category)) {
-					dispatch(blockEditorStore).updateBlockAttributes(childClientId, {canFillGridArea: false});	
+					dispatch(blockEditorStore).updateBlockAttributes(childClientId, {h2mlCanFillGridArea: false});	
 				}
 			});
 		}
@@ -180,9 +180,9 @@ const GridAreaEdit = ({
 			</BlockControls>
 			<InspectorControls>
 				<Panel>
-					<PanelBody title={ __('Grid Area Settings', 'h2ml')} initialOpen={true}>
+					<PanelBody title={ __("Grid Area Settings", 'h2ml')} initialOpen={true}>
 						<NumberControl
-							label={__('Stacking Order', 'h2ml')}
+							label={__("Stacking Order", 'h2ml')}
 							isShiftStepEnabled = {true}
 							onChange = {setStackingOrder}
 							shiftStep = {1}

@@ -38,11 +38,11 @@ addFilter(
                 ...settings, 
                 attributes: {
                     ...settings.attributes, 
-                    fillGridArea: {
+                    h2mlFillGridArea: {
                         type: 'boolean',
                         default: false
                     },
-                    canFillGridArea: {
+                    h2mlCanFillGridArea: {
                         type: 'boolean',
                         default: false
                     } 
@@ -51,43 +51,6 @@ addFilter(
         }
         return settings;
     }
-);
-
-/*
- * 
- */
-
-addFilter(
-    'editor.BlockEdit',
-    'h2ml/add-canFillGridArea-class-blockEdit',
-    createHigherOrderComponent(BlockEdit => ownProps => {
-        const {
-            attributes: {
-                canFillGridArea,
-                fillGridArea
-            }, 
-            setAttributes
-        } = ownProps;
-        //
-        if(canFillGridArea) {
-            return (<>
-                <BlockControls>
-                    <ToolbarGroup>
-                        <ToolbarButton
-                            icon={resizeCornerNE}
-                            label={__("Cover Grid Area", 'h2ml')}
-                            isPressed={fillGridArea}
-                            onClick={() => {
-                                setAttributes({fillGridArea: !fillGridArea});
-                            }}
-                        />
-                    </ToolbarGroup>
-                </BlockControls>
-                <BlockEdit {...ownProps}/>
-            </>);
-        }
-        return <BlockEdit {...ownProps}/>;
-    }, 'showCanFillGridAreaToolbarButton' )
 );
 
 /**
@@ -99,12 +62,52 @@ addFilter(
     'h2ml/add-fillGridArea-class-edit',
     createHigherOrderComponent(BlockListBlock => props => {
         const {attributes: {
-            canFillGridArea,
-            fillGridArea
+            h2mlCanFillGridArea,
+            h2mlFillGridArea
         }} = props;
-        const className = (canFillGridArea && fillGridArea) ? fillGridAreaClass : '';
-        return <BlockListBlock {...props} className={className} />;
+		if(h2mlCanFillGridArea) {
+			const className = (h2mlCanFillGridArea && h2mlFillGridArea) ? fillGridAreaClass : '';
+        	return <BlockListBlock {...props} className={className} />;	
+		}
+        return <BlockListBlock {...props} />;
     }, 'withCustomAttributeClass' )
+);
+
+/*
+ * 
+ */
+
+addFilter(
+    'editor.BlockEdit',
+    'h2ml/add-canFillGridArea-class-blockEdit',
+    createHigherOrderComponent(BlockEdit => props => {
+        const {
+            attributes: {
+                h2mlCanFillGridArea,
+                h2mlFillGridArea
+            }, 
+            setAttributes
+        } = props;
+        //
+        if(h2mlCanFillGridArea) {
+            return (<>
+                <BlockControls>
+                    <ToolbarGroup>
+                        <ToolbarButton
+                            icon={resizeCornerNE}
+                            label={__("Cover Grid Area", 'h2ml')}
+                            isPressed={h2mlFillGridArea}
+                            onClick={() => {
+                                setAttributes({h2mlFillGridArea: !h2mlFillGridArea});
+                            }}
+                        />
+                    </ToolbarGroup>
+                </BlockControls>
+                <BlockEdit {...props}/>
+            </>);
+        }
+        return <BlockEdit {...props}/>;
+    }, 'showCanFillGridAreaToolbarButton' )
 );
 
 /**
@@ -117,11 +120,11 @@ addFilter(
     (props, type, attributes) => {
         //
         const {className: oldClassName} = props;
-        const {canFillGridArea, fillGridArea} = attributes;
+        const {h2mlCanFillGridArea, h2mlFillGridArea} = attributes;
         //
         const className = (oldClassName ? oldClassName.split(' ') : []).reduce((res, cur) => {
             return (cur !== fillGridAreaClass) ? `${res} ${cur}` : `${res}`
-        }, (canFillGridArea && fillGridArea) ? fillGridAreaClass : '');
+        }, (h2mlCanFillGridArea && h2mlFillGridArea) ? fillGridAreaClass : '');
         //
         return {
             ...props,

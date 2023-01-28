@@ -5,7 +5,7 @@
 	"version": "0.1.0",
 	"title": "Grid",
 	"category": "design",
-	"description": "Display content in a Grid, across multiple Grid Area's, with blocks added to each Grid Area.",
+	"description": "Display content in a Grid, across multiple Grid Areas, adding blocks to each Grid Area.",
 	"textdomain": "h2ml",
 	"keywords": [
 		"h2ml",

@@ -70,7 +70,7 @@ add_action('init', function() {
 		remove_filter('theme_file_path', 'overrideThemeFilePath', 10);
 		return $settings;
 	}, 10, 2);
-}, 10);
+});
 
 /**
  * 
@@ -95,19 +95,18 @@ add_action('init', function() {
  */
 
 add_action('enqueue_block_editor_assets', function() {
-	$filterDefinitionDirectories = new RecursiveDirectoryIterator(__DIR__ . '/filters', RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::CURRENT_AS_FILEINFO);
-	foreach ($filterDefinitionDirectories as $filterDefinitionDirectory) { 
-		if($filterDefinitionDirectory->isDir()) {
-			//
-			$filterDefinitionDirectoryBuildPath = str_replace(ABSPATH, '/', $filterDefinitionDirectory->getPathname() . '/build/index.js');
-			//
-			wp_register_script(
-				'h2ml-custom-attributes',
-				$filterDefinitionDirectoryBuildPath,
-				['wp-blocks', 'wp-dom', 'wp-dom-ready', 'wp-edit-post'],
-				$filterDefinitionDirectory->getCTime()
-			);
-			wp_enqueue_script('h2ml-custom-attributes');	
-		}	
-	}	
+	foreach(glob(get_template_directory() . "/filters/definitions/*/build/index.js") as $filterDefinitionDirectoryBuildPath) {
+		//
+		$handle = pathinfo(dirname($filterDefinitionDirectoryBuildPath, 2))['basename'];
+		$src    = str_replace(ABSPATH, '/', $filterDefinitionDirectoryBuildPath);
+		$ver    = filectime($filterDefinitionDirectoryBuildPath);
+		//
+		wp_register_script(
+			$handle,
+			$src,
+			['wp-blocks', 'wp-dom', 'wp-dom-ready', 'wp-edit-post'],
+			$ver
+		);
+		wp_enqueue_script($handle);
+	}
 });

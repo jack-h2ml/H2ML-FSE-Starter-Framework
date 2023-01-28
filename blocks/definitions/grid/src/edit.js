@@ -117,8 +117,7 @@ const GridEdit = ({
 			count: rowCount,
 			templates: rowTemplates
 		},
-		editing,
-		style
+		editing
 	},
 	// Attribute Setters.
 	setAlignment,
@@ -271,14 +270,14 @@ const GridEdit = ({
 								min={1}
 								max={8}
 							/>
-							{(colCount * rowCount) > 49 &&
-								(<Notice status="warning" isDismissible={false}>
+							{(colCount * rowCount) > 49 && (
+								<Notice status="warning" isDismissible={false}>
 									{__(
 										'The number of cells is greater than the recommended limit.',
 										'h2ml'
 									)}
-								</Notice>)
-							}
+								</Notice>
+							)}
 						</PanelBody>
 						<PanelBody title={__('Grid Columns Settings', 'h2ml')} initialOpen={false}>
 							{[...Array(colCount)].map((_, i) => (
