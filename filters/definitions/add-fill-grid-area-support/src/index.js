@@ -32,6 +32,10 @@ addFilter(
     'blocks.registerBlockType',
     'h2ml/add-canFillGridArea-attribute',
     (settings) => {
+		if(settings.name === 'core/post-featured-image') {
+			console.log(settings);
+		}
+		//
         const {category} = settings;
         if(allowedFillChildCategories.includes(category)) {
             return {
@@ -61,7 +65,7 @@ addFilter(
     'editor.BlockListBlock',
     'h2ml/add-fillGridArea-class-edit',
     createHigherOrderComponent(BlockListBlock => props => {
-        const {attributes: {
+		const {attributes: {
             h2mlCanFillGridArea,
             h2mlFillGridArea
         }} = props;

@@ -110,6 +110,8 @@ const doGridHelperSave = (gridClientId, target, coords) => {
  * The JSX
  */
 
+let i = 0;
+
 export const GridEditor = (props) => {
 	// Properties.
 	const {
@@ -207,7 +209,7 @@ export const GridEditor = (props) => {
 							__('Update Grid Area', 'h2ml') :
 							__('Add Grid Area', 'h2ml')
 						}
-						showTooltip={true}
+						showTooltip={false}
 						variant="primary"
 						onClick={() => { 
 							// Save the new / updated Grid Area.

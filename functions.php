@@ -121,7 +121,7 @@ add_action('enqueue_block_editor_assets', function() {
 add_filter('render_block', function($blockContent, $block) {
 	if(array_key_exists('attrs', $block)) {
 		$blockAttributes = $block['attrs'];
-		if(array_key_exists('h2mlPositioning', $blockAttributes)) {
+		if($block['blockName'] === 'core/template-part' && array_key_exists('h2mlPositioning', $blockAttributes)) {
 			$properties           = $blockAttributes['h2mlPositioning'];
 			$type                 = $properties['type'];
 			//
@@ -134,10 +134,10 @@ add_filter('render_block', function($blockContent, $block) {
 					}
 					return $res;
 				}, ""));
-				$rawStackingOrder = $properties['zIndex'];
-				$stackingOrder    = ($rawStackingOrder !== null) ? "z-index: $rawStackingOrder;" : '';
+				$rawStackingOrder = array_key_exists('zIndex', $properties) ? $properties['zIndex'] : '';
+				$stackingOrder    = ($rawStackingOrder) ? "z-index: $rawStackingOrder;" : '';
 				//
-				$injectedStyle = "position: $type; $values $stackingOrder";
+				$injectedStyle    = "position: $type; $values $stackingOrder";
 				//
 				$dom              = new DOMDocument; // initialize the domdocument
 				@$dom->loadHTML($blockContent);

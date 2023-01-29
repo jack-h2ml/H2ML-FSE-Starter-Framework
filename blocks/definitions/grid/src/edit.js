@@ -134,16 +134,16 @@ const GridEdit = ({
 	// (Used htmlFor setting the editor stacking order, and adding / editing Grid-Area's)
 	//
 
-	const { selectedGridItemClientId, selectedGridItemRootBlockClientId, gridChildren } = useSelect((select) => {
+	const { selectedBlockClientId, selectedGridItemRootBlockClientId, gridChildren } = useSelect((select) => {
 		// Hooks.
 		const { getBlocks, getSelectedBlockClientId, getBlockParentsByBlockName } = select(blockEditorStore);
 		// Variables.
-		const selectedGridItemClientId = getSelectedBlockClientId();
-		const selectedGridItemRootBlockClientId = selectedGridItemClientId ? getBlockParentsByBlockName(selectedGridItemClientId, ['h2ml/grid'], true)[0] : false;
+		const selectedBlockClientId = getSelectedBlockClientId();
+		const selectedGridItemRootBlockClientId = selectedBlockClientId ? getBlockParentsByBlockName(selectedBlockClientId, ['h2ml/grid'], true)[0] : false;
 		const gridChildren = getBlocks(clientId);
 		// Return Values.
 		return {
-			selectedGridItemClientId,
+			selectedBlockClientId,
 			selectedGridItemRootBlockClientId,
 			gridChildren
 		};
@@ -154,8 +154,8 @@ const GridEdit = ({
 	//
 
 	useEffect(() => {
-		setGridAreasEditorStackingOrder(selectedGridItemClientId, selectedGridItemRootBlockClientId);
-	}, [selectedGridItemClientId]);
+		setGridAreasEditorStackingOrder(selectedBlockClientId, selectedGridItemRootBlockClientId);
+	}, [selectedBlockClientId]);
 
 	//
 	// focusTarget state, this is used to ensure we auto-focus on the correct Grid Area when making changes to the Grid.
@@ -219,7 +219,7 @@ const GridEdit = ({
 				gridTemplateRows: generateGridTemplateColumnsOrRows(0, rowTemplates) /* 0 === 'editor' */
 			},
 			onKeyPress: (e) => {
-				if(clientId === selectedGridItemClientId) {
+				if(clientId === selectedBlockClientId) {
 					e.stopPropagation();
 					// Variables.
 					const { key } = e;
@@ -399,15 +399,15 @@ const GridEditWrapper = withDispatch(
 		// When a Grid-Area or any of it's children are selcted, visually move that item to the top of the 
 		// stacking context. (this is not saved as an attribute, and is purely htmlFor convenience in the editor).
 		//
-		setGridAreasEditorStackingOrder(selectedGridItemClientId, selectedGridItemRootBlockClientId) {
+		setGridAreasEditorStackingOrder(selectedBlockClientId, selectedGridItemRootBlockClientId) {
 			const { clientId } = ownProps;
 			const { setSelectedGridArea } = dispatch('h2ml/grid_area_store');
 			if (selectedGridItemRootBlockClientId === clientId) {
 				const { getBlock, getBlockParentsByBlockName, getBlocks } = registry.select(blockEditorStore);
 				//
-				const parents = getBlock(selectedGridItemClientId).name !== 'h2ml/grid-area' ?
-					getBlockParentsByBlockName(selectedGridItemClientId, ['h2ml/grid', 'h2ml/grid-area'], true) :
-					[selectedGridItemClientId, ...getBlockParentsByBlockName(selectedGridItemClientId, ['h2ml/grid', 'h2ml/grid-area'], true)];
+				const parents = getBlock(selectedBlockClientId).name !== 'h2ml/grid-area' ?
+					getBlockParentsByBlockName(selectedBlockClientId, ['h2ml/grid', 'h2ml/grid-area'], true) :
+					[selectedBlockClientId, ...getBlockParentsByBlockName(selectedBlockClientId, ['h2ml/grid', 'h2ml/grid-area'], true)];
 				//
 				const selectedBlockParentsStackingOrder = parents.reduce((res, parentId, i, self) => {
 					let parentBlock = getBlock(parentId);
@@ -421,7 +421,7 @@ const GridEditWrapper = withDispatch(
 				}, []);
 				//
 				setSelectedGridArea({
-					clientId: selectedGridItemClientId,
+					clientId: selectedBlockClientId,
 					parents: selectedBlockParentsStackingOrder
 				});
 			} else if (!selectedGridItemRootBlockClientId) {

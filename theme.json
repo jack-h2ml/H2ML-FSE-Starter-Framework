@@ -137,9 +137,9 @@
 		"spacing": {
 			"blockGap": "1.5rem",
 			"padding": {
-				"top": "var(--wp--preset--spacing--40)",
+				"top": "0px",
 				"right": "var(--wp--preset--spacing--30)",
-				"bottom": "var(--wp--preset--spacing--40)",
+				"bottom": "0px",
 				"left": "var(--wp--preset--spacing--30)"
 			}
 		},

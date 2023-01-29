@@ -46,7 +46,7 @@
 			"full"
 		],
 		"reusable": true,
-		"html": false,
+		"html": true,
 		"color": {
 			"gradients": true,
 			"link": true,
