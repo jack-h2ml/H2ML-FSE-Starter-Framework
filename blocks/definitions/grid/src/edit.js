@@ -218,20 +218,6 @@ const GridEdit = ({
 				gridTemplateColumns: generateGridTemplateColumnsOrRows(0, colTemplates) /* 0 === 'editor' */,
 				gridTemplateRows: generateGridTemplateColumnsOrRows(0, rowTemplates) /* 0 === 'editor' */
 			},
-			onKeyPress: (e) => {
-				if(clientId === selectedBlockClientId) {
-					e.stopPropagation();
-					// Variables.
-					const { key } = e;
-					const editKeys = ['a', 'A'];
-					const exitKeys = ['c', 'C'];
-					// Bind keys to attribute setters.
-					if (editKeys.includes(key) && !editing) setGridEditing(true);
-					else if (exitKeys.includes(key)) {
-						setGridEditing(false);
-					};
-				}
-			},
 			ref: ref
 		}), {
 			allowedBlocks: ['h2ml/grid-area'],

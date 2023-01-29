@@ -144,12 +144,6 @@ const GridAreaEdit = ({
 				zIndex: isSelectedGridArea ? isSelectedGridArea.editorStackingOrder : stackingOrder
 			},
 			'aria-label': __(`Grid-Area (${gridAreaIds.indexOf(clientId) + 1} of ${gridAreaIds.length})`, 'h2ml'),
-			onKeyPress: (e) => {
-				if(clientId === selectedBlockClientId) {
-					e.stopPropagation();
-					if (e.key === 'e' || e.key === 'E') setRequestEdit(!requestEdit);
-				}
-			},
 		}), {
 			renderAppender: childBlocks
 				? undefined
