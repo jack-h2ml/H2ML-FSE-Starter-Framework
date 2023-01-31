@@ -28,12 +28,6 @@ import { useRefEffect } from '@wordpress/compose';
  * Internal dependencies
  */
 
-import {
-	GridHelperLabel,
-	GridHelperCell,
-	GridHelperAppender
-} from './components';
-
 import { generateGridAreaStartEnd } from '../../utils.js'
 
 /**
@@ -106,11 +100,53 @@ const doGridHelperSave = (gridClientId, target, coords) => {
 	}
 }
 
+/** 
+ * Local Componentns
+ */
+
+const GridHelperCell = (props) => {
+	const {
+		cellLabel,
+		cellX,
+		cellY,
+		onMouseDown,
+		onMouseEnter,
+	} = props;
+	return <div
+		className="grid-area-helper"
+		{...{ onMouseDown, onMouseEnter }}
+		data-xcoords={cellX}
+		data-ycoords={cellY}
+		style={{
+			gridArea: generateGridAreaStartEnd(cellX , cellY, cellX, cellY)
+		}}
+	>
+		<span>
+			{`${cellLabel}`} <sub>{`(${cellX}, ${cellY})`}</sub>
+		</span>
+	</div>
+}
+
+const GridHelperAppender = (props) => {
+	const {
+		style,
+		children,
+		area
+	} = props;
+	return (
+		<div
+			className="grid-grid-area-appender"
+			area={area ? area : null}
+			{...{ style }}
+		>
+			{children}
+		</div>
+	);
+};
+
 /**
  * The JSX
  */
-
-let i = 0;
 
 export const GridEditor = (props) => {
 	// Properties.
@@ -150,14 +186,6 @@ export const GridEditor = (props) => {
 		className="grid-helpers"
 		ref={ref}
 	>
-		<GridHelperLabel
-			lableType="Column"
-			lableCount={colCount}
-		/>
-		<GridHelperLabel
-			lableType="Row"
-			lableCount={rowCount}
-		/>
 		{Array.from(Array(colCount * rowCount)).map((_, cellIndex) => {
 			cellIndex++;
 			const cellX = ((cellIndex - 1) % colCount) + 1;
@@ -199,7 +227,8 @@ export const GridEditor = (props) => {
 						gridArea: gridHelperCoordRes.parsed,
 						display: 'flex'
 					} : undefined}
-				> {gridHelperCanSave && (
+				> 
+				{gridHelperCanSave && (
 					<Button
 						text={editing?.clientId ? 
 							__('Update Grid Area', 'h2ml') :

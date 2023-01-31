@@ -12,8 +12,9 @@
 		"grid"
 	],
 	"attributes": {
-		"verticalAlignment": {
-			"type": "string"
+		"minHeight": {
+			"type": "string",
+			"default": "min-content"
 		},
 		"colDefinitions": {
 			"type": "object",

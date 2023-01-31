@@ -9,56 +9,6 @@
 	}
 	> .grid-helpers {
 		// Descendent Selectors
-		> .grid-cols-rows-helper-wrap {
-			// Styles
-			display: contents;
-			line-height: 1;
-			// Descendent Selectors
-			> .grid-cols-helper, > .grid-rows-helper {
-				background: var(--h2ml-grid-background-color);
-				border-radius: var(--h2ml-grid-helper-border-radius);
-			}
-			> .grid-cols-helper {
-				// Styles
-				grid-column: 2/-1;
-				grid-row: 1;
-    			height: calc(100% - var(--h2ml-grid-helper-spacing));
-			}
-			> .grid-rows-helper {
-				// Styles
-				grid-column: 1;
-				grid-row: 2/-1;
-				width: calc(100% - var(--h2ml-grid-helper-spacing));
-			}
-			> .grid-cols-helper ~ .grid-cols-rows-helper {
-				// Styles
-				margin-bottom: calc(var(--h2ml-grid-helper-spacing) * 2) !important;
-			}
-			> .grid-rows-helper ~ .grid-cols-rows-helper {
-				// Styles
-				margin-right: calc(var(--h2ml-grid-helper-spacing) * 2) !important;
-			}
-			> .grid-cols-rows-helper {
-				// Styles
-				margin: var(--h2ml-grid-helper-spacing);
-				border-radius: var(--h2ml-grid-helper-border-radius);
-				font-size: var(--h2ml-grid-helper-font-size);
-				font-weight: bold;
-				background: var(--h2ml-grid-contrast-color);
-				user-select: none;
-				// Descendent Selectors
-				> div {
-					// Styles
-					display: flex;
-    				align-items: center;
-    				justify-content: center;
-					box-sizing: border-box;
-					width: 100%;
-					height: 100%;
-					padding: var(--h2ml-grid-helper-spacing);
-				}
-			}
-		}
 		> .grid-area-helper {
 			// Styles
 			position: relative;
@@ -69,17 +19,23 @@
 			box-sizing: border-box;
 			padding: var(--h2ml-grid-helper-spacing) calc(var(--h2ml-grid-helper-spacing) * 2);
 			margin: calc(var(--h2ml-grid-helper-spacing) / 3);
-			background: var(--h2ml-grid-background-color);
+			background: var(--wp--preset--color--base);
 			font-size: var(--h2ml-grid-helper-font-size);
 			font-weight: bold;
 			user-select: none;
 			border-radius: calc(var(--h2ml-grid-helper-border-radius) / 2);
 			border: 1px dotted var(--h2ml-grid-contrast-color);
 			// Descendent Selectors
-			> sub {
+			> span {
 				// Styles
-				font-weight: normal;
-				translate: 0 calc(var(--h2ml-grid-helper-font-size) / 3);
+				color: #fff;
+				mix-blend-mode: difference;
+				// Descendent Selectors
+				> sub {
+					// Styles
+					font-weight: normal;
+					translate: 0 calc(var(--h2ml-grid-helper-font-size) / 3);
+				}
 			}
 		}
 		> .grid-adding-grid-areas-notice {
@@ -91,6 +47,9 @@
 			font-size: 0.75rem;
 			text-align: center;
 			user-select: none;
+			height: min-content;
+   			background: red;
+    		align-self: end;
 		}
 		> .grid-grid-area-appender {
 			// Styles
@@ -117,13 +76,19 @@
 			display: contents;
 			// Descendent Selectors
 			> .addNewGridAreaContainer {
-				// Styles
-				display: flex;
-				align-items: center;
-				justify-content: flex-end;
-				grid-column: 1 / -1;
-				padding: calc(var(--h2ml-grid-helper-spacing) / 2) 0;
+				grid-column: 1/-1;
+				align-self: end;
+				justify-self: end;
+				height: -moz-min-content;
+				height: min-content;
+				width: max-content;
+				margin: calc(var(--h2ml-grid-helper-spacing) / 2);
+				padding: calc(var(--h2ml-grid-helper-spacing) / 1.5);
+				padding-left: var(--h2ml-grid-helper-spacing);
 				font-size: 0.75rem;
+				background: var(--h2ml-grid-background-color);
+				border-radius: var(--h2ml-grid-helper-border-radius);
+				box-shadow: 0 0 10px -5px var(--h2ml-grid-contrast-color);
 			}
 			> .addNewGridAreaContainer > .addNewGridAreaWrap {
 				// Styles

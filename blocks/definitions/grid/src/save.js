@@ -22,6 +22,7 @@ import {
 
 export default function Save({
     attributes: {
+		minHeight,
 		colDefinitions: {
 			count: colCount,
 			templates: colTemplates
@@ -35,9 +36,10 @@ export default function Save({
     //
     const innerBlocksProps = useInnerBlocksProps.save({ ...useBlockProps.save({
         style: {
-            gridTemplateAreas: generateGridTemplateAreas(1, colCount, rowCount) /* 1 === 'save' */,
-            gridTemplateColumns: generateGridTemplateColumnsOrRows(1, colTemplates) /* 1 === 'save' */,
-			gridTemplateRows: generateGridTemplateColumnsOrRows(1, rowTemplates) /* 1 === 'save' */
+			minHeight,
+            gridTemplateAreas: generateGridTemplateAreas(colCount, rowCount),
+            gridTemplateColumns: generateGridTemplateColumnsOrRows(colTemplates),
+			gridTemplateRows: generateGridTemplateColumnsOrRows(rowTemplates)
         }
     })});
 	//

@@ -108,7 +108,7 @@ register(createReduxStore("h2ml/grid_area_store", {
 const GridEdit = ({
 	// Attributes.
 	attributes: {
-		verticalAlignment,
+		minHeight,
 		colDefinitions: {
 			count: colCount,
 			templates: colTemplates
@@ -120,15 +120,16 @@ const GridEdit = ({
 		editing
 	},
 	// Attribute Setters.
-	setAlignment,
 	setGridNoColsOrRows,
 	setGridTemplateColumnOrRow,
+	setGridMinHeight,
 	setGridEditing,
 	// Redux Setters.
 	setGridAreasEditorStackingOrder,
 	// Other.
 	clientId
 }) => {
+
 	//
 	// Get information about the current Block, and its children. 
 	// (Used htmlFor setting the editor stacking order, and adding / editing Grid-Area's)
@@ -214,9 +215,10 @@ const GridEdit = ({
 	const { children, ...innerBlocksProps } = useInnerBlocksProps(
 		useBlockProps({
 			style: {
-				gridTemplateAreas: generateGridTemplateAreas(0, colCount, rowCount) /* 0 === 'editor' */,
-				gridTemplateColumns: generateGridTemplateColumnsOrRows(0, colTemplates) /* 0 === 'editor' */,
-				gridTemplateRows: generateGridTemplateColumnsOrRows(0, rowTemplates) /* 0 === 'editor' */
+				minHeight,
+				gridTemplateAreas: generateGridTemplateAreas(colCount, rowCount),
+				gridTemplateColumns: generateGridTemplateColumnsOrRows(colTemplates),
+				gridTemplateRows: generateGridTemplateColumnsOrRows(rowTemplates)
 			},
 			ref: ref
 		}), {
@@ -231,18 +233,18 @@ const GridEdit = ({
 	return (
 		<>
 			<BlockControls>
-				<BlockVerticalAlignmentToolbar
+				{/*<BlockVerticalAlignmentToolbar
 					onChange={setAlignment}
 					value={verticalAlignment}
-				/>
+				/>*/}
 			</BlockControls>
 			<InspectorControls>
 				<Panel>
-					<PanelBody title={__('Grid Settings', 'h2ml')} initialOpen={true}>
+					<PanelBody title={__("Grid Settings", 'h2ml')} initialOpen={true}>
 						<PanelBody>
 							<RangeControl
 								__nextHasNoMarginBottom
-								label={__(`Grid area number of Columns`, 'h2ml')}
+								label={__("Grid area number of Columns", 'h2ml')}
 								value={colCount}
 								onChange={value => setGridNoColsOrRows(0, value)} // 0 === 'col'
 								min={1}
@@ -250,7 +252,7 @@ const GridEdit = ({
 							/>
 							<RangeControl
 								__nextHasNoMarginBottom
-								label={__(`Grid area number of Rows`, 'h2ml')}
+								label={__("Grid area number of Rows", 'h2ml')}
 								value={rowCount}
 								onChange={value => setGridNoColsOrRows(1, value)} // 1 === 'row'
 								min={1}
@@ -265,7 +267,7 @@ const GridEdit = ({
 								</Notice>
 							)}
 						</PanelBody>
-						<PanelBody title={__('Grid Columns Settings', 'h2ml')} initialOpen={false}>
+						<PanelBody title={__("Grid Columns Settings", 'h2ml')} initialOpen={false}>
 							{[...Array(colCount)].map((_, i) => (
 								<TextControl
 									key={`col-settings-${i}`}
@@ -275,7 +277,7 @@ const GridEdit = ({
 								/>
 							))}
 						</PanelBody>
-						<PanelBody title={__('Grid Rows Settings', 'h2ml')} initialOpen={false}>
+						<PanelBody title={__("Grid Rows Settings", 'h2ml')} initialOpen={false}>
 							{[...Array(rowCount)].map((_, i) => (
 								<TextControl
 									key={`row-settings-${i}`}
@@ -284,6 +286,13 @@ const GridEdit = ({
 									onChange={value => setGridTemplateColumnOrRow(1, i, value) /* 0 === 'row' */}
 								/>
 							))}
+						</PanelBody>
+						<PanelBody title={__("Grid Minimum Height", 'h2ml')} initialOpen={false}>
+							<TextControl
+								label={__("Grid Minimum Height", 'h2ml')}
+								value={minHeight}
+								onChange={newMinHeight => setGridMinHeight(newMinHeight)}
+							/>
 						</PanelBody>
 					</PanelBody>
 				</Panel>
@@ -331,20 +340,12 @@ const GridEdit = ({
 const GridEditWrapper = withDispatch(
 	(dispatch, ownProps, registry) => ({
 		//
-		// Update the Grid Area's WP alignment (Wide, Full etc).
-		//
-		setAlignment(verticalAlignment) {
-			const { setAttributes } = ownProps;
-			setAttributes({ verticalAlignment });
-		},
-		//
 		// Update number of columns / rows, clean up the relevant templates, and finally set the total number of Grid Area's.
 		//
 		setGridNoColsOrRows(type, count) {
 			const { attributes, setAttributes } = ownProps;
-			// Determine if we're setting Columns or Rows, and also get the opposite.
+			// Determine if we're setting Columns or Rows.
 			const options = ['col', 'row'];
-			const other = options[type ^ 1];
 			type = options[type];
 			// Create a copy of the existing Column / Row definition.
 			const definitions = { ...attributes[`${type}Definitions`] };
@@ -360,7 +361,7 @@ const GridEditWrapper = withDispatch(
 			setAttributes({ [`${type}Definitions`]: definitions });
 		},
 		//
-		// Update templates htmlFor specific Columns / Rows.
+		// Update templates html for specific Columns / Rows.
 		//
 		setGridTemplateColumnOrRow(type, index, template) {
 			const { attributes, setAttributes } = ownProps;
@@ -368,11 +369,25 @@ const GridEditWrapper = withDispatch(
 			const options = ['col', 'row'];
 			type = options[type];
 			// Create a copy of the existing Column / Row definition.
-			const definitions = { ...attributes[`${type}Definitions`] };
+			const {
+				count, 
+				templates
+			} = attributes[`${type}Definitions`];
+			const templatesCopy = [...templates];
 			// Update the given Column / Row template and set the attribute.
-			const unit = type === 'col' ? '1fr' : 'max-content';
-			definitions.templates[index] = template ? template : unit;
-			setAttributes({ [`${type}Definitions`]: definitions });
+			const unit = (type === 'col') ? '1fr' : 'max-content';
+			templatesCopy[index] = (template ? template : unit);
+			setAttributes({ [`${type}Definitions`]: {
+				count,
+				templates: templatesCopy
+			} });
+		},
+		//
+		// Update the Grid's Minimum Height
+		//	
+		setGridMinHeight(minHeight) {
+			const {setAttributes} = ownProps;
+			setAttributes({ minHeight })
 		},
 		//
 		// Set the Grid 'editing' attribute
