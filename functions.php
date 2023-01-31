@@ -96,7 +96,7 @@ add_action('init', function() {
 		remove_filter('theme_file_path', 'overrideThemeFilePath', 10);
 		return $settings;
 	}, 10, 2);
-});
+}, 1);
 
 /**
  * 
@@ -110,7 +110,7 @@ add_action('init', function() {
 	foreach(glob(get_template_directory() . "/blocks/definitions/*") as $blockDefinitionDirectoryBuildPath) {
 		register_block_type($blockDefinitionDirectoryBuildPath);
 	}
-});
+}, 2);
 
 /**
  * 
