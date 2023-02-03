@@ -70,7 +70,7 @@
 					"slug": "50",
 					"name": "4"
 				}, {
-					"size": "clamp(3.75rem, 10vw, 7rem)",
+					"size": "clamp(3.75rem, 10vw, 5.1rem)",
 					"slug": "60",
 					"name": "5"
 				}, {
