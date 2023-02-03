@@ -102,7 +102,7 @@ addFilter(
 			return <BlockListBlock {...props} className={'h2ml-testing'} wrapperProps={{
 				...wrapperProps,
 				style: {
-					position: positioningType,
+					position: (positioningType === 'fixed' ? 'sticky' : positioningType),
 					...positioningValues,
 					zIndex: positioningStackingOrder
 				}
@@ -147,6 +147,9 @@ addFilter(
 									options={[{
 										label: 'Static',
 										value: ''
+									}, {
+										label: 'Fixed',
+										value: 'fixed'
 									}, {
 										label: 'Relative',
 										value: 'relative'
