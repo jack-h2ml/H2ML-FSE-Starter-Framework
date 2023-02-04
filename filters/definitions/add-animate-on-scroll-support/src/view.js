@@ -15,7 +15,7 @@ const scrollObserver = class {
 						entry.target.classList.add(entry.target.dataset.animatein)
 					}
 				} else {
-					if (entry.intersectionRect.x) {
+					if (entry.isIntersecting) {
 						entry.target.classList.remove(entry.target.dataset.animateout);
 						entry.target.classList.add(entry.target.dataset.animatein);
 					}
