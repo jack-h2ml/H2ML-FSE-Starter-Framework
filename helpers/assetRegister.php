@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Generate a script handle, and ensure it's enqueued (less strict than the wp default).  
+ * Generate a unique script handle, and ensure it's enqueued (less strict than the wp default).  
  */
 
 function h2mlRegisterBlockScriptHandle($metadata, $type, $path, $index = 0) {
