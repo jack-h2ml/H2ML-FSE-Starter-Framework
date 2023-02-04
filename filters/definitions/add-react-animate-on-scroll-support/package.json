@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"@wordpress/icons": "^9.15.0",
+		"animate.css": "^4.1.1",
 		"react-animation-on-scroll": "^5.1.0"
 	}
 }
