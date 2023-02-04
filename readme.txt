@@ -2,7 +2,7 @@
 Contributors:      Jack Notman
 Tested up to:      6.1
 Requires PHP:      7.4.33
-Stable tag:        0.1.15
+Stable tag:        0.1.16
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,5 +22,5 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 0.1.15 =
+= 0.1.16 =
 * Released: January 27, 2023
