@@ -10,14 +10,6 @@
 add_filter('render_block', function($blockContent, $block) {
 	if(array_key_exists('attrs', $block)) {
 		$blockAttributes = $block['attrs'];
-		if($block['blockName'] === 'core/template-part') {
-			if(!is_admin()) {
-				echo '<pre>' . print_r([
-					$block
-				], true) . '</pre>';
-			}
-		}
-		//
 		if($block['blockName'] === 'core/template-part' && array_key_exists('h2mlPositioning', $blockAttributes)) {
 			$properties           = $blockAttributes['h2mlPositioning'];
 			$type                 = $properties['type'];
