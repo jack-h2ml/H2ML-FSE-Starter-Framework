@@ -4,48 +4,50 @@
 
 import "animate.css/animate.min.css";
 
-const scrollObserver = (selector, option) => {
-    let observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            window.requestIdleCallback(() => {
-                let showCount = 0
-                if (option?.once) {
-                    if (showCount === 0 && entry.isIntersecting) {
-                        entry.target.classList.add('shown')
-                        option.onshow ? option.onshow(entry) : false
-                        showCount++
-                    }
-                }
-                else {
-                    if (entry.isIntersecting) {
+const scrollObserver = class {
+	//
+	#observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			window.requestIdleCallback(() => {
+				if (entry.target.dataset.animateOnce) {
+					if (!entry.target.classList.has(entry.target.dataset.animatein)) {
+						entry.target.classList.add(entry.target.dataset.animatein)
+						option.onshow ? option.onshow(entry) : false
+						showCount++
+					}
+				} else {
+					if (entry.isIntersecting) {
 						if(entry.target.dataset.animatein) {
+							entry.target.classList.remove(entry.target.dataset.animateout);
 							entry.target.classList.add(entry.target.dataset.animatein);
 						}
-                        if (option && option.onshow) option.onshow(entry)
-                    }
-                    else {
-                        if(entry.target.dataset.animatein) {
+					}
+					else {
+						if(entry.target.dataset.animatein) {
 							entry.target.classList.remove(entry.target.dataset.animatein);
+							entry.target.classList.add(entry.target.dataset.animateout);
 						}
-                        if (option && option.onhide) option.onhide(entry)
-                    }
-                }
-            })
-        })
-    }, option)
-
-    if (Array.isArray(selector))
-        selector.forEach(qAll)
-    else
-        qAll(selector)
-
-
-    function qAll(selector) {
-        const item = document.querySelectorAll(selector)
-        item.forEach(i => observer.observe(i))
-    }
+					}
+				}
+			});
+		});
+	}, {
+		threshold: 0.25
+	});
+	//
+	#observe = (selector) => {
+		document.querySelectorAll(selector).forEach(elem => this.#observer.observe(elem))
+	}
+	//
+	constructor(selector, option) {
+		if(Array.isArray(selector)) {
+			selector.forEach(this.#observe)
+		} else {
+			this.#observe(selector)
+		}
+	}
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	scrollObserver('[data-animate]');
+	new scrollObserver('[data-animate]');
 });
