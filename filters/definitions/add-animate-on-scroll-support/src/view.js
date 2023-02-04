@@ -9,24 +9,19 @@ const scrollObserver = class {
 	#observer = new IntersectionObserver((entries) => {
 		entries.forEach(entry => {
 			window.requestIdleCallback(() => {
+				//console.log(entry)
 				if (entry.target.dataset.animateOnce) {
 					if (!entry.target.classList.has(entry.target.dataset.animatein)) {
 						entry.target.classList.add(entry.target.dataset.animatein)
-						option.onshow ? option.onshow(entry) : false
-						showCount++
 					}
 				} else {
-					if (entry.isIntersecting) {
-						if(entry.target.dataset.animatein) {
-							entry.target.classList.remove(entry.target.dataset.animateout);
-							entry.target.classList.add(entry.target.dataset.animatein);
-						}
+					if (entry.intersectionRect.x) {
+						entry.target.classList.remove(entry.target.dataset.animateout);
+						entry.target.classList.add(entry.target.dataset.animatein);
 					}
 					else {
-						if(entry.target.dataset.animatein) {
-							entry.target.classList.remove(entry.target.dataset.animatein);
-							entry.target.classList.add(entry.target.dataset.animateout);
-						}
+						entry.target.classList.remove(entry.target.dataset.animatein);
+						entry.target.classList.add(entry.target.dataset.animateout);
 					}
 				}
 			});
