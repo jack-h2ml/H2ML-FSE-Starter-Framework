@@ -21,6 +21,12 @@ import { __ } from '@wordpress/i18n';
 
 import { createHigherOrderComponent } from '@wordpress/compose';
 
+/*
+ * Global
+ */
+
+const animationClass = 'animate__animated';
+
 /** 
  * The Filter
  */
@@ -226,6 +232,8 @@ addFilter(
 	'blocks.getSaveContent.extraProps',
 	'h2ml/add-positioning-styles-save',
 	(props, type, attributes) => {
+		//
+		const {className: oldClassName} = props;
 		const {
 			h2mlAnimationOnScroll: {
 				animateIn,
@@ -234,14 +242,23 @@ addFilter(
 				animateOnce
 			} = {}
 		} = attributes;
+		//
 		if (animateIn || animateOut) {
+			//
+			const className = (oldClassName ? oldClassName.split(' ') : []).reduce((res, cur) => {
+				return (cur !== animationClass) ? `${res} ${cur}` : `${res}`
+			}, (animationClass));
+			//
 			return {
 				...props,
-				animateIn,
-				animateOut
+				className,
+				'data-animate': '',
+				'data-animatein': animateIn,
+				'data-animateout': animateOut
 			};
 		}
 		return props;
 	}
 );
+
 
