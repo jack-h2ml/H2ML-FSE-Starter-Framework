@@ -1,7 +1,7 @@
 /**
  * WordPress Dependencies
  */
-const defaultConfig = require( '@wordpress/scripts/config/webpack.config.js' );
+const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 
 /**
  * Is Production?

@@ -1,6 +1,7 @@
 /**
  * WordPress Dependencies
  */
+
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config.js' );
 
 /**
@@ -17,5 +18,9 @@ module.exports = {
     ...defaultConfig,
 	...(isProduction ? {} : {
 		devtool: "inline-source-map",
-	})
+	}),
+	entry: {
+		...(defaultConfig.entry)(),
+		view: './src/view.js'
+	}
 }
