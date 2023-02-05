@@ -87,6 +87,7 @@ export class AnimateOnScroll {
 	//
 	//
 	//
+	/*
 	static #wrap = (elem) => {
 		const wrapper = document.createElement('div');
 		wrapper.classList.add('animateOnScrollWrapper', 'alignfull');
@@ -94,6 +95,22 @@ export class AnimateOnScroll {
 		wrapper.appendChild(elem)
 		return wrapper;
 	}
+	*/
+	static #wrap = (elem) => {
+		const outerWrapper = document.createElement('div');
+		outerWrapper.classList.add('animateOnScrollOuterWrapper', 'alignfull');
+
+		const innerWrapper = document.createElement('div');
+		innerWrapper.classList.add('animateOnScrollInnerWrapper', 'alignfull');
+		
+		elem.replaceWith(outerWrapper);
+		
+		innerWrapper.appendChild(elem);
+		outerWrapper.appendChild(innerWrapper);
+		
+		return outerWrapper;
+	}
+	
 	//
 	static #prepare = (selector) => {
 		document.querySelectorAll(selector).forEach(elem => {
