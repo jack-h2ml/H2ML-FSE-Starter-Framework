@@ -101,7 +101,7 @@ export class AnimateOnScroll {
 				animateIn = null,
 				animateOut = null,
 				animateOnLoadVisible = false,
-				animateDuration = '5s',
+				animateDuration = '0.3s',
 			} = elem.dataset;
 			//
 			const wrapperElem = AnimateOnScroll.#wrap(elem);
