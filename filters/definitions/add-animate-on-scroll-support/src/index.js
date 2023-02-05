@@ -253,8 +253,8 @@ addFilter(
 				...props,
 				className,
 				'data-animate': '',
-				'data-animatein': animateIn,
-				'data-animateout': animateOut
+				'data-animate-in': animateIn,
+				'data-animate-out': animateOut
 			};
 		}
 		return props;
