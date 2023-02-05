@@ -23,6 +23,8 @@
 	> .animateOnScrollInnerWrapper {
 		// Styles
 		position: relative;
+		height: 100%;
+		width: 100%;
 		// Descencdent selectors
 		> *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
 			margin-left: auto;
@@ -34,8 +36,4 @@
 
 .is-layout-flow > .animateOnScrollOuterWrapper {
 	padding-right: calc((100vw - var(--wp--style--global--content-size)) / 2);
-	//
-	> .animateOnScrollInnerWrapper {
-		//right: calc(-1 * (100vw - var(--wp--style--global--content-size)) / 2)
-	}
 }
