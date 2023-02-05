@@ -1,7 +1,6 @@
-/*
 .animateOnScrollWrapper {
 	//
-    overflow: hidden;
+    overflow: visible;
 	min-height: 100%;
 	min-width: 100%;
 	//
@@ -10,30 +9,4 @@
 		margin-right: auto;
 		max-width: var(--wp--style--global--content-size);
 	}
-}
-*/
-
-.animateOnScrollOuterWrapper {
-	// Styles
-    overflow: hidden;
-	min-height: 100%;
-	min-width: 100%;
-	position: relative;
-	// Descencdent selectors
-	> .animateOnScrollInnerWrapper {
-		// Styles
-		position: relative;
-		height: 100%;
-		width: 100%;
-		// Descencdent selectors
-		> *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
-			margin-left: auto;
-			margin-right: auto;
-			max-width: var(--wp--style--global--content-size);
-		}
-	}
-}
-
-.is-layout-flow > .animateOnScrollOuterWrapper {
-	padding-right: calc((100vw - var(--wp--style--global--content-size)) / 2);
 }
