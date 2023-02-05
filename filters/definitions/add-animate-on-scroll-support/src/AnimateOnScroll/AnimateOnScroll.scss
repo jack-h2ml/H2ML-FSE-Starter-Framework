@@ -1,7 +1,5 @@
 .animateOnScrollWrapper {
 	//
-    position: relative;
-    left: 0;
     overflow: hidden;
 	//
 	> *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
