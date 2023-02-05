@@ -95,23 +95,24 @@ export class AnimateOnScroll {
 		return wrapper;
 	}
 	//
-	static #observe = (selector) => {
+	static #prepare = (selector) => {
 		document.querySelectorAll(selector).forEach(elem => {
 			const {
 				animateIn = null,
 				animateOut = null,
 				animateOnLoadVisible = false,
-				scrollAnimationDuration = '5s',
+				animateDuration = '5s',
 			} = elem.dataset;
 			//
 			const wrapperElem = AnimateOnScroll.#wrap(elem);
+			elem.style.setProperty('--animate-duration', animateDuration);
 			//
 			AnimateOnScroll.#elements.set(wrapperElem, {
 				elem,
 				animateIn,
 				animateOut,
 				animateOnLoadVisible,
-				scrollAnimationDuration,
+				animateDuration,
 				isShown: undefined,
 				prevY: 0,
 				prevRatio: 0,
@@ -131,6 +132,6 @@ export class AnimateOnScroll {
 		// If the observer has not yet been initialised, initialise it. 
 		if(!AnimateOnScroll.#observer) AnimateOnScroll.#initObserver();
 		// Begin observing based on the passed querySelectors.
-		selectors.forEach(selector => AnimateOnScroll.#observe(selector));
+		selectors.forEach(selector => AnimateOnScroll.#prepare(selector));
 	}
 }
