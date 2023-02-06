@@ -320,11 +320,11 @@ addFilter(
 			return {
 				...props,
 				className,
-				'data-animate': '',
-				'data-animate-in': animateIn,
-				'data-animate-out': animateOut,
-				'data-animate-in-duration': animateInDuration,
-				'data-animate-out-duration': animateOutDuration
+				...((animateIn || animateOut) && {'data-animate': ''}),
+				...(animateIn && {'data-animate-in': animateIn}),
+				...(animateOut && {'data-animate-out': animateOut}),
+				...(animateInDuration && {'data-animate-in-duration': animateInDuration}),
+				...(animateOutDuration && {'data-animate-out-duration': animateOutDuration}),
 			};
 		}
 		return props;
