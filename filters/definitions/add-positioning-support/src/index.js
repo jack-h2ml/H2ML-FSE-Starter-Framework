@@ -266,7 +266,12 @@ addFilter(
 				style: {
 					...props.style,
 					position: positioningType,
-					...positioningValues,
+					...Object.keys(positioningValues).reduce((previous, key) => {
+						return {
+							...previous,
+							...((positioningValues[key]) && {[key]: positioningValues[key]})
+						};
+					}, {}),
 					zIndex: positioningStackingOrder
 				}
 			};
