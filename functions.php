@@ -66,14 +66,25 @@ add_action('after_setup_theme', function() {
 			include_once $filtersServerAssist;
 		}
 		//
-		$filter = $filterDirectory . '/build/index.js';
-		if(file_exists($filter)) {
-			add_action('enqueue_block_editor_assets', function() use($filter, $filterDirectory) {
+		$filterEditorScript = $filterDirectory . '/build/index.js';
+		if(file_exists($filterEditorScript)) {
+			add_action('enqueue_block_editor_assets', function() use($filterEditorScript, $filterDirectory) {
 				$handle = h2mlRegisterBlockScriptHandle([
 					'name'       => 'h2ml/' . basename($filterDirectory),
 					'textdomain' => 'h2ml'
-				], 'script', $filter);
+				], 'script', $filterEditorScript);
 				wp_enqueue_script($handle);
+			});
+		}
+		//
+		$filterEditorStyle = $filterDirectory . '/build/index.css';
+		if(file_exists($filterEditorStyle)) {
+			add_action('enqueue_block_editor_assets', function() use($filterEditorStyle, $filterDirectory) {
+				$handle = h2mlRegisterBlockStyleHandle([
+					'name'       => 'h2ml/' . basename($filterDirectory),
+					'textdomain' => 'h2ml'
+				], 'script', $filterEditorStyle);
+				wp_enqueue_style($handle);
 			});
 		}
 	}

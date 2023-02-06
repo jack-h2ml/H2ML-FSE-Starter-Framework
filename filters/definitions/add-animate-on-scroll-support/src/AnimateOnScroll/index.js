@@ -16,12 +16,16 @@ export class AnimateOnScroll {
 		const {
 			elem,
 			animateIn,
-			animateOut
+			animateOut,
+			animateInDuration,
+			animateOutDuration,
 		} = elemData;
 		//
+		const animateDuration = show ? animateInDuration : animateOutDuration;
 		const classToRemove = show ? animateOut : animateIn;
 		const classToAdd = !show ? animateOut : animateIn;
 		//
+		elem.style.setProperty('--animate-duration', animateDuration);
 		elem.classList.remove(classToRemove);
 		elem.classList.add(classToAdd);
 	}
@@ -101,18 +105,19 @@ export class AnimateOnScroll {
 				animateIn = null,
 				animateOut = null,
 				animateOnLoadVisible = false,
-				animateDuration = '0.6s',
+				animateInDuration = '500ms',
+				animateOutDuration = '500ms'
 			} = elem.dataset;
 			//
 			const wrapperElem = AnimateOnScroll.#wrap(elem);
-			elem.style.setProperty('--animate-duration', animateDuration);
 			//
 			AnimateOnScroll.#elements.set(wrapperElem, {
 				elem,
 				animateIn,
 				animateOut,
 				animateOnLoadVisible,
-				animateDuration,
+				animateInDuration,
+				animateOutDuration,
 				isShown: undefined,
 				prevY: 0,
 				prevRatio: 0,
