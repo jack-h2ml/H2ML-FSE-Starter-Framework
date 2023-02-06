@@ -1,3 +1,38 @@
+// Inspector Styles
+.h2mlGridSettingsPanel {
+	--input-inset: 10px;
+	// Descendent Selectors
+	.components-panel__body {
+		border: none;
+	}
+	.components-base-control {
+		// Styles
+		margin-bottom: 0;
+		// Descendent Selectors
+		.components-base-control__help, 
+		.components-input-control__container, 
+		.components-text-control__input, 
+		.components-range-control__root {
+			// Styles
+			margin-left: var(--input-inset);
+			width: calc(100% - var(--input-inset));
+		}
+		.components-range-control__number {
+			margin-bottom: 0;
+		}
+	}
+	.components-tools-panel {
+		// Styles
+		padding: 0;
+		border-top: none;
+		//
+		.components-tools-panel-header {
+			padding: calc(var(--input-inset) / 2) 0;
+		}
+	}
+}
+
+// Block Styles
 .wp-block-h2ml-grid {
 	// Styles
 	display: grid;

@@ -9,7 +9,8 @@ import {
 	RangeControl,
 	TextControl,
 	Button,
-	Tooltip
+	Tooltip,
+	__experimentalVStack as VStack,
 } from '@wordpress/components';
 
 import {
@@ -58,9 +59,14 @@ import './editor.scss';
 import {
 	generateGridTemplateAreas,
 	generateGridTemplateColumnsOrRows,
-} from './utils.js'
+} from './utils.js';
 
-import { GridEditor } from './local_components/GridEditor'
+import { GridEditor } from './local_components/GridEditor';
+
+import {
+	GridNoColsHelpText,
+	GridNoRowsHelpText
+} from './local_components/HelpText';
 
 /*
 * Redux store htmlFor holding the currently selected h2ml/grid-area, 
@@ -240,23 +246,30 @@ const GridEdit = ({
 			</BlockControls>
 			<InspectorControls>
 				<Panel>
-					<PanelBody title={__("Grid Settings", 'h2ml')} initialOpen={true}>
-						<PanelBody>
+					<PanelBody 
+						title={__("Grid Settings", 'h2ml')} 
+						initialOpen={true}
+						className={'h2mlGridSettingsPanel'}
+					>
+						<VStack 
+							as={'div'}
+							spacing={4}
+						>
 							<RangeControl
-								__nextHasNoMarginBottom
 								label={__("Grid area number of Columns", 'h2ml')}
 								value={colCount}
 								onChange={value => setGridNoColsOrRows(0, value)} // 0 === 'col'
 								min={1}
-								max={8}
+								help={<GridNoColsHelpText/>}
+								__nextHasNoMarginBottom={true}
 							/>
 							<RangeControl
-								__nextHasNoMarginBottom
 								label={__("Grid area number of Rows", 'h2ml')}
 								value={rowCount}
 								onChange={value => setGridNoColsOrRows(1, value)} // 1 === 'row'
 								min={1}
-								max={8}
+								help={<GridNoRowsHelpText/>}
+								__nextHasNoMarginBottom={true}
 							/>
 							{(colCount * rowCount) > 49 && (
 								<Notice status="warning" isDismissible={false}>
@@ -266,7 +279,7 @@ const GridEdit = ({
 									)}
 								</Notice>
 							)}
-						</PanelBody>
+						</VStack>
 						<PanelBody title={__("Grid Columns Settings", 'h2ml')} initialOpen={false}>
 							{[...Array(colCount)].map((_, i) => (
 								<TextControl

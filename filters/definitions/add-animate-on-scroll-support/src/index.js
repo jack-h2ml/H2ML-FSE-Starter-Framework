@@ -142,7 +142,7 @@ addFilter(
 							>
 								<VStack 
 									as={'div'}
-									spacing={3}
+									spacing={4}
 								>
 									<SelectControl
 										onChange={(value) => {
