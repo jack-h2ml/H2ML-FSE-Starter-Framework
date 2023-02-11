@@ -27,7 +27,9 @@ import {
 	dispatch
 } from '@wordpress/data';
 
-import { useEffect } from '@wordpress/element';
+import { 
+	useEffect
+} from '@wordpress/element';
 
 import { getBlockType } from '@wordpress/blocks';
 
@@ -52,20 +54,22 @@ const GridAreaEdit = ({
 		gridArea,
 		stackingOrder,
 		requestEdit,
+		number,
 		style: {
 			color: {
 				background: customBackgroundColor
 			} = {} 
-		} = {} 
+		} = {},
+		breakpointDefinitions
 	},
 	// Attribute Setters.
 	setVerticalAlignment,
 	setRequestEdit,
 	setStackingOrder,
 	// Other.
-	clientId,
+	clientId
 }) => {
-
+	
 	//
 	// Get Information about the current Block, and its children (Used for setting the editor stacking order).
 	//
@@ -90,7 +94,7 @@ const GridAreaEdit = ({
 	}, []);
 	
 	//
-	// If the Grid's number of children changes, determine if there are one or more children. 
+	// If the Grid Area's number of children changes, determine if there are one or more children. 
 	// 
 	// If there is one, and that is a Media or an Embed block then update the child's 'h2mlCanFillGridArea' attribute to true,
 	// allowing the child to cover the Grid Area (this is added in our filters).
@@ -116,7 +120,7 @@ const GridAreaEdit = ({
 				}
 			});
 		}
-	}, [childBlocks])
+	}, [childBlocks]);
 
 	//
 	// The Grid Area layout.
@@ -134,9 +138,7 @@ const GridAreaEdit = ({
 	
 	const innerBlocksProps = useInnerBlocksProps( 
 		useBlockProps({
-			className: [
-				!themeSupportsLayout ? 'wp-block-group__inner-container' : null,
-			],
+			className: [`h2mlGridArea${number}`],
 			style: {
 				justifyContent: verticalAlignment,
 				backgroundColor: customBackgroundColor ? customBackgroundColor : 'null',

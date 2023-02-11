@@ -99,7 +99,7 @@ addFilter(
 			wrapperProps = {}
 		}} = props;
 		if(positioningType !== undefined) {
-			return <BlockListBlock {...props} className={'h2ml-testing'} wrapperProps={{
+			return <BlockListBlock {...props} wrapperProps={{
 				...wrapperProps,
 				style: {
 					position: (positioningType === 'fixed' ? 'sticky' : positioningType),
@@ -218,7 +218,7 @@ addFilter(
 										>
 											<NumberControl
 												label={__("Stacking Order", 'h2ml')}
-												value = {positioningStackingOrder}
+												value = {positioningStackingOrder ? positioningStackingOrder : 1}
 												onChange = {(newZIndex) => {
 													setAttributes({h2mlPositioning: {
 														type: positioningType,

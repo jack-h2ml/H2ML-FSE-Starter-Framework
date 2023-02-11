@@ -1,6 +1,9 @@
 .h2mlAnimateOnScrollPanel {
 	--input-inset: 10px;
 	// Descendent Selectors
+	.components-notice, .components-notice > .components-notice__content {
+		margin: 0;
+	}
 	.components-base-control {
 		// Styles
 		margin-bottom: 0;

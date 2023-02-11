@@ -17,5 +17,9 @@ module.exports = {
     ...defaultConfig,
 	...(isProduction ? {} : {
 		devtool: "inline-source-map",
-	})
+	}),
+	entry: {
+		...(defaultConfig.entry)(),
+		view: './src/view.js'
+	}
 }

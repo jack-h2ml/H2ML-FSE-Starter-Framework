@@ -12,7 +12,9 @@ import {
 	SelectControl,
 	TextControl,
 	ExternalLink,
+	Notice,
 	__experimentalVStack as VStack,
+	__experimentalText as Text,
 	__experimentalToolsPanel as ToolsPanel,
     __experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -144,6 +146,16 @@ addFilter(
 									as={'div'}
 									spacing={4}
 								>
+									<Notice
+										isDismissible={false}
+									>
+										<Text
+											size={'12px'}
+											color={'rgb(117, 117, 117)'}
+										>
+											{__("When adding animations which transition off-screen ensure that the document body has the", 'h2ml')} <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-y">overflow-x</ExternalLink> {__("property set to either 'hidden' or 'clip'.", 'h2ml')}
+										</Text>
+									</Notice>
 									<SelectControl
 										onChange={(value) => {
 											setAttributes({h2mlAnimationOnScroll: {

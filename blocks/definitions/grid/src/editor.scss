@@ -1,30 +1,36 @@
 // Inspector Styles
 .h2mlGridSettingsPanel {
 	--input-inset: 10px;
+
 	// Descendent Selectors
 	.components-panel__body {
 		border: none;
 	}
+
 	.components-base-control {
 		// Styles
 		margin-bottom: 0;
+
 		// Descendent Selectors
-		.components-base-control__help, 
-		.components-input-control__container, 
-		.components-text-control__input, 
+		.components-base-control__help,
+		.components-input-control__container,
+		.components-text-control__input,
 		.components-range-control__root {
 			// Styles
 			margin-left: var(--input-inset);
 			width: calc(100% - var(--input-inset));
 		}
+
 		.components-range-control__number {
 			margin-bottom: 0;
 		}
 	}
+
 	.components-tools-panel {
 		// Styles
 		padding: 0;
 		border-top: none;
+
 		//
 		.components-tools-panel-header {
 			padding: calc(var(--input-inset) / 2) 0;
@@ -32,19 +38,224 @@
 	}
 }
 
-// Block Styles
-.wp-block-h2ml-grid {
+// Breakpoints Modal Styles
+.h2mlGridBreakpointsModal {
+
+	// Descendent Selectors
+	.components-modal__header {
+		// Styles
+		border-bottom: 1px solid #ddd;
+	}
+
+	.components-modal__content {
+		// Styles
+		padding: 0;
+		overflow: hidden; ///////////////////
+
+		// Descendent Selectors
+		.h2mlGridBreakpointsEditorArea {
+			// Styles
+			position: relative;
+			height: 100%; ///////////////////
+
+			// Descendent Selectors
+			.h2mlGridBreakpointTabPanel {
+				// Styles
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+
+				// Descendent Selectors
+				.components-tab-panel__tabs {
+					// Styles
+					border-bottom: 1px solid #ddd;
+
+					// Descendent Selectors
+					.components-tab-panel__tabs-item {
+
+						// Descendent Selectors
+						:after {
+							content: "";
+							background: var(--wp-admin-theme-color);
+							border-radius: 0;
+							bottom: 0;
+							height: calc(var(--wp-admin-border-width-focus) * 0);
+							left: 0;
+							pointer-events: none;
+							position: absolute;
+							right: 0;
+							transition: all .1s linear;
+						}
+
+						&.active-tab:after {
+							height: calc(var(--wp-admin-border-width-focus) * 1);
+						}
+					}
+				}
+
+				>.components-tab-panel__tabs {
+
+					// Descendent Selectors
+					.components-tab-panel__tabs-item {
+						// Styles
+						order: 0;
+
+						// Descendent Selectors
+						&.addBreakpoint {
+							order: 1;
+							margin-left: auto;
+						}
+					}
+				}
+
+				>.components-tab-panel__tab-content {
+					// Styles
+					display: grid;
+					grid-template-columns: min(340px, 100%) 1fr;
+					grid-template-rows: min-content 1fr min-content;
+					gap: 0px 0px;
+					grid-template-areas:
+						"sidebar title"
+						"sidebar editor"
+						"save save";
+					height: 100%;
+					flex-grow: 1;
+					overflow: hidden;
+
+					// Descendent Selectors
+					>* {
+						// Styles
+						min-height: 0;
+					}
+
+					>.h2mlGridBreakpointTitle {
+						// Styles
+						grid-area: title;
+						padding: 16px;
+					}
+
+					>.h2mlGridBreakpointSidebar {
+						// Styles
+						height: 100%;
+						overflow: hidden;
+						border-right: 1px solid #ddd;
+						grid-area: sidebar;
+
+						// Descendent Selectors
+						.h2mlGridBreakpointOptions {
+							//styles
+							width: 100%;
+							height: 100%;
+							display: flex;
+							flex-direction: column;
+
+							// Descendent Selectors
+							>.components-tab-panel__tab-content {
+								// Styles
+								padding: 32px;
+								overflow: scroll;
+
+								.h2mlGridBreakpointsGridAreaPreview {
+									// Styles
+									width: 100%;
+
+									// Descendent Selectors
+									>canvas {
+										// Styles
+										max-width: 100% !important;
+										height: auto !important;
+										border-radius: 6px;
+										border: 1px solid #ddd;
+									}
+
+									&.active>canvas,
+									>canvas:hover {
+										// Styles
+										cursor: pointer;
+										border: 1px solid var(--wp-admin-theme-color);
+										scale: 1.05;
+									}
+								}
+							}
+						}
+					}
+
+					>.h2mlGridBreakpointGridEditorWrapper {
+						// Styles
+						display: flex;
+						justify-content: center;
+						width: 100%;
+						height: 100%;
+						overflow: scroll;
+						padding: 0 32px 32px;
+						grid-area: editor;
+
+						// Descendent Selectors
+						>.h2mlBreakpointGridEditor {
+							// Styles
+							width: clamp(250px, 100%, 1000px);
+							margin: auto 0;
+
+							// Descendent Selectors
+							>.h2mlBreakpointGridAreas {
+
+								// Descendent Selectors
+								>.h2mlBreakpointGridEditorGridAreaPreview {
+									// Styles
+									position: relative;
+									z-index: 1;
+									overflow: hidden;
+									padding: 20px;
+									backdrop-filter: blur(2px);
+									border: 1px solid #ddd;
+
+									> div {
+										// Styles
+										width: 100%;
+										height: 100%;
+										
+										// Descendent Selectors
+										> canvas {
+											width: 100%;
+											height: 100%;
+											object-fit: contain;
+											object-position: center;
+										}
+									}
+								}
+							}
+						}
+					}
+
+					>.h2mlGridBreakpointSave {
+						// styles
+						border-top: 1px solid #ddd;
+						grid-area: save;
+						padding: 16px;
+					}
+				}
+			}
+		}
+	}
+}
+
+// Grid Editor Styles (Including within the breakpoint editor)
+.wp-block-h2ml-grid,
+.h2mlBreakpointGridEditor {
 	// Styles
 	display: grid;
 	grid-auto-columns: 1fr;
+
 	// Descendent Selectors
-	> div {
+	>div {
 		// Styles
 		display: contents;
 	}
-	> .grid-helpers {
+
+	>.grid-helpers {
+
 		// Descendent Selectors
-		> .grid-area-helper {
+		>.grid-area-helper {
 			// Styles
 			position: relative;
 			display: flex;
@@ -60,22 +271,25 @@
 			user-select: none;
 			border-radius: calc(var(--h2ml-grid-helper-border-radius) / 2);
 			border: 1px dotted var(--h2ml-grid-contrast-color);
+
 			// Descendent Selectors
-			> span {
+			>span {
 				// Styles
 				color: #fff;
 				mix-blend-mode: difference;
+
 				// Descendent Selectors
-				> sub {
+				>sub {
 					// Styles
 					font-weight: normal;
 					translate: 0 calc(var(--h2ml-grid-helper-font-size) / 3);
 				}
 			}
 		}
-		> .grid-adding-grid-areas-notice {
+
+		>.grid-adding-grid-areas-notice {
 			// Styles
-			display: none;
+			//display: none;
 			align-items: center;
 			justify-content: center;
 			grid-column: 1 / -1;
@@ -83,20 +297,21 @@
 			text-align: center;
 			user-select: none;
 			height: min-content;
-   			background: red;
-    		align-self: end;
+			align-self: end;
 		}
-		> .grid-grid-area-appender {
+
+		>.grid-grid-area-appender {
 			// Styles
 			position: relative;
 			z-index: 1;
 			display: none; // This is set to 'flex' later.
-    		align-items: flex-end;
-    		justify-content: flex-end;
+			align-items: flex-end;
+			justify-content: flex-end;
 			border-radius: 2px;
-    		box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
-    		outline: 2px solid transparent;
+			box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+			outline: 2px solid transparent;
 			pointer-events: none;
+
 			// Descendent Selectors
 			button {
 				// Styles
@@ -104,13 +319,16 @@
 			}
 		}
 	}
-	> .grid-grid-areas {
+
+	>.grid-grid-areas {
+
 		// Descendent Selectors
 		.grid-grid-area-appender-wrap {
 			// Styles
 			display: contents;
+
 			// Descendent Selectors
-			> .addNewGridAreaContainer {
+			>.addNewGridAreaContainer {
 				grid-column: 1/-1;
 				align-self: end;
 				justify-self: end;
@@ -125,29 +343,36 @@
 				border-radius: var(--h2ml-grid-helper-border-radius);
 				box-shadow: 0 0 10px -5px var(--h2ml-grid-contrast-color);
 			}
-			> .addNewGridAreaContainer > .addNewGridAreaWrap {
+
+			>.addNewGridAreaContainer>.addNewGridAreaWrap {
 				// Styles
 				display: flex;
 				align-items: center;
 				gap: 0.5rem;
 			}
-			> .addNewGridAreaContainer > .addNewGridAreaWrap button {
+
+			>.addNewGridAreaContainer>.addNewGridAreaWrap button {
 				// Styles
 				padding: 0;
 				background: #1e1e1e;
 				color: #fff;
 			}
-			> .addNewGridAreaContainer > .addNewGridAreaWrap button:hover {
+
+			>.addNewGridAreaContainer>.addNewGridAreaWrap button:hover {
 				// Styles
 				background: var(--wp-admin-theme-color);
 			}
 		}
 	}
+
 	&:not(.is-selected) {
+
 		// Descendent Selectors
-		> .grid-helpers {
+		>.grid-helpers {
+
 			// Descendent Selectors
-			> .grid-grid-area-appender {
+			>.grid-grid-area-appender {
+
 				// Descendent Selectors
 				button {
 					// Styles
@@ -155,28 +380,26 @@
 				}
 			}
 		}
-		> .grid-grid-areas {
+
+		>.grid-grid-areas {
+
 			// Descendent Selectors
-			> .grid-grid-area-appender-wrap {
+			>.grid-grid-area-appender-wrap {
 				// Styles
 				display: none;
 			}
 		}
 	}
+
 	&.is-selected {
+
 		// Descendent Selectors
-		> .grid-helpers {
+		>.grid-helpers {
+
 			// Descendent Selectors
-			> .grid-adding-grid-areas-notice {
+			>.grid-adding-grid-areas-notice {
 				// Styles
 				display: flex;
-			}
-			> .grid-grid-area-appender {
-				// Descendent Selectors
-				button {
-					// Styles
-					pointer-events: all;
-				}
 			}
 		}
 	}

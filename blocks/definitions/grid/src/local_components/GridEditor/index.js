@@ -7,18 +7,7 @@ import {
 	_n,
 } from '@wordpress/i18n';
 
-import {
-	select,
-	dispatch
-} from '@wordpress/data';
-
-import {
-	store as blockEditorStore,
-} from '@wordpress/block-editor';
-
-import { createBlock } from '@wordpress/blocks';
-
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 import { Button } from '@wordpress/components';
 
@@ -59,45 +48,6 @@ const doGridHelperSelection = (e, coords, res) => {
 	};
 	res.parsed = generateGridAreaStartEnd(res.start.x, res.start.y, res.end.x, res.end.y);
 	return res;
-}
-
-/**
- * Save Function
- */
-
-const doGridHelperSave = (gridClientId, target, coords) => {
-	if (target.clientId) {
-		// Hooks.
-		const {updateBlockAttributes} = dispatch(blockEditorStore);
-		// Update the requested Grid Area.
-		updateBlockAttributes(target.clientId, {
-			gridArea: coords,
-			requestEdit: false
-		});
-	} else {
-		// Hooks.
-		const { getBlocks } = select(blockEditorStore);
-		const { insertBlock } = dispatch(blockEditorStore);
-		// Adding a new Grid Area.
-		const {
-			nextChildStackingOrder,
-			nextChildIndex
-		} = getBlocks(gridClientId).reduce(
-			(res, cur, ind) => {
-				res.nextChildStackingOrder = cur.attributes.stackingOrder >= res.nextChildStackingOrder ? cur.attributes.stackingOrder + 1 : res.nextChildStackingOrder;
-				res.nextChildIndex = ind + 1;
-				return res;
-			}, {
-			nextChildStackingOrder: 0,
-			nextChildIndex: 0
-		}
-		);
-		// Insert the new Grid Area.
-		insertBlock(createBlock('h2ml/grid-area', {
-			gridArea: coords,
-			stackingOrder: nextChildStackingOrder
-		}), nextChildIndex, gridClientId);
-	}
 }
 
 /** 
@@ -151,15 +101,21 @@ const GridHelperAppender = (props) => {
 export const GridEditor = (props) => {
 	// Properties.
 	const {
-		gridClientId,
 		colCount,
 		rowCount,
-		editing
+		target,
+		saveFunction
 	} = props;
 	// State Managers.
 	const [gridHelperIsDrawing, setGridHelperIsDrawing] = useState(false);
 	const [gridHelperCanSave, setGridHelperCanSave] = useState(false);
 	const [gridHelperCoordRes, setGridHelperCoordRes] = useState(null);
+	//
+	// Determine if adding a new grid area, if adding the 'editing' prop will be a <Bool> which is 'True', 
+	// if editing the 'editing' prop will be a <String> containing the Grid-Area 'clientId',
+	//
+	const isEditing = (target !== undefined && target !== false);
+	const isAdding = (target === !!target);
 	//
 	// Handle Finish Editing.
 	//
@@ -196,7 +152,7 @@ export const GridEditor = (props) => {
 					cellLabel: cellIndex,
 					cellX,
 					cellY,
-					onMouseDown: (editing ? (e) => {
+					onMouseDown: (isEditing ? (e) => {
 						// Reset State.
 						setGridHelperCanSave(false);
 						// Set State.
@@ -210,15 +166,25 @@ export const GridEditor = (props) => {
 				}}
 			/>
 		})}
-		{editing && (
+		{isEditing && (
 			<>
-				{editing?.clientId ? (
-					<div className="grid-adding-grid-areas-notice">
-						<p><strong>{__("Click and drag", 'h2ml')}</strong> {__("to edit the Grid Area, when you're done click", 'h2ml')} <strong>{__("Save Grid Area", 'h2ml')}</strong>, {__("press", 'h2ml')} <strong>{__("E", 'h2ml')}</strong> {__("or", 'h2ml')} <strong>{__("C", 'h2ml')}</strong> {__("to cancel.", 'h2ml')}<br />{__("Don't forget to ")}<strong>{__("Update", 'h2ml')}</strong>{__(" the post when you're done.", 'h2ml')}</p>
+				{isAdding ? (
+					<div 
+						className="grid-adding-grid-areas-notice"
+						style={{
+							display: 'flex'
+						}}
+					>
+						<p><strong>{__("Click and drag", 'h2ml')}</strong> {__("to add a new Grid Area, when you're done click", 'h2ml')} <strong>{__("Save Grid Area", 'h2ml')}</strong>.<br />{__("Don't forget to ")}<strong>{__("Update", 'h2ml')}</strong>{__(" the post when you're done.", 'h2ml')}</p>
 					</div>
 				) : (
-					<div className="grid-adding-grid-areas-notice">
-						<p><strong>{__("Click and drag", 'h2ml')}</strong> {__("to add a new Grid Area, when you're done click", 'h2ml')} <strong>{__("Save Grid Area", 'h2ml')}</strong>, {__("press", 'h2ml')} <strong>{__("E", 'h2ml')}</strong> {__("or", 'h2ml')} <strong>{__("C", 'h2ml')}</strong> {__("to cancel.", 'h2ml')}<br />{__("Don't forget to ")}<strong>{__("Update", 'h2ml')}</strong>{__(" the post when you're done.", 'h2ml')}</p>
+					<div 
+						className="grid-adding-grid-areas-notice"
+						style={{
+							display: 'flex'
+						}}
+					>
+						<p><strong>{__("Click and drag", 'h2ml')}</strong> {__("to edit the Grid Area, when you're done click", 'h2ml')} <strong>{__("Save Grid Area", 'h2ml')}</strong>.<br />{__("Don't forget to ")}<strong>{__("Update", 'h2ml')}</strong>{__(" the post when you're done.", 'h2ml')}</p>
 					</div>
 				)}
 				<GridHelperAppender
@@ -230,19 +196,22 @@ export const GridEditor = (props) => {
 				> 
 				{gridHelperCanSave && (
 					<Button
-						text={editing?.clientId ? 
-							__('Update Grid Area', 'h2ml') :
-							__('Add Grid Area', 'h2ml')
+						text={isAdding ? 
+							__('Add Grid Area', 'h2ml') :
+							__('Update Grid Area', 'h2ml')
 						}
-						label={editing?.clientId ? 
-							__('Update Grid Area', 'h2ml') :
-							__('Add Grid Area', 'h2ml')
+						label={isAdding ? 
+							__('Add Grid Area', 'h2ml') :
+							__('Update Grid Area', 'h2ml')
 						}
+						style={{
+							pointerEvents: 'all'
+						}}
 						showTooltip={false}
 						variant="primary"
 						onClick={() => { 
 							// Save the new / updated Grid Area.
-							doGridHelperSave(gridClientId, editing, gridHelperCoordRes); 
+							saveFunction(gridHelperCoordRes, target); 
 							// Reset state.
 							setGridHelperIsDrawing(false);
 							setGridHelperIsDrawing(false);

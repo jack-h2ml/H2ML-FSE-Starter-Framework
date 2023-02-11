@@ -44,6 +44,14 @@
 		"requestEdit": {
 			"type": "boolean",
 			"default": false
+		},
+		"number": {
+			"type": "number",
+			"default": null
+		},
+		"breakpointDefinitions": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

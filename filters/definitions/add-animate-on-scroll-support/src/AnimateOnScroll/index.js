@@ -1,7 +1,7 @@
 import 'animate.css/animate.min.css';
 import './AnimateOnScroll.scss';
 
-export class AnimateOnScroll {
+export class H2mlAnimateOnScroll {
 	//
 	static #observer = null;
 	static #elements = new Map();
@@ -12,7 +12,7 @@ export class AnimateOnScroll {
 	static #thresholdArray = steps => Array.from(Array(steps + 1)).reduce((cur, _, index) => [...cur, index / steps || 0], []);
 	//
 	static #toggleCurrentElement = (show) => { 
-		const elemData = AnimateOnScroll.#currElemData
+		const elemData = H2mlAnimateOnScroll.#currElemData
 		const {
 			elem,
 			animateIn,
@@ -34,10 +34,10 @@ export class AnimateOnScroll {
 		entries.forEach(entry => {
 			window.requestIdleCallback(() => {
 				// Element Store
-				const elements = AnimateOnScroll.#elements;
+				const elements = H2mlAnimateOnScroll.#elements;
 				// Get Element's & state.
-				const wrapperElem = AnimateOnScroll.#currElem = entry.target;
-				const elemData = AnimateOnScroll.#currElemData = elements.get(wrapperElem);
+				const wrapperElem = H2mlAnimateOnScroll.#currElem = entry.target;
+				const elemData = H2mlAnimateOnScroll.#currElemData = elements.get(wrapperElem);
 				const {
 					animateOnLoadVisible,
 					isShown,
@@ -85,7 +85,7 @@ export class AnimateOnScroll {
 	};
 	//
 	static #observerOptions = {
-		threshold: AnimateOnScroll.#thresholdArray(20),
+		threshold: H2mlAnimateOnScroll.#thresholdArray(20),
 		rootMargin: '0px 200%'
 	}
 	//
@@ -109,9 +109,9 @@ export class AnimateOnScroll {
 				animateOutDuration = '500ms'
 			} = elem.dataset;
 			//
-			const wrapperElem = AnimateOnScroll.#wrap(elem);
+			const wrapperElem = H2mlAnimateOnScroll.#wrap(elem);
 			//
-			AnimateOnScroll.#elements.set(wrapperElem, {
+			H2mlAnimateOnScroll.#elements.set(wrapperElem, {
 				elem,
 				animateIn,
 				animateOut,
@@ -122,21 +122,21 @@ export class AnimateOnScroll {
 				prevY: 0,
 				prevRatio: 0,
 			});
-			AnimateOnScroll.#observer.observe(wrapperElem);
+			H2mlAnimateOnScroll.#observer.observe(wrapperElem);
 		});
 	}
 	//
 	static #initObserver = () => {
-		AnimateOnScroll.#observer = new IntersectionObserver(
-			AnimateOnScroll.#observerCallback, 
-			AnimateOnScroll.#observerOptions
+		H2mlAnimateOnScroll.#observer = new IntersectionObserver(
+			H2mlAnimateOnScroll.#observerCallback, 
+			H2mlAnimateOnScroll.#observerOptions
 		);
 	}
 	//
 	static animate = (...selectors) => {
 		// If the observer has not yet been initialised, initialise it. 
-		if(!AnimateOnScroll.#observer) AnimateOnScroll.#initObserver();
+		if(!H2mlAnimateOnScroll.#observer) H2mlAnimateOnScroll.#initObserver();
 		// Begin observing based on the passed querySelectors.
-		selectors.forEach(selector => AnimateOnScroll.#prepare(selector));
+		selectors.forEach(selector => H2mlAnimateOnScroll.#prepare(selector));
 	}
 }

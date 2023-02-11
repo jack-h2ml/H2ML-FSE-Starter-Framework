@@ -11,15 +11,15 @@ import {
 	Button,
 	Tooltip,
 	__experimentalVStack as VStack,
+	__experimentalHStack as HStack
 } from '@wordpress/components';
 
 import {
 	InspectorControls,
 	useInnerBlocksProps,
-	BlockControls,
-	BlockVerticalAlignmentToolbar,
 	useBlockProps,
 	store as blockEditorStore,
+	BlockContextProvider
 } from '@wordpress/block-editor';
 
 import {
@@ -31,22 +31,28 @@ import {
 import {
 	withDispatch,
 	useSelect,
+	dispatch
 } from '@wordpress/data';
 
-import { 
+import {
 	useState,
-	useEffect
+	useEffect,
+	useRef,
+	useCallback,
 } from '@wordpress/element';
 
-import { 
-	createReduxStore, 
+import {
+	createReduxStore,
 	register
 } from '@wordpress/data';
 
 
 import {
-	useRefEffect 
+	useRefEffect,
+	useMergeRefs
 } from '@wordpress/compose';
+
+import { createBlock } from '@wordpress/blocks';
 
 /**
  * Internal dependencies.
@@ -61,12 +67,14 @@ import {
 	generateGridTemplateColumnsOrRows,
 } from './utils.js';
 
-import { GridEditor } from './local_components/GridEditor';
-
 import {
 	GridNoColsHelpText,
 	GridNoRowsHelpText
 } from './local_components/HelpText';
+
+import { GridEditor } from './local_components/GridEditor';
+
+import { BreakpointModal } from './local_components/BreakpointEditor';
 
 /*
 * Redux store htmlFor holding the currently selected h2ml/grid-area, 
@@ -123,6 +131,7 @@ const GridEdit = ({
 			count: rowCount,
 			templates: rowTemplates
 		},
+		breakpointDefinitions,
 		editing
 	},
 	// Attribute Setters.
@@ -130,6 +139,9 @@ const GridEdit = ({
 	setGridTemplateColumnOrRow,
 	setGridMinHeight,
 	setGridEditing,
+	//
+	addUpdateGridArea,
+	updateBreakpoint,
 	// Redux Setters.
 	setGridAreasEditorStackingOrder,
 	// Other.
@@ -164,12 +176,6 @@ const GridEdit = ({
 		setGridAreasEditorStackingOrder(selectedBlockClientId, selectedGridItemRootBlockClientId);
 	}, [selectedBlockClientId]);
 
-	//
-	// focusTarget state, this is used to ensure we auto-focus on the correct Grid Area when making changes to the Grid.
-	//
-
-	const [focusTarget, setFocusTarget] = useState(null);
-
 	// 
 	// If either of the Grid's total number of children changes (adding), or if the 'requestEdit' attribute of one of the Grid's 
 	// changes (updating) then do the following: 
@@ -185,33 +191,52 @@ const GridEdit = ({
 	//
 
 	useEffect(() => {
-		if(!editing) {
-			// Determine if a Grid Area is requesting to be updated. 
-			const childRequestedEdit = gridChildren.find(child => child.attributes.requestEdit);
-			if(childRequestedEdit) setGridEditing(childRequestedEdit);
-		}
-		return () => {
-			// Set the focusTarget if needed. 
-			if(editing?.clientId) setFocusTarget(editing);
-			// Reset the Grid's 'editing' attribute. 
-			setGridEditing(false);
+		const childRequestedEdit = gridChildren.find(child => child.attributes.requestEdit);
+		if(childRequestedEdit && !editing) {
+			setGridEditing({
+				target: childRequestedEdit.clientId,
+				active: true,
+				done: false
+			});
 		}
 	}, [gridChildren]);
 
 	//
-	// If the Grid's 'editing' attribute changes to false, and a focusTarget is set, then .focus() on the focusTarget's DOM element,
-	// then reset the focusTarget to null.
+	// Finished editing grid (need to correctly focus afterwards)
+	//
+
+	useEffect(() => {
+		if(editing !== undefined && editing?.done) {
+			setGridEditing(undefined);
+		}
+	}, [editing])
+
+	//
+	// When editing is set to true, focus on the grid.
 	//
 	
-	const ref = useRefEffect((element) => {
+	const focusRef = useRefEffect((element) => {
 		const { ownerDocument } = element;
-		if(editing) {
+		if (editing && !editing.done) {
 			ownerDocument.querySelector(`[data-block="${clientId}"]`).focus();
-		} else if(focusTarget) {
-			ownerDocument.querySelector(`[data-block="${focusTarget.clientId}"]`).focus();
-			setFocusTarget(null)
 		}
 	}, [editing]);
+
+	//
+	// Breakpoint Editor Modal State.
+	//
+
+	const [isGridBreakpointsModalOpen, setGridBreakpointsModalOpen] = useState(false);
+
+	const openBreakpointEditor = useCallback(() => {
+		setGridBreakpointsModalOpen(true);
+	}, []);
+
+	const closeBreakpointEditor = useCallback(() => {
+		setGridBreakpointsModalOpen(false);
+	}, []);
+
+	const gridRef = useRef();
 
 	//
 	// Register the Block / InnerBlock Props.
@@ -226,7 +251,10 @@ const GridEdit = ({
 				gridTemplateColumns: generateGridTemplateColumnsOrRows(colTemplates),
 				gridTemplateRows: generateGridTemplateColumnsOrRows(rowTemplates)
 			},
-			ref: ref
+			ref: useMergeRefs([
+				focusRef,
+				gridRef
+			])
 		}), {
 			allowedBlocks: ['h2ml/grid-area'],
 		}
@@ -238,20 +266,14 @@ const GridEdit = ({
 
 	return (
 		<>
-			<BlockControls>
-				{/*<BlockVerticalAlignmentToolbar
-					onChange={setAlignment}
-					value={verticalAlignment}
-				/>*/}
-			</BlockControls>
 			<InspectorControls>
 				<Panel>
-					<PanelBody 
-						title={__("Grid Settings", 'h2ml')} 
+					<PanelBody
+						title={__("Grid Settings", 'h2ml')}
 						initialOpen={true}
 						className={'h2mlGridSettingsPanel'}
 					>
-						<VStack 
+						<VStack
 							as={'div'}
 							spacing={4}
 						>
@@ -260,7 +282,7 @@ const GridEdit = ({
 								value={colCount}
 								onChange={value => setGridNoColsOrRows(0, value)} // 0 === 'col'
 								min={1}
-								help={<GridNoColsHelpText/>}
+								help={<GridNoColsHelpText />}
 								__nextHasNoMarginBottom={true}
 							/>
 							<RangeControl
@@ -268,7 +290,7 @@ const GridEdit = ({
 								value={rowCount}
 								onChange={value => setGridNoColsOrRows(1, value)} // 1 === 'row'
 								min={1}
-								help={<GridNoRowsHelpText/>}
+								help={<GridNoRowsHelpText />}
 								__nextHasNoMarginBottom={true}
 							/>
 							{(colCount * rowCount) > 49 && (
@@ -307,18 +329,31 @@ const GridEdit = ({
 								onChange={newMinHeight => setGridMinHeight(newMinHeight)}
 							/>
 						</PanelBody>
+						<Button variant="secondary" onClick={openBreakpointEditor}>
+							{__("Set Grid Breakpoints", 'h2ml')}
+						</Button>
 					</PanelBody>
 				</Panel>
 			</InspectorControls>
 			<div {...innerBlocksProps}>
+				<BreakpointModal
+					open={isGridBreakpointsModalOpen}
+					gridClientId={clientId}
+					gridRef={gridRef}
+					onRequestClose={closeBreakpointEditor}
+					saveFunction={updateBreakpoint}
+				/>
 				<GridEditor
 					gridClientId={clientId}
 					colCount={colCount}
 					rowCount={rowCount}
-					editing={editing}
+					target={editing?.target}
+					saveFunction={(coords, target) => {
+						addUpdateGridArea(coords, target);
+					}}
 				/>
 				<div className="grid-grid-areas">
-					{!(editing) && (
+					{!editing?.active && (
 						<>
 							{children}
 							<div className="grid-grid-area-appender-wrap">
@@ -330,14 +365,18 @@ const GridEdit = ({
 												id="addNewGridArea"
 												className="addNewGridArea"
 												isSmall
-												onClick={() => setGridEditing(true)}
+												onClick={() => setGridEditing({
+													target: null,
+													active: true,
+													done: false
+												})}
 											>
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z"></path></svg>
 											</Button>
 										</div>
 									</Tooltip>
 								</div>
-							</div>
+							</div>	
 						</>
 					)}
 				</div>
@@ -383,23 +422,25 @@ const GridEditWrapper = withDispatch(
 			type = options[type];
 			// Create a copy of the existing Column / Row definition.
 			const {
-				count, 
+				count,
 				templates
 			} = attributes[`${type}Definitions`];
 			const templatesCopy = [...templates];
 			// Update the given Column / Row template and set the attribute.
 			const unit = (type === 'col') ? '1fr' : 'max-content';
 			templatesCopy[index] = (template ? template : unit);
-			setAttributes({ [`${type}Definitions`]: {
-				count,
-				templates: templatesCopy
-			} });
+			setAttributes({
+				[`${type}Definitions`]: {
+					count,
+					templates: templatesCopy
+				}
+			});
 		},
 		//
 		// Update the Grid's Minimum Height
 		//	
 		setGridMinHeight(minHeight) {
-			const {setAttributes} = ownProps;
+			const { setAttributes } = ownProps;
 			setAttributes({ minHeight })
 		},
 		//
@@ -408,6 +449,114 @@ const GridEditWrapper = withDispatch(
 		setGridEditing(value) {
 			const { setAttributes } = ownProps;
 			setAttributes({ editing: value });
+		},
+		//
+		// Add or Update a Grid Area
+		//
+		addUpdateGridArea(coords, target) {
+			const { clientId } = ownProps;
+			//
+			if (target === null) {
+				// Hooks.
+				const { getBlocks } = registry.select(blockEditorStore);
+				const { insertBlock } = dispatch(blockEditorStore);
+				// Adding a new Grid Area.
+				const {
+					nextChildStackingOrder,
+					nextChildIndex
+				} = getBlocks(clientId).reduce(
+					(res, cur, ind) => {
+						res.nextChildStackingOrder = cur.attributes.stackingOrder >= res.nextChildStackingOrder ? cur.attributes.stackingOrder + 1 : res.nextChildStackingOrder;
+						res.nextChildIndex = ind + 1;
+						return res;
+					}, {
+					nextChildStackingOrder: 0,
+					nextChildIndex: 0
+				}
+				);
+				// Insert the new Grid Area.
+				insertBlock(createBlock('h2ml/grid-area', {
+					gridArea: coords,
+					stackingOrder: nextChildStackingOrder
+				}), nextChildIndex, clientId);
+			} else {
+				// Hooks.
+				const { updateBlockAttributes } = dispatch(blockEditorStore);
+				// Update the requested Grid Area.
+				updateBlockAttributes(target, {
+					gridArea: coords,
+					requestEdit: false
+				});
+			}
+			//
+			this.setGridEditing({
+				target,
+				active: false,
+				done: true,
+			});
+		},
+		//
+		// Update Breakpoint
+		//
+		updateBreakpoint(breakpoint) {
+			const {
+				setAttributes,
+				attributes: {
+					breakpointDefinitions
+				}
+			} = ownProps;
+			//
+			const {
+				name,
+				mediaQuery,
+				minHeight,
+				colDefinitions,
+				rowDefinitions,
+				gridAreasDefinitions
+			} = breakpoint;
+			//
+			const newBreakpointDefinition = {
+				name,
+				mediaQuery,
+				minHeight,
+				colDefinitions,
+				rowDefinitions,
+			}
+			//
+			const { updateBlockAttributes } = dispatch(blockEditorStore);
+			const { getBlock } = registry.select(blockEditorStore);
+			//
+			gridAreasDefinitions.forEach(gridAreaDefinition => {
+				const {
+					clientId: gridAreaClientId,
+					coords
+				} = gridAreaDefinition;
+				//
+				updateBlockAttributes(gridAreaClientId, {
+					breakpointDefinitions: {
+						...getBlock(gridAreaClientId).attributes.breakpointDefinitions,
+						[name]: {
+							mediaQuery: mediaQuery,
+							coords
+						}
+					}
+				});
+			});
+			//
+			const existingBreakpoint = breakpointDefinitions.findIndex(cur => cur.name === breakpoint.name);
+			//
+			if (existingBreakpoint >= 0) {
+				const newBreakpointDefinitions = breakpointDefinitions.map(x => x);
+				newBreakpointDefinitions[existingBreakpoint] = newBreakpointDefinition;
+				setAttributes({ breakpointDefinitions: newBreakpointDefinitions });
+			} else {
+				setAttributes({
+					breakpointDefinitions: [
+						...breakpointDefinitions,
+						newBreakpointDefinition
+					]
+				});
+			}
 		},
 		//
 		// When a Grid-Area or any of it's children are selcted, visually move that item to the top of the 

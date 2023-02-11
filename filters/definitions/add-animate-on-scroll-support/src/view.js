@@ -2,8 +2,8 @@
  * The Code
  */
 
-import { AnimateOnScroll } from './AnimateOnScroll';
+import { H2mlAnimateOnScroll } from './AnimateOnScroll';
 
 document.addEventListener('DOMContentLoaded', () => {
-	AnimateOnScroll.animate('[data-animate]');
+	H2mlAnimateOnScroll.animate('[data-animate]');
 });
