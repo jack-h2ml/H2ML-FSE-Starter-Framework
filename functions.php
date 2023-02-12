@@ -38,6 +38,7 @@ $themeUpdateChecker = PucFactory::buildUpdateChecker(
 	__FILE__,
 	'H2ML-FSE-Starter-Framework'
 );
+
 $themeUpdateChecker->setBranch('main');
 
 /**

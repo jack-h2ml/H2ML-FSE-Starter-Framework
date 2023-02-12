@@ -38,3 +38,6 @@ node_modules/
 # General Notes
 Notes
 
+# Screenshot Affinity File
+*.afdesign
+
