@@ -19,6 +19,12 @@ import {
     __experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 
+import { 
+	useState,
+	useMemo,
+	useEffect
+} from '@wordpress/element';
+
 import { __ } from '@wordpress/i18n';
 
 import { createHigherOrderComponent } from '@wordpress/compose';
@@ -28,6 +34,12 @@ import { createHigherOrderComponent } from '@wordpress/compose';
  */
 
 import './index.scss';
+
+/**
+ * External Dependencies
+ */
+
+import 'animate.css/animate.min.css';
 
 /** 
  * Helper Components
@@ -132,6 +144,51 @@ addFilter(
 			},
 			setAttributes
 		} = props;
+
+		const animations = useMemo(() => [...document.styleSheets].reduce((res, styleSheet) => {
+			if(styleSheet.href && styleSheet.href.includes('add-animate-on-scroll-support')) {
+				return [...styleSheet.cssRules].reduce((res, rule) => ({
+					...res,
+					...((
+						Object.getPrototypeOf(rule).constructor === CSSStyleRule
+						&& rule.selectorText.includes('.animate__')
+						&& !rule.selectorText.includes('.animate__animated')
+						&& (rule.selectorText.includes('In') || rule.selectorText.includes('Out')) 
+						&& rule.selectorText !== '.animate__jackInTheBox'
+					) && (rule.selectorText.includes('In') 
+						? {animateIn: [
+							...res.animateIn,
+							{
+								label: [...rule.style.animationName.replace(/([A-Z])/g, " $1")].reduce((res, cur, ind) => (
+									`${res}${!ind ? cur.toUpperCase() : cur}`
+								), ''),
+								value: rule.selectorText.replace(/[.,\s]/g, '')
+							}
+						]} : {animateOut: [
+							...res.animateOut,
+							{
+								label: [...rule.style.animationName.replace(/([A-Z])/g, " $1")].reduce((res, cur, ind) => (
+									`${res}${!ind ? cur.toUpperCase() : cur}`
+								), ''),
+								value: rule.selectorText.replace(/[.,\s]/g, '')
+							}
+						]})
+					)
+				}), {
+					animateIn: [{
+						label: 'None',
+						value: ''
+					}],
+					animateOut: [{
+						label: 'None',
+						value: ''
+					}]
+				});
+			} else {
+				return res;
+			}
+		}, []), []);
+		
 		if (animateIn !== undefined) {
 			return (
 				<>
@@ -166,25 +223,7 @@ addFilter(
 											}});
 										}}
 										value={animateIn}
-										options={[{
-											label: 'None',
-											value: ''
-										}, {
-											label: 'Fade in',
-											value: 'animate__fadeIn'
-										}, {
-											label: 'Fade in Down',
-											value: 'animate__fadeInDown'
-										}, {
-											label: 'Fade in Left',
-											value: 'animate__fadeInLeft'
-										}, {
-											label: 'Fade in Up',
-											value: 'animate__fadeInUp'
-										}, {
-											label: 'Fade in Right',
-											value: 'animate__fadeInRight'
-										}]}
+										options={animations.animateIn}
 										label={__("Set the 'Animate In' style", 'h2ml')}
 										help={<AnimateInHelpText/>}
 										style={{marginBottom:0}}
@@ -200,25 +239,7 @@ addFilter(
 											}});
 										}}
 										value={animateOut}
-										options={[{
-											label: 'None',
-											value: ''
-										}, {
-											label: 'Fade out',
-											value: 'animate__fadeOut'
-										}, {
-											label: 'Fade out Down',
-											value: 'animate__fadeOutDown'
-										}, {
-											label: 'Fade out Left',
-											value: 'animate__fadeOutLeft'
-										}, {
-											label: 'Fade out Up',
-											value: 'animate__fadeOutUp'
-										}, {
-											label: 'Fade out Right',
-											value: 'animate__fadeOutRight'
-										}]}
+										options={animations.animateOut}
 										label={__("Set the 'Animate Out' style", 'h2ml')}
 										help={<AnimateOutHelpText/>}
 										style={{marginBottom:0}}
