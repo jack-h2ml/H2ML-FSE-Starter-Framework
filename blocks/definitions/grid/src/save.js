@@ -42,8 +42,8 @@ export default function Save({
         style: {
 			minHeight,
             gridTemplateAreas: defaultGridTemplateAreas,
-            gridTemplateColumns: defaultGridTemplateRows,
-			gridTemplateRows: defaultGridTemplateColumns
+            gridTemplateColumns: defaultGridTemplateColumns,
+			gridTemplateRows: defaultGridTemplateRows
         },
 		'data-breakpoint-definitions': breakpointDefinitions.length ? btoa(JSON.stringify(breakpointDefinitions.reduce((res, breakpointDefiniton, index) => ([
 			...((index + 1) === breakpointDefinitions.length ? [['(min-width: 0px)', {
