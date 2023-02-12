@@ -56,10 +56,10 @@ export class H2mlAnimateOnScroll {
 					// Fires the first time an element is added.
 					if(!isIntersecting) {
 						// If element is offscreen, add the animateOut class.
-						AnimateOnScroll.#toggleCurrentElement(false);
+						H2mlAnimateOnScroll.#toggleCurrentElement(false);
 					} else if(animateOnLoadVisible) {
 						// If element is onscreen, and is animateOnLoadVisible is true, add the animateIn class.
-						AnimateOnScroll.#toggleCurrentElement(true);
+						H2mlAnimateOnScroll.#toggleCurrentElement(true);
 					}
 				} else if(isShown !== isIntersecting) {
 					// Only fires once the elements initial state has been set, 
@@ -67,10 +67,10 @@ export class H2mlAnimateOnScroll {
 					// and the element is not already in an animation cycle. 
 					if(doAnimateIn) {
 						// Add the animateIn class.
-						AnimateOnScroll.#toggleCurrentElement(true);
+						H2mlAnimateOnScroll.#toggleCurrentElement(true);
 					} else {
 						// Add the animateOut class.
-						AnimateOnScroll.#toggleCurrentElement(false);
+						H2mlAnimateOnScroll.#toggleCurrentElement(false);
 					}
 				} 
 				// Update element state
