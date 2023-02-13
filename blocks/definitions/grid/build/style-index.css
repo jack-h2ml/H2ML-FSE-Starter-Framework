@@ -1,2 +1,19 @@
-:root{--base-padding:0.8rem;--mobile-breakpoint:900px;--quotation-width:32px;--columns-width:calc((var(--mobile-breakpoint) - ((var(--quotation-width)*1.25) + (var(--base-padding)*14)))/12)}
-.wp-block-h2ml-grid{display:grid;grid-template-columns:1fr;grid-template-rows:1fr}
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!../../common/styles/grid-styles/style.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+:root {
+  --base-padding: 0.8rem;
+  --mobile-breakpoint: 900px;
+  --quotation-width: 32px;
+  --columns-width: calc((var(--mobile-breakpoint) - ((var(--quotation-width) * 1.25) + (var(--base-padding) * 14))) / 12);
+}
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+.wp-block-h2ml-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zdHlsZS1pbmRleC5jc3MiLCJtYXBwaW5ncyI6Ijs7O0FBRUE7RUFDSTtFQUNBO0VBQ0E7RUFDQTtBQURKLEM7Ozs7QUNMQTtFQUNDO0VBQ0c7RUFDQTtBQUNKLEMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9oMm1sLWdyaWRhcmVhLy4uLy4uL2NvbW1vbi9zdHlsZXMvZ3JpZC1zdHlsZXMvc3R5bGUuc2NzcyIsIndlYnBhY2s6Ly9oMm1sLWdyaWRhcmVhLy4vc3JjL3N0eWxlLnNjc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLy9UZW1wXG5cbjpyb290IHtcbiAgICAtLWJhc2UtcGFkZGluZzogMC44cmVtO1xuICAgIC0tbW9iaWxlLWJyZWFrcG9pbnQ6IDkwMHB4O1xuICAgIC0tcXVvdGF0aW9uLXdpZHRoOiAzMnB4O1xuICAgIC0tY29sdW1ucy13aWR0aDogY2FsYygodmFyKC0tbW9iaWxlLWJyZWFrcG9pbnQpIC0gKCh2YXIoLS1xdW90YXRpb24td2lkdGgpICogMS4yNSkgKyAodmFyKC0tYmFzZS1wYWRkaW5nKSAqIDE0KSkpIC8gMTIpO1xufSIsIi53cC1ibG9jay1oMm1sLWdyaWQge1xuXHRkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyO1xuICAgIGdyaWQtdGVtcGxhdGUtcm93czogMWZyO1xufSJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==*/

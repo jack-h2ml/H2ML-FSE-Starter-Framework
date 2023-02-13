@@ -51,6 +51,7 @@ export class H2mlMonitorBreakpoints {
 		}
 		//
 		constructor(elem) {
+			console.log(elem);
 			//
 			Object.assign(this, {
 				elem,
