@@ -500,6 +500,7 @@ const GridEditWrapper = withDispatch(
 		//
 		updateBreakpoint(breakpoint) {
 			const {
+				clientId,
 				setAttributes,
 				attributes: {
 					breakpointDefinitions
@@ -525,26 +526,38 @@ const GridEditWrapper = withDispatch(
 			//
 			const { updateBlockAttributes } = dispatch(blockEditorStore);
 			const { getBlock } = registry.select(blockEditorStore);
-			//
-			gridAreasDefinitions.forEach(gridAreaDefinition => {
+			
+			// Update the Grid's Grid Areas
+			getBlock(clientId).innerBlocks.forEach(gridArea => {
 				const {
 					clientId: gridAreaClientId,
-					coords
-				} = gridAreaDefinition;
+					attributes: {
+						breakpointDefinitions = {},
+						gridArea: {
+							parsed: defaultGridArea
+						}
+					}
+				} = gridArea;
+				//
+				const gridAreaDefinition = gridAreasDefinitions.find(gridAreaDefinition => gridAreaDefinition.clientId === gridAreaClientId);
 				//
 				updateBlockAttributes(gridAreaClientId, {
 					breakpointDefinitions: {
-						...getBlock(gridAreaClientId).attributes.breakpointDefinitions,
-						[name]: {
+						...breakpointDefinitions,
+						'default': {
+							mediaQuery: '(min-width: 0px)',
+							coords: defaultGridArea,
+						},
+						...(gridAreaDefinition && {[name]: {
 							mediaQuery: mediaQuery,
-							coords
-						}
+							coords: gridAreaDefinition.coords
+						}})
 					}
 				});
 			});
-			//
+			
+			// Update the Grid
 			const existingBreakpoint = breakpointDefinitions.findIndex(cur => cur.name === breakpoint.name);
-			//
 			if (existingBreakpoint >= 0) {
 				const newBreakpointDefinitions = breakpointDefinitions.map(x => x);
 				newBreakpointDefinitions[existingBreakpoint] = newBreakpointDefinition;

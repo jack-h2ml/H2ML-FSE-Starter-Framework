@@ -34,8 +34,9 @@ export class H2mlMonitorBreakpoints {
 			this.children.forEach(([child, childBreakpointDefinitions]) => {
 				const childBreakPointDefinition = childBreakpointDefinitions[mediaQueryString];
 				if(childBreakPointDefinition) {
-					child.style.gridArea = childBreakPointDefinition.coords;
-					child.style.display = 'flex';
+					Object.entries(childBreakPointDefinition).forEach(([property, value]) => {
+						child.style[property] = value;
+					});
 				} else {
 					child.style.display = 'none';
 				}
@@ -51,10 +52,6 @@ export class H2mlMonitorBreakpoints {
 		}
 		//
 		constructor(elem) {
-			console.log(
-				elem.dataset.breakpointDefinitions,
-				atob(elem.dataset.breakpointDefinitions)
-			);
 			//
 			Object.assign(this, {
 				elem,

@@ -13,7 +13,9 @@ import {
 
 export default function Save({
 	attributes: {
-		gridArea,
+		gridArea: {
+			parsed: defaultGridArea
+		},
 		stackingOrder,
 		verticalAlignment,
 		backgroundColor,
@@ -29,19 +31,20 @@ export default function Save({
         style: {
 			justifyContent: verticalAlignment, 
 			backgroundColor: customBackgroundColor ? customBackgroundColor : backgroundColor,
-			gridArea: gridArea.parsed,
+			gridArea: defaultGridArea,
 			zIndex: stackingOrder
 		},
-		'data-breakpoint-definitions': Object.keys(breakpointDefinitions).length ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
+		'data-breakpoint-definitions': Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
 			...res,
 			[`${breakpointDefinition.mediaQuery}`]: {
-				coords: breakpointDefinition.coords
+				...(breakpointDefinition.coords ? {
+					gridArea: breakpointDefinition.coords,
+					display: 'flex'
+				} : {
+					display: 'none'
+				})
 			}	
-		}), {
-			'(min-width: 0px)': {
-				coords: gridArea.parsed
-			}
-		}))) : undefined
+		}), {}))) : undefined
     })});
 
 	return <div {...innerBlocksProps}/>;
