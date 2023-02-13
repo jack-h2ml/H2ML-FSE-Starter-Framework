@@ -126,6 +126,7 @@ add_action('after_setup_theme', function() {
 			// Store the Dependency handle in 
 			array_push($themeStylesheetDependencies, $styleDependencyName);
 		}
+		echo '<pre>' . print_r($themeStylesheetDependencies, true) . '</pre>';
 		// Enqueue the style.css
 		wp_enqueue_style( 
 			"$themeSlug-styles", 
