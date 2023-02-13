@@ -119,9 +119,9 @@
 				}, {
 					"fluid": {
 						"min": "1.25rem",
-						"max": "2.25rem"
+						"max": "2rem"
 					},
-					"size": "2rem",
+					"size": "1.5rem",
 					"slug": "x-large"
 				}, {
 					"fluid": {
