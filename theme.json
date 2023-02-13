@@ -143,10 +143,10 @@
 		"spacing": {
 			"blockGap": "var(--wp--preset--spacing--10)",
 			"padding": {
-				"top": "0px",
-				"right": "var(--wp--preset--spacing--10)",
-				"bottom": "0px",
-				"left": "var(--wp--preset--spacing--10)"
+				"top": "var(--wp--preset--spacing--20)",
+				"right": "var(--wp--preset--spacing--20)",
+				"bottom": "var(--wp--preset--spacing--20)",
+				"left": "var(--wp--preset--spacing--20)"
 			}
 		},
 		"typography": {
