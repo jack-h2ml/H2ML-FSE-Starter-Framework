@@ -113,7 +113,7 @@ add_action('after_setup_theme', function() {
 		foreach(glob(get_stylesheet_directory() . "/assets/style-dependencies/*.css") as $styleDependencyPath) {
 			// Generate a handle for this dependency.
 			$styleDependencyPathName = basename($styleDependencyPath, '.css');
-			$styleDependencyHandle   = "$themeSlug-styles-$name";
+			$styleDependencyHandle   = "$themeSlug-styles-$styleDependencyPathName";
 			// Parse the URI from the absolute path.
 			$styleDependencyUri      = str_replace($basePathNorm, site_url(), wp_normalize_path($styleDependencyPath));
 			// Register the dependency	
