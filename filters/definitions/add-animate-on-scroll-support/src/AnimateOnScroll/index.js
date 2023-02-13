@@ -1,3 +1,5 @@
+import 'requestidlecallback-polyfill';
+
 import 'animate.css/animate.min.css';
 import './AnimateOnScroll.scss';
 
