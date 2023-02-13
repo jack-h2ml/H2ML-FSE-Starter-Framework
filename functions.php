@@ -99,24 +99,21 @@ add_action('after_setup_theme', function() {
  add_action( 'wp_enqueue_scripts', function() {
 	// Ensure a child theme is in use. 
 	if(get_template_directory() !== get_stylesheet_directory()) {
-		//
-		echo '<pre>' . print_r([
-			get_option('stylesheet'),
-			get_stylesheet_uri()
-		], true) . '<pre>';
 		// Cache the normalised base path, and theme version to avoid unnecessary additional calls.
 		static $basePathNorm = '';
 		static $themeVersion = '';
-		if (!$basePathNorm || !$themeVersion) {
+		static $themeSlug    = '';
+		if (!$basePathNorm || !$themeVersion || !$themeSlug) {
 			$basePathNorm = wp_normalize_path(untrailingslashit(ABSPATH));
 			$themeVersion = wp_get_theme()->get('Version');
+			$themeSlug    = get_option('stylesheet');
 		}
 		// Retrieve any stylesheet dependencies, defined as css files in './assets/style-dependencies/'.
 		$themeStylesheetDependencies = [];
 		foreach(glob(get_stylesheet_directory() . "/assets/style-dependencies/*.css") as $styleDependencyPath) {
 			// Generate a handle for this dependency.
 			$styleDependencyPathName = basename($styleDependencyPath, '.css');
-			$styleDependencyHandle   = "ardtalla-styles-$name";
+			$styleDependencyHandle   = "$themeSlug-styles-$name";
 			// Parse the URI from the absolute path.
 			$styleDependencyUri      = str_replace($basePathNorm, site_url(), wp_normalize_path($styleDependencyPath));
 			// Register the dependency	
@@ -131,9 +128,10 @@ add_action('after_setup_theme', function() {
 		}
 		// Enqueue the style.css
 		wp_enqueue_style( 
-			'ardtalla-styles', 
+			"$themeSlug-styles", 
 			get_stylesheet_uri(), 
-			$themeStylesheetDependencies, 
+			//$themeStylesheetDependencies, 
+			array(),
 			$themeVersion
 		);
 	}
