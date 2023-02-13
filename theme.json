@@ -125,7 +125,7 @@
 					"slug": "x-large"
 				}, {
 					"fluid": {
-						"min": "2.25rem",
+						"min": "1.5rem",
 						"max": "3.25rem"
 					},
 					"size": "3rem",
