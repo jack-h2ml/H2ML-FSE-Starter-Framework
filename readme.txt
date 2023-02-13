@@ -22,5 +22,5 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 0.2.20 =
+= 0.2.21 =
 * Released: February 13, 2023
