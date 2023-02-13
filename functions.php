@@ -130,13 +130,11 @@ add_action('after_setup_theme', function() {
 				array_push($themeStylesheetDependenciesHandles, $styleDependencyHandle);
 			}
 		}
-		echo '<pre>' . print_r($themeStylesheetDependenciesHandles, true) . '</pre>';
 		// Enqueue the style.css
 		wp_enqueue_style( 
 			"$themeSlug-styles", 
 			get_stylesheet_uri(), 
 			$themeStylesheetDependenciesHandles, 
-			array(),
 			$themeVersion
 		);
 	}
