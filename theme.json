@@ -147,12 +147,6 @@
 				"right": "var(--wp--preset--spacing--20)",
 				"bottom": "0",
 				"left": "var(--wp--preset--spacing--20)"
-			},
-			"margin": {
-				"top": "var(--wp--preset--spacing--20)",
-				"right": "0",
-				"bottom": "var(--wp--preset--spacing--20)",
-				"left": "0"
 			}
 		},
 		"typography": {
