@@ -118,17 +118,17 @@
 					"slug": "large"
 				}, {
 					"fluid": {
+						"min": "1.25rem",
+						"max": "2.25rem"
+					},
+					"size": "2rem",
+					"slug": "x-large"
+				}, {
+					"fluid": {
 						"min": "2.25rem",
 						"max": "3.25rem"
 					},
 					"size": "3rem",
-					"slug": "x-large"
-				}, {
-					"fluid": {
-						"min": "3.25rem",
-						"max": "4rem"
-					},
-					"size": "3.75rem",
 					"slug": "xx-large"
 				}
 			]
