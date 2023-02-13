@@ -100,7 +100,10 @@ add_action('after_setup_theme', function() {
 	// Ensure a child theme is in use. 
 	if(get_template_directory() !== get_stylesheet_directory()) {
 		//
-		echo get_option('stylesheet');
+		echo '<pre>' . print_r([
+			get_option('stylesheet'),
+			get_stylesheet_uri()
+		], true) . '<pre>';
 		// Cache the normalised base path, and theme version to avoid unnecessary additional calls.
 		static $basePathNorm = '';
 		static $themeVersion = '';
