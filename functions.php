@@ -47,7 +47,7 @@ $themeUpdateChecker->setBranch('main');
  *
  */
 
- add_action('init', function() {
+add_action('init', function() {
 	foreach(glob(get_template_directory() . "/blocks/definitions/*") as $blockDefinitionDirectoryBuildPath) {
 		register_block_type($blockDefinitionDirectoryBuildPath);
 	}
