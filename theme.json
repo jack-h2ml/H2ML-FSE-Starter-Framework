@@ -106,15 +106,15 @@
 			"fontSizes": [
 				{
 					"fluid": false,
-					"size": "0.8rem",
+					"size": "0.6rem",
 					"slug": "small"
 				}, {
 					"fluid": false,
-					"size": "1rem",
+					"size": "0.8rem",
 					"slug": "medium"
 				}, {
 					"fluid": false,
-					"size": "2.25rem",
+					"size": "1rem",
 					"slug": "large"
 				}, {
 					"fluid": {
@@ -126,9 +126,9 @@
 				}, {
 					"fluid": {
 						"min": "3.25rem",
-						"max": "4.75rem"
+						"max": "4rem"
 					},
-					"size": "4rem",
+					"size": "3.75rem",
 					"slug": "xx-large"
 				}
 			]
