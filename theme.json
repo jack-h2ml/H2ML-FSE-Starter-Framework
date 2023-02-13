@@ -123,9 +123,9 @@
 				}, {
 					"fluid": {
 						"min": "2.25rem",
-						"max": "4rem"
+						"max": "3.75rem"
 					},
-					"size": "3.5rem",
+					"size": "3rem",
 					"slug": "xx-large"
 				}
 			]
