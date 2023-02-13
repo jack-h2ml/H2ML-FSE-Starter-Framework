@@ -127,6 +127,13 @@
 					},
 					"size": "6rem",
 					"slug": "xx-large"
+				}, {
+					"fluid": {
+						"min": "6rem",
+						"max": "20rem"
+					},
+					"size": "10rem",
+					"slug": "super-large"
 				}
 			]
 		},
