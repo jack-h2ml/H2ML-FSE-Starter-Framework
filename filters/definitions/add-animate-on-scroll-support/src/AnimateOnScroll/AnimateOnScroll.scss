@@ -1,4 +1,4 @@
-.animateOnScrollWrapper {
+.animateOnScrollWrapper, :is(.animateOnScrollWrapper) {
 	//
     overflow: visible !important;
 	min-height: 100% !important;
