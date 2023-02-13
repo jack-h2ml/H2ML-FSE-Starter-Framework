@@ -2,6 +2,16 @@
 
 /**
  * 
+ * Normalises the spacing above and below the post title in the editor.
+ * 
+ */
+
+add_action('admin_head', function() { 
+	echo '<style>.editor-styles-wrapper .edit-post-visual-editor__post-title-wrapper{margin-bottom: 4rem; margin-top: 4rem;}</style>';
+});
+
+/**
+ * 
  * Removes support for the core block patterns, as these cause breaking issues in the FSE Block Inserter.
  * As described here: https://github.com/WordPress/gutenberg/issues/24009
  * 
