@@ -1,2 +1,1 @@
-:root{--base-padding:0.8rem;--mobile-breakpoint:900px;--quotation-width:32px;--columns-width:calc((var(--mobile-breakpoint) - ((var(--quotation-width)*1.25) + (var(--base-padding)*14)))/12)}
 .wp-block-h2ml-grid{display:grid;grid-template-columns:1fr;grid-template-rows:1fr}

@@ -10,8 +10,6 @@ import { stack as icon } from '@wordpress/icons';
  * Style
  */
 
-import './../../../common/styles/grid-styles/style.scss';
-
 import './style.scss';
 
 /**
