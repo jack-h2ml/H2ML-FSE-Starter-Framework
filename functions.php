@@ -109,7 +109,7 @@ add_action('after_setup_theme', function() {
 			$themeSlug    = get_option('stylesheet');
 		}
 		// Retrieve any stylesheet dependencies, defined as css files in './assets/style-dependencies/'.
-		$themeStylesheetDependencies = [];
+		$themeStylesheetDependenciesHandles = [];
 		foreach(glob(get_stylesheet_directory() . "/assets/style-dependencies/*.css") as $styleDependencyPath) {
 			// Generate a handle for this dependency.
 			$styleDependencyPathName = basename($styleDependencyPath, '.css');
@@ -124,14 +124,14 @@ add_action('after_setup_theme', function() {
 				$themeVersion
 			);
 			// Store the Dependency handle in 
-			array_push($themeStylesheetDependencies, $styleDependencyName);
+			array_push($themeStylesheetDependenciesHandles, $styleDependencyHandle);
 		}
-		echo '<pre>' . print_r($themeStylesheetDependencies, true) . '</pre>';
+		echo '<pre>' . print_r($themeStylesheetDependenciesHandles, true) . '</pre>';
 		// Enqueue the style.css
 		wp_enqueue_style( 
 			"$themeSlug-styles", 
 			get_stylesheet_uri(), 
-			//$themeStylesheetDependencies, 
+			$themeStylesheetDependenciesHandles, 
 			array(),
 			$themeVersion
 		);
