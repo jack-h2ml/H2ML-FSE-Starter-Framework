@@ -4,10 +4,8 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	//
-	> * {
-		min-height: 0;
-	}
+
+	// Descendent Selectors
 	.fillGridArea {
 		// Styles
 		max-height: 100% !important;
@@ -15,8 +13,13 @@
 		height: 100% !important;
 		width: 100% !important;
 		object-fit: cover;
+
 		// Descendent Selectors
-		figure, div, img, iframe, video {
+		figure,
+		div,
+		img,
+		iframe,
+		video {
 			// Styles
 			max-height: inherit !important;
 			max-width: inherit !important;
@@ -24,15 +27,17 @@
 			width: inherit !important;
 			object-fit: inherit !important;
 		}
-		> div > div:has(.components-resizable-box__handle) {
+
+		>div>div:has(.components-resizable-box__handle) {
 			// Styles
 			display: none !important;
 		}
 	}
+
 	//
-	&.is-style-border{
+	&.is-style-border {
 		border: 2px solid #000;
-        border-radius: 16px;
-        background-color: #F6F6F6;
+		border-radius: 16px;
+		background-color: #F6F6F6;
 	}
 }
