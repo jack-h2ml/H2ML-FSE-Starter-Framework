@@ -90,3 +90,49 @@ add_action('after_setup_theme', function() {
 		}
 	}
 });
+
+/*
+ * Enque the child theme style.css, and any dependencies defined in 
+ * './assets/style-dependencies/'
+ */ 
+
+ add_action( 'wp_enqueue_scripts', function() {
+	// Ensure a child theme is in use. 
+	if(get_template_directory() !== get_stylesheet_directory()) {
+		//
+		echo get_option('stylesheet');
+		// Cache the normalised base path, and theme version to avoid unnecessary additional calls.
+		static $basePathNorm = '';
+		static $themeVersion = '';
+		if (!$basePathNorm || !$themeVersion) {
+			$basePathNorm = wp_normalize_path(untrailingslashit(ABSPATH));
+			$themeVersion = wp_get_theme()->get('Version');
+		}
+		// Retrieve any stylesheet dependencies, defined as css files in './assets/style-dependencies/'.
+		$themeStylesheetDependencies = [];
+		foreach(glob(get_stylesheet_directory() . "/assets/style-dependencies/*.css") as $styleDependencyPath) {
+			// Generate a handle for this dependency.
+			$styleDependencyPathName = basename($styleDependencyPath, '.css');
+			$styleDependencyHandle   = "ardtalla-styles-$name";
+			// Parse the URI from the absolute path.
+			$styleDependencyUri      = str_replace($basePathNorm, site_url(), wp_normalize_path($styleDependencyPath));
+			// Register the dependency	
+			wp_register_style(
+				$styleDependencyHandle,
+				$styleDependencyUri,
+				array(),
+				$themeVersion
+			);
+			// Store the Dependency handle in 
+			array_push($themeStylesheetDependencies, $styleDependencyName);
+		}
+		// Enqueue the style.css
+		wp_enqueue_style( 
+			'ardtalla-styles', 
+			get_stylesheet_uri(), 
+			$themeStylesheetDependencies, 
+			$themeVersion
+		);
+	}
+});
+
