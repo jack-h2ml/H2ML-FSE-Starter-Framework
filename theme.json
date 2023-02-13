@@ -110,22 +110,25 @@
 					"slug": "small"
 				}, {
 					"fluid": false,
-					"size": "1rem",
+					"size": "1.25rem",
 					"slug": "medium"
 				}, {
 					"fluid": false,
-					"size": "1.5rem",
-					"slug": "large"
-				}, {
-					"fluid": false,
 					"size": "2.25rem",
-					"slug": "x-large"
+					"slug": "large"
 				}, {
 					"fluid": {
 						"min": "2.25rem",
-						"max": "3.75rem"
+						"max": "3.25rem"
 					},
 					"size": "3rem",
+					"slug": "x-large"
+				}, {
+					"fluid": {
+						"min": "3.25rem",
+						"max": "4.75rem"
+					},
+					"size": "4rem",
 					"slug": "xx-large"
 				}
 			]
