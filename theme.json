@@ -20,6 +20,8 @@
 	"settings": {
 		"appearanceTools": true,
 		"color": {
+			"defaultPalette": false,
+			"custom": false,
 			"palette": [
 				{
 					"color": "#EEEAE7",
@@ -42,7 +44,8 @@
 					"name": "Base Darker 50",
 					"slug": "tertiary"
 				}
-			]
+			],
+			"link": true
 		},
 		"layout": {
 			"contentSize": "900px",
@@ -94,12 +97,12 @@
 		},
 		"typography": {
 			"dropCap": true,
-			"fluid": true,
 			"fontFamilies": [{
 				"fontFamily": "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif",
 				"name": "System Font",
 				"slug": "system-font"
 			}],
+			"fluid": true,
 			"fontSizes": [
 				{
 					"fluid": false,

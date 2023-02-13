@@ -99,7 +99,7 @@ add_action('after_setup_theme', function() {
  add_action( 'wp_enqueue_scripts', function() {
 	// Ensure a child theme is in use. 
 	if(get_template_directory() !== get_stylesheet_directory()) {
-		// Cache the normalised base path, and theme version to avoid unnecessary additional calls.
+		// Cache the normalised base path, theme version, and theme slug to avoid unnecessary additional calls.
 		static $basePathNorm = '';
 		static $themeVersion = '';
 		static $themeSlug    = '';
