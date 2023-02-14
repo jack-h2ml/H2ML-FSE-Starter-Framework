@@ -2,11 +2,33 @@
 
 /**
  * 
+ * Get an assets URI based on it's path.
+ * 
+ */
+
+function h2mlGetAssetURI($path) {
+	//
+	static $templateDirectory   = '';
+	static $stylesheetDirectory = '';
+	if(!$templateDirectory || !$stylesheetDirectory) {
+		$templateDirectory   = wp_normalize_path(get_template_directory());
+		$stylesheetDirectory = wp_normalize_path(get_stylesheet_directory());
+	}
+	//
+	if(str_contains($path, $templateDirectory)) {
+		return get_template_directory_uri() . str_replace($templateDirectory, '', $path);
+	} elseif(str_contains($path, $stylesheetDirectory)) {
+		return get_stylesheet_directory_uri() . str_replace($stylesheetDirectory, '', $path);
+	}
+}
+
+/**
+ * 
  * Generate a style handle, and ensure it's enqueued (less strict than the wp default).
  *   
  */
 
- function h2mlRegisterBlockStyleHandle($metadata, $type, $path, $index = 0) {
+function h2mlRegisterBlockStyleHandle($metadata, $type, $path, $index = 0) {
 
 	// Generate handle and get the asset path.
 	$styleHandle    = generate_block_asset_handle($metadata['name'], $type, $index);
@@ -24,7 +46,7 @@
 	}
 
 	// Get the style URI.
-	$styleURI = get_template_directory_uri() . str_replace(get_template_directory(), '', $stylePath);
+	$styleURI = h2mlGetAssetURI($stylePath);
 
 	// Enqueue the style.
 	$styleAsset      = require $styleAssetPath;
@@ -65,7 +87,7 @@ function h2mlRegisterBlockScriptHandle($metadata, $type, $path, $index = 0) {
 	}
 
 	// Get the script URI.
-	$scriptURI = get_template_directory_uri() . str_replace(get_template_directory(), '', $scriptPath);
+	$scriptURI = h2mlGetAssetURI($scriptPath);
 
 	// Enqueue the script.
 	$scriptAsset        = require $scriptAssetPath;
