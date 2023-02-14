@@ -92,11 +92,13 @@ add_action('after_setup_theme', function() {
 });
 
 /*
+ *
  * Enque the child theme style.css, and any dependencies defined in 
  * './assets/style-dependencies/'
+ *
  */ 
 
- add_action( 'wp_enqueue_scripts', function() {
+add_action( 'wp_enqueue_scripts', function() {
 	// Ensure a child theme is in use. 
 	if(get_template_directory() !== get_stylesheet_directory()) {
 		// Cache the normalised base path, theme version, and theme slug to avoid unnecessary additional calls.
@@ -141,4 +143,22 @@ add_action('after_setup_theme', function() {
 		);
 	}
 });
+
+/*
+ *
+ * Enque the child theme scripts, defined in 
+ * './assets/scripts/'
+ * 
+ */ 
+
+ add_action('after_setup_theme', function() {
+	foreach(glob(get_stylesheet_directory() . "/assets/scripts/*") as $childScriptDirectory) {
+		$childScriptAssist = $childScriptDirectory . '/index.php';
+		if(file_exists($childScriptAssist)) {
+			include_once $childScriptAssist;
+		}
+	}
+});
+
+
 
