@@ -82,7 +82,7 @@ export class H2mlAnimateOnScroll {
 					prevY: currY,
 					prevRatio: currRatio
 				});
-			});
+			}, {timeout: 300});
 		});
 	};
 	//
