@@ -91,8 +91,6 @@ export class H2mlAnimateOnScroll {
 		rootMargin: '0px 200%'
 	}
 	//
-	//
-	//
 	static #wrap = (elem) => {
 		const wrapper = document.createElement('div');
 		wrapper.classList.add('animateOnScrollWrapper', 'alignfull');
