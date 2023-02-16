@@ -14,7 +14,7 @@ import {
 import {
 	generateGridTemplateAreas,
     generateGridTemplateColumnsOrRows
-} from './utils.js'
+} from './editor_dependencies/utils.js'
 
 /**
  * The Code

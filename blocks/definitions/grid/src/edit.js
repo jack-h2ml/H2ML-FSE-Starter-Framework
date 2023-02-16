@@ -65,16 +65,16 @@ import './editor.scss';
 import {
 	generateGridTemplateAreas,
 	generateGridTemplateColumnsOrRows,
-} from './utils.js';
+} from './editor_dependencies/utils.js';
 
 import {
 	GridNoColsHelpText,
 	GridNoRowsHelpText
-} from './local_components/HelpText';
+} from './editor_dependencies/local_components/HelpText';
 
-import { GridEditor } from './local_components/GridEditor';
+import { GridEditor } from './editor_dependencies/local_components/GridEditor';
 
-import { BreakpointModal } from './local_components/BreakpointEditor';
+import { BreakpointModal } from './editor_dependencies/local_components/BreakpointEditor';
 
 /*
 * Redux store htmlFor holding the currently selected h2ml/grid-area, 

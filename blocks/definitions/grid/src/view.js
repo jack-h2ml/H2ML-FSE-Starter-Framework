@@ -1,3 +1,3 @@
-import {H2mlMonitorBreakpoints} from './monitorBreakpoints';
+import {H2mlMonitorBreakpoints} from './view_dependencies/monitorBreakpoints';
 
-document.addEventListener('DOMContentLoaded', H2mlMonitorBreakpoints.monitor)
+document.addEventListener('DOMContentLoaded', H2mlMonitorBreakpoints.monitor);

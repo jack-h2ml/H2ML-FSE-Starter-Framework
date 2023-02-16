@@ -5,6 +5,8 @@ import { switchExp } from '@h2mlagency/switchexpression';
 import 'animate.css/animate.min.css';
 import './AnimateOnScroll.scss';
 
+//
+
 export class H2mlAnimateOnScroll {
 	//
 	static #observer = null;
@@ -32,6 +34,8 @@ export class H2mlAnimateOnScroll {
 		elem.style.setProperty('--animate-duration', animateDuration);
 		elem.classList.remove(classToRemove);
 		elem.classList.add(classToAdd);
+		//
+		elemData.isShown = show;
 	}
 	//
 	static #observerCallback = (entries) => {
@@ -44,6 +48,7 @@ export class H2mlAnimateOnScroll {
 				const elemData = H2mlAnimateOnScroll.#currElemData = elements.get(wrapperElem);
 				const {
 					animateOnLoadVisible,
+					animateThreshold,
 					animateDirection,
 					isShown,
 					prevY,
@@ -52,44 +57,37 @@ export class H2mlAnimateOnScroll {
 				//
 				const currY = entry.boundingClientRect.y;
 				const currRatio = entry.intersectionRatio;
-				const isIntersecting = currRatio > 0.5;
 				//
-				const scrollingDirection = prevY < currY; // True = up, False = down
-				const doAnimateIn = prevRatio < currRatio;
+				const scrollingDirection = prevY >= currY; // True = up, False = down
+				const isRamping = prevRatio < currRatio;
 				//
-				const animateDirectionFilter = switchExp([
-					['forwards', scrollingDirection && !doAnimateIn],
-					['backwards', !scrollingDirection && !doAnimateIn],
+				const animateDirectionFilter = !!switchExp([
+					['forwards', (scrollingDirection && isRamping) === (scrollingDirection || isRamping)],
+					['backwards', (!scrollingDirection && isRamping) === (!scrollingDirection || isRamping)],
 					['both', true]
 				]).eval(animateDirection).find(res => res === true);
 				//
 				if(isShown !== !!isShown) {
 					// Fires the first time an element is added.
-					if(!isIntersecting) {
+					if(!isRamping) {
 						// If element is offscreen, add the animateOut class.
-						H2mlAnimateOnScroll.#toggleCurrentElement(false);
+						H2mlAnimateOnScroll.#toggleCurrentElement(!animateDirectionFilter);
 					} else if(animateOnLoadVisible) {
 						// If element is onscreen, and is animateOnLoadVisible is true, add the animateIn class.
 						H2mlAnimateOnScroll.#toggleCurrentElement(true);
 					}
-				} else if(isShown !== isIntersecting) {
-					// Only fires once the elements initial state has been set, 
-					// the element is above / below the intersection threshold,
-					// and the element is not already in an animation cycle. 
-					if(doAnimateIn) {
-						// Add the animateIn class.
-						H2mlAnimateOnScroll.#toggleCurrentElement(true);
-					} else {
-						if(animateDirectionFilter) {
-							// Add the animateOut class.
+				} else {
+					if(animateDirectionFilter) {
+						if(!isShown && (currRatio >= animateThreshold)) {
+							H2mlAnimateOnScroll.#toggleCurrentElement(true);
+						} else if(isShown && (currRatio <= animateThreshold)) {
 							H2mlAnimateOnScroll.#toggleCurrentElement(false);
-						} 
+						}
 					}
-				} 
+				}
 				// Update element state
 				elements.set(wrapperElem, {
 					...elemData,
-					isShown: isIntersecting,
 					prevY: currY,
 					prevRatio: currRatio
 				});
@@ -118,6 +116,7 @@ export class H2mlAnimateOnScroll {
 				animateOnLoadVisible = false,
 				animateInDuration,
 				animateOutDuration,
+				animateThreshold,
 				animateDirection
 			} = elem.dataset;
 			//
@@ -130,6 +129,7 @@ export class H2mlAnimateOnScroll {
 				animateOnLoadVisible,
 				animateInDuration,
 				animateOutDuration,
+				animateThreshold,
 				animateDirection,
 				isShown: undefined,
 				prevY: 0,

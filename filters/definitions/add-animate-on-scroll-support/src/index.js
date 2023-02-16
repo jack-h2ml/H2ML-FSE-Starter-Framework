@@ -17,13 +17,10 @@ import {
 	__experimentalText as Text,
 	__experimentalToolsPanel as ToolsPanel,
     __experimentalToolsPanelItem as ToolsPanelItem,
+	__experimentalNumberControl as NumberControl,
 } from '@wordpress/components';
 
-import { 
-	useState,
-	useMemo,
-	useEffect
-} from '@wordpress/element';
+import { useMemo } from '@wordpress/element';
 
 import { __ } from '@wordpress/i18n';
 
@@ -35,85 +32,77 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 
 import './index.scss';
 
+import {
+	AnimateInHelpText,
+	AnimateOutHelpText,
+	AnimateInDurationHelpText,
+	AnimateOutDurationHelpText,
+	AnimateThresholdHelpText,
+	AnimateDirectionHelpText
+} from './editor_dependencies/local_components/HelpText';
+
 /**
  * External Dependencies
  */
 
 import 'animate.css/animate.min.css';
 
-/** 
- * Helper Components
- */
-
-const AnimateInHelpText = (props) => {
-	return (
-		<span>
-			{__("The 'Animate In' animation plays when scrolling the block into view.", 'h2ml')}
-		</span>
-	);
-}
-
-const AnimateOutHelpText = (props) => {
-	return (
-		<span>
-			{__("The 'Animate Out' animation plays when scrolling the block out of view.", 'h2ml')}
-		</span>
-	);
-}
-
-const AnimateInDurationHelpText = (props) => {
-	return (
-		<VStack 
-			as={'span'}
-			spacing={1}
-		>
-			<span>
-				{__("Set this block's 'Animate In'", 'html')} <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/CSS/time">{__("duration", 'h2ml')}</ExternalLink>.
-			</span>
-			<span>
-				{__("By default this is '500ms'.", 'h2ml')}
-			</span>
-		</VStack>
-	);
-}
-
-const AnimateOutDurationHelpText = (props) => {
-	return (
-		<VStack 
-			as={'span'}
-			spacing={1}
-		>
-			<span>
-				{__("Set this block's 'Animate Out'", 'html')} <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/CSS/time">{__("duration", 'h2ml')}</ExternalLink>.
-			</span>
-			<span>
-				{__("By default this is '500ms'.", 'h2ml')}
-			</span>
-		</VStack>
-	);
-}
-
-const AnimateDirectionHelpText = (props) => {
-	return (
-		<VStack 
-			as={'span'}
-			spacing={1}
-		>
-			<span>
-				{__("Set this block's 'Animate Direction', this determines when the animation will play.", 'html')} 
-			</span>
-			<span>
-				{__("By default this is 'Both'.", 'h2ml')}
-			</span>
-		</VStack>
-	);
-}
-
 /*
  * Global
  */
 
-const animationClass = 'animate__animated';
+const animateIsAnimatedClass = 'animate__animated';
+
+const defaultAnimateValues = {
+	animateInDuration: '500ms',
+	animateOutDuration: '500ms',
+	animateThreshold: 0.5,
+	animateDirection: 'both'
+}
+
+const getAnimateCssDefinitions = () => [...document.styleSheets].reduce((res, styleSheet) => {
+	if(styleSheet.href && styleSheet.href.includes('add-animate-on-scroll-support')) {
+		return [...styleSheet.cssRules].reduce((res, rule) => ({
+			...res,
+			...((
+				Object.getPrototypeOf(rule).constructor === CSSStyleRule
+				&& rule.selectorText.includes('.animate__')
+				&& !rule.selectorText.includes('.animate__animated')
+				&& (rule.selectorText.includes('In') || rule.selectorText.includes('Out')) 
+				&& rule.selectorText !== '.animate__jackInTheBox'
+			) && (rule.selectorText.includes('In') 
+				? {animateIn: [
+					...res.animateIn,
+					{
+						label: [...rule.style.animationName.replace(/([A-Z])/g, " $1")].reduce((res, cur, ind) => (
+							`${res}${!ind ? cur.toUpperCase() : cur}`
+						), ''),
+						value: rule.selectorText.replace(/[.,\s]/g, '')
+					}
+				]} : {animateOut: [
+					...res.animateOut,
+					{
+						label: [...rule.style.animationName.replace(/([A-Z])/g, " $1")].reduce((res, cur, ind) => (
+							`${res}${!ind ? cur.toUpperCase() : cur}`
+						), ''),
+						value: rule.selectorText.replace(/[.,\s]/g, '')
+					}
+				]})
+			)
+		}), {
+			animateIn: [{
+				label: 'None',
+				value: ''
+			}],
+			animateOut: [{
+				label: 'None',
+				value: ''
+			}]
+		});
+	} else {
+		return res;
+	}
+}, []);
 
 /** 
  * The Filter
@@ -132,9 +121,7 @@ addFilter(
 					default: {
 						animateIn: '',
 						animateOut: '',
-						animateInDuration: '500ms',
-						animateOutDuration: '500ms',
-						animateDirection: 'both'
+						...defaultAnimateValues
 					}
 				}
 			}
@@ -152,60 +139,20 @@ addFilter(
 	createHigherOrderComponent(BlockEdit => props => {
 		const {
 			attributes: {
+				h2mlAnimationOnScroll: h2mlAnimationOnScrollAttributes,
 				h2mlAnimationOnScroll: {
 					animateIn,
 					animateOut,
 					animateInDuration,
 					animateOutDuration,
+					animateThreshold,
 					animateDirection
 				} = {}
 			},
 			setAttributes
 		} = props;
 
-		const animations = useMemo(() => [...document.styleSheets].reduce((res, styleSheet) => {
-			if(styleSheet.href && styleSheet.href.includes('add-animate-on-scroll-support')) {
-				return [...styleSheet.cssRules].reduce((res, rule) => ({
-					...res,
-					...((
-						Object.getPrototypeOf(rule).constructor === CSSStyleRule
-						&& rule.selectorText.includes('.animate__')
-						&& !rule.selectorText.includes('.animate__animated')
-						&& (rule.selectorText.includes('In') || rule.selectorText.includes('Out')) 
-						&& rule.selectorText !== '.animate__jackInTheBox'
-					) && (rule.selectorText.includes('In') 
-						? {animateIn: [
-							...res.animateIn,
-							{
-								label: [...rule.style.animationName.replace(/([A-Z])/g, " $1")].reduce((res, cur, ind) => (
-									`${res}${!ind ? cur.toUpperCase() : cur}`
-								), ''),
-								value: rule.selectorText.replace(/[.,\s]/g, '')
-							}
-						]} : {animateOut: [
-							...res.animateOut,
-							{
-								label: [...rule.style.animationName.replace(/([A-Z])/g, " $1")].reduce((res, cur, ind) => (
-									`${res}${!ind ? cur.toUpperCase() : cur}`
-								), ''),
-								value: rule.selectorText.replace(/[.,\s]/g, '')
-							}
-						]})
-					)
-				}), {
-					animateIn: [{
-						label: 'None',
-						value: ''
-					}],
-					animateOut: [{
-						label: 'None',
-						value: ''
-					}]
-				});
-			} else {
-				return res;
-			}
-		}, []), []);
+		const animationClassNames = useMemo(() => getAnimateCssDefinitions(), []);
 		
 		if (animateIn !== undefined) {
 			return (
@@ -232,34 +179,28 @@ addFilter(
 										</Text>
 									</Notice>
 									<SelectControl
-										onChange={(value) => {
+										onChange={(newAnimation) => {
 											setAttributes({h2mlAnimationOnScroll: {
-												animateIn: value,
-												animateOut,
-												animateInDuration,
-												animateOutDuration,
-												animateDirection
+												...h2mlAnimationOnScrollAttributes,
+												animateIn: newAnimation
 											}});
 										}}
 										value={animateIn}
-										options={animations.animateIn}
+										options={animationClassNames.animateIn}
 										label={__("Set the 'Animate In' style", 'h2ml')}
 										help={<AnimateInHelpText/>}
 										style={{marginBottom:0}}
 										__nextHasNoMarginBottom={true}
 									/>
 									<SelectControl
-										onChange={(value) => {
+										onChange={(newAnimation) => {
 											setAttributes({h2mlAnimationOnScroll: {
-												animateIn,
-												animateOut: value,
-												animateInDuration,
-												animateOutDuration,
-												animateDirection
+												...h2mlAnimationOnScrollAttributes,
+												animateOut: newAnimation
 											}});
 										}}
 										value={animateOut}
-										options={animations.animateOut}
+										options={animationClassNames.animateOut}
 										label={__("Set the 'Animate Out' style", 'h2ml')}
 										help={<AnimateOutHelpText/>}
 										style={{marginBottom:0}}
@@ -270,24 +211,18 @@ addFilter(
 											label="Animation Additional Settings"
 											resetAll={() => {
 												setAttributes({h2mlAnimationOnScroll: {
-													animateIn,
-													animateOut,
-													animateInDuration: '500ms',
-													animateOutDuration: '500ms',
-													animateDirection
+													...h2mlAnimationOnScrollAttributes,
+													...defaultAnimateValues
 												}});
 											}}
 										>
 											<ToolsPanelItem
-												hasValue={() => !!animateInDuration}
+												hasValue={() => animateInDuration !== defaultAnimateValues.animateInDuration}
 												label={__("Animate In Duration", 'h2ml')}
 												onDeselect={() => {
 													setAttributes({h2mlAnimationOnScroll: {
-														animateIn,
-														animateOut,
-														animateInDuration: '500ms',
-														animateOutDuration,
-														animateDirection
+														...h2mlAnimationOnScrollAttributes,
+														defaultAnimateValues: defaultAnimateValues.animateInDuration
 													}});
 												}}
 												isShownByDefault={false}
@@ -296,11 +231,8 @@ addFilter(
 													value={animateInDuration}
 													onChange={(newDuration) => {
 														setAttributes({h2mlAnimationOnScroll: {
-															animateIn,
-															animateOut,
-															animateInDuration: newDuration,
-															animateOutDuration,
-															animateDirection
+															...h2mlAnimationOnScrollAttributes,
+															animateInDuration: newDuration
 														}});
 													}}
 													label={__("Animate In Duration", 'h2ml')}
@@ -308,15 +240,12 @@ addFilter(
 												/>
 											</ToolsPanelItem>
 											<ToolsPanelItem
-												hasValue={() => !!animateOutDuration}
+												hasValue={() => animateOutDuration !== defaultAnimateValues.animateOutDuration}
 												label={__("Animate Out Duration", 'h2ml')}
 												onDeselect={() => {
 													setAttributes({h2mlAnimationOnScroll: {
-														animateIn,
-														animateOut,
-														animateInDuration,
-														animateOutDuration: '500ms',
-														animateDirection
+														...h2mlAnimationOnScrollAttributes,
+														animateOutDuration: defaultAnimateValues.animateOutDuration
 													}});
 												}}
 												isShownByDefault={false}
@@ -325,11 +254,8 @@ addFilter(
 													value={animateOutDuration}
 													onChange={(newDuration) => {
 														setAttributes({h2mlAnimationOnScroll: {
-															animateIn,
-															animateOut,
-															animateInDuration,
-															animateOutDuration: newDuration,
-															animateDirection
+															...h2mlAnimationOnScrollAttributes,
+															animateOutDuration: newDuration
 														}});
 													}}
 													label={__("Animate Out Duration", 'h2ml')}
@@ -337,28 +263,47 @@ addFilter(
 												/>
 											</ToolsPanelItem>
 											<ToolsPanelItem
-												hasValue={() => !!animateDirection}
+												hasValue={() => animateThreshold !== defaultAnimateValues.animateThreshold}
+												label={__("Animate Threshold", 'h2ml')}
+												onDeselect={() => {
+													setAttributes({h2mlAnimationOnScroll: {
+														...h2mlAnimationOnScrollAttributes,
+														animateThreshold: defaultAnimateValues.animateThreshold
+													}});
+												}}
+												isShownByDefault={false}
+											>
+												<NumberControl
+													onChange={(newThreshold) => {
+														setAttributes({h2mlAnimationOnScroll: {
+															...h2mlAnimationOnScrollAttributes,
+															animateThreshold: newThreshold
+														}});
+													}}
+													value={animateThreshold}
+													min={0.1}
+													max={1}
+													step={0.1}
+													label={__("Animate Threshold", 'h2ml')}
+													help={<AnimateThresholdHelpText/>}
+												/>
+											</ToolsPanelItem>
+											<ToolsPanelItem
+												hasValue={() => animateDirection !== defaultAnimateValues.animateDirection}
 												label={__("Animate Direction", 'h2ml')}
 												onDeselect={() => {
 													setAttributes({h2mlAnimationOnScroll: {
-														animateIn,
-														animateOut,
-														animateInDuration,
-														animateOutDuration,
-														animateDirection: 'both',
+														...h2mlAnimationOnScrollAttributes,
+														animateDirection: defaultAnimateValues.animateDirection
 													}});
 												}}
 												isShownByDefault={false}
 											>
 												<SelectControl
-													onChange={(value) => {
-														console.log(value);
+													onChange={(newDirection) => {
 														setAttributes({h2mlAnimationOnScroll: {
-															animateIn,
-															animateOut,
-															animateInDuration,
-															animateOutDuration,
-															animateDirection: value
+															...h2mlAnimationOnScrollAttributes,
+															animateDirection: newDirection
 														}});
 													}}
 													value={animateDirection}
@@ -408,6 +353,7 @@ addFilter(
 				animateOut,
 				animateInDuration,
 				animateOutDuration,
+				animateThreshold,
 				animateDirection
 			} = {}
 		} = attributes;
@@ -415,20 +361,19 @@ addFilter(
 		if (animateIn || animateOut) {
 			//
 			const className = (oldClassName ? oldClassName.split(' ') : []).reduce((res, cur) => {
-				return (cur !== animationClass) ? `${res} ${cur}` : `${res}`
-			}, (animationClass));
+				return (cur !== animateIsAnimatedClass) ? `${res} ${cur}` : `${res}`
+			}, (animateIsAnimatedClass));
 			//
 			return {
 				...props,
 				className,
-				...((animateIn || animateOut) && {
-					'data-animate': '',
-					'data-animate-direction': animateDirection
-				}),
+				'data-animate': '',
 				...(animateIn && {'data-animate-in': animateIn}),
 				...(animateOut && {'data-animate-out': animateOut}),
 				...(animateInDuration && {'data-animate-in-duration': animateInDuration}),
-				...(animateOutDuration && {'data-animate-out-duration': animateOutDuration})
+				...(animateOutDuration && {'data-animate-out-duration': animateOutDuration}),
+				...(animateDirection && {'data-animate-direction': animateDirection}),
+				...(animateThreshold && {'data-animate-Threshold': animateThreshold}),
 			};
 		}
 		return props;
