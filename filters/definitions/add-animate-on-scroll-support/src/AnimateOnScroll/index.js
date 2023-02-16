@@ -1,5 +1,7 @@
 import 'requestidlecallback-polyfill';
 
+import { switchExp } from '@h2mlagency/switchexpression';
+
 import 'animate.css/animate.min.css';
 import './AnimateOnScroll.scss';
 
@@ -42,6 +44,7 @@ export class H2mlAnimateOnScroll {
 				const elemData = H2mlAnimateOnScroll.#currElemData = elements.get(wrapperElem);
 				const {
 					animateOnLoadVisible,
+					animateDirection,
 					isShown,
 					prevY,
 					prevRatio,
@@ -51,8 +54,14 @@ export class H2mlAnimateOnScroll {
 				const currRatio = entry.intersectionRatio;
 				const isIntersecting = currRatio > 0.5;
 				//
-				const scrollingDirection = prevY > currY; // True = down, False = up
+				const scrollingDirection = prevY < currY; // True = up, False = down
 				const doAnimateIn = prevRatio < currRatio;
+				//
+				const animateDirectionFilter = switchExp([
+					['forwards', scrollingDirection && !doAnimateIn],
+					['backwards', !scrollingDirection && !doAnimateIn],
+					['both', true]
+				]).eval(animateDirection).find(res => res === true);
 				//
 				if(isShown !== !!isShown) {
 					// Fires the first time an element is added.
@@ -71,8 +80,10 @@ export class H2mlAnimateOnScroll {
 						// Add the animateIn class.
 						H2mlAnimateOnScroll.#toggleCurrentElement(true);
 					} else {
-						// Add the animateOut class.
-						H2mlAnimateOnScroll.#toggleCurrentElement(false);
+						if(animateDirectionFilter) {
+							// Add the animateOut class.
+							H2mlAnimateOnScroll.#toggleCurrentElement(false);
+						} 
 					}
 				} 
 				// Update element state
@@ -105,8 +116,9 @@ export class H2mlAnimateOnScroll {
 				animateIn = null,
 				animateOut = null,
 				animateOnLoadVisible = false,
-				animateInDuration = '500ms',
-				animateOutDuration = '500ms'
+				animateInDuration,
+				animateOutDuration,
+				animateDirection
 			} = elem.dataset;
 			//
 			const wrapperElem = H2mlAnimateOnScroll.#wrap(elem);
@@ -118,6 +130,7 @@ export class H2mlAnimateOnScroll {
 				animateOnLoadVisible,
 				animateInDuration,
 				animateOutDuration,
+				animateDirection,
 				isShown: undefined,
 				prevY: 0,
 				prevRatio: 0,

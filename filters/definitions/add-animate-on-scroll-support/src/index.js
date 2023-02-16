@@ -71,7 +71,7 @@ const AnimateInDurationHelpText = (props) => {
 				{__("Set this block's 'Animate In'", 'html')} <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/CSS/time">{__("duration", 'h2ml')}</ExternalLink>.
 			</span>
 			<span>
-				{__("By default this is 500ms.", 'h2ml')}
+				{__("By default this is '500ms'.", 'h2ml')}
 			</span>
 		</VStack>
 	);
@@ -87,7 +87,23 @@ const AnimateOutDurationHelpText = (props) => {
 				{__("Set this block's 'Animate Out'", 'html')} <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/CSS/time">{__("duration", 'h2ml')}</ExternalLink>.
 			</span>
 			<span>
-				{__("By default this is 500ms.", 'h2ml')}
+				{__("By default this is '500ms'.", 'h2ml')}
+			</span>
+		</VStack>
+	);
+}
+
+const AnimateDirectionHelpText = (props) => {
+	return (
+		<VStack 
+			as={'span'}
+			spacing={1}
+		>
+			<span>
+				{__("Set this block's 'Animate Direction', this determines when the animation will play.", 'html')} 
+			</span>
+			<span>
+				{__("By default this is 'Both'.", 'h2ml')}
 			</span>
 		</VStack>
 	);
@@ -116,8 +132,9 @@ addFilter(
 					default: {
 						animateIn: '',
 						animateOut: '',
-						animateInDuration: '',
-						animateOutDuration: ''
+						animateInDuration: '500ms',
+						animateOutDuration: '500ms',
+						animateDirection: 'both'
 					}
 				}
 			}
@@ -139,7 +156,8 @@ addFilter(
 					animateIn,
 					animateOut,
 					animateInDuration,
-					animateOutDuration
+					animateOutDuration,
+					animateDirection
 				} = {}
 			},
 			setAttributes
@@ -219,7 +237,8 @@ addFilter(
 												animateIn: value,
 												animateOut,
 												animateInDuration,
-												animateOutDuration
+												animateOutDuration,
+												animateDirection
 											}});
 										}}
 										value={animateIn}
@@ -235,7 +254,8 @@ addFilter(
 												animateIn,
 												animateOut: value,
 												animateInDuration,
-												animateOutDuration
+												animateOutDuration,
+												animateDirection
 											}});
 										}}
 										value={animateOut}
@@ -252,8 +272,9 @@ addFilter(
 												setAttributes({h2mlAnimationOnScroll: {
 													animateIn,
 													animateOut,
-													animateInDuration: '',
-													animateOutDuration: ''
+													animateInDuration: '500ms',
+													animateOutDuration: '500ms',
+													animateDirection
 												}});
 											}}
 										>
@@ -264,8 +285,9 @@ addFilter(
 													setAttributes({h2mlAnimationOnScroll: {
 														animateIn,
 														animateOut,
-														animateInDuration: '',
-														animateOutDuration
+														animateInDuration: '500ms',
+														animateOutDuration,
+														animateDirection
 													}});
 												}}
 												isShownByDefault={false}
@@ -277,7 +299,8 @@ addFilter(
 															animateIn,
 															animateOut,
 															animateInDuration: newDuration,
-															animateOutDuration
+															animateOutDuration,
+															animateDirection
 														}});
 													}}
 													label={__("Animate In Duration", 'h2ml')}
@@ -292,7 +315,8 @@ addFilter(
 														animateIn,
 														animateOut,
 														animateInDuration,
-														animateOutDuration: ''
+														animateOutDuration: '500ms',
+														animateDirection
 													}});
 												}}
 												isShownByDefault={false}
@@ -304,11 +328,54 @@ addFilter(
 															animateIn,
 															animateOut,
 															animateInDuration,
-															animateOutDuration: newDuration
+															animateOutDuration: newDuration,
+															animateDirection
 														}});
 													}}
 													label={__("Animate Out Duration", 'h2ml')}
 													help={<AnimateOutDurationHelpText/>}
+												/>
+											</ToolsPanelItem>
+											<ToolsPanelItem
+												hasValue={() => !!animateDirection}
+												label={__("Animate Direction", 'h2ml')}
+												onDeselect={() => {
+													setAttributes({h2mlAnimationOnScroll: {
+														animateIn,
+														animateOut,
+														animateInDuration,
+														animateOutDuration,
+														animateDirection: 'both',
+													}});
+												}}
+												isShownByDefault={false}
+											>
+												<SelectControl
+													onChange={(value) => {
+														console.log(value);
+														setAttributes({h2mlAnimationOnScroll: {
+															animateIn,
+															animateOut,
+															animateInDuration,
+															animateOutDuration,
+															animateDirection: value
+														}});
+													}}
+													value={animateDirection}
+													options={[{
+														value: 'both',
+														label: 'Both (Default)'
+													}, {
+														value: 'forwards',
+														label: 'Forwards'
+													}, {
+														value: 'backwards',
+														label: 'Backwards'
+													}]}
+													label={__("Animate Direction", 'h2ml')}
+													help={<AnimateDirectionHelpText/>}
+													style={{marginBottom:0}}
+													__nextHasNoMarginBottom={true}
 												/>
 											</ToolsPanelItem>
 										</ToolsPanel>
@@ -340,7 +407,8 @@ addFilter(
 				animateIn,
 				animateOut,
 				animateInDuration,
-				animateOutDuration
+				animateOutDuration,
+				animateDirection
 			} = {}
 		} = attributes;
 		//
@@ -353,11 +421,14 @@ addFilter(
 			return {
 				...props,
 				className,
-				...((animateIn || animateOut) && {'data-animate': ''}),
+				...((animateIn || animateOut) && {
+					'data-animate': '',
+					'data-animate-direction': animateDirection
+				}),
 				...(animateIn && {'data-animate-in': animateIn}),
 				...(animateOut && {'data-animate-out': animateOut}),
 				...(animateInDuration && {'data-animate-in-duration': animateInDuration}),
-				...(animateOutDuration && {'data-animate-out-duration': animateOutDuration}),
+				...(animateOutDuration && {'data-animate-out-duration': animateOutDuration})
 			};
 		}
 		return props;
