@@ -102,33 +102,21 @@
 				"name": "System Font",
 				"slug": "system-font"
 			}],
-			"fluid": true,
 			"fontSizes": [
 				{
-					"fluid": false,
-					"size": "0.7rem",
+					"size": "clamp(0.75rem, 0.45vw + 0.66rem, 1rem)",
 					"slug": "small"
 				}, {
-					"fluid": false,
-					"size": "0.8rem",
+					"size": "clamp(0.94rem, 0.72vw + 0.79rem, 1.33rem)",
 					"slug": "medium"
 				}, {
-					"fluid": false,
-					"size": "1rem",
+					"size": "clamp(1.17rem, 1.1vw + 0.95rem, 1.78rem)",
 					"slug": "large"
 				}, {
-					"fluid": {
-						"min": "1.2rem",
-						"max": "1.7rem"
-					},
-					"size": "1.4rem",
+					"size": "clamp(1.46rem, 1.64vw + 1.14rem, 2.37rem)",
 					"slug": "x-large"
 				}, {
-					"fluid": {
-						"min": "2rem",
-						"max": "3rem"
-					},
-					"size": "3rem",
+					"size": "clamp(1.83rem, 2.41vw + 1.35rem, 3.16rem)",
 					"slug": "xx-large"
 				}
 			]
