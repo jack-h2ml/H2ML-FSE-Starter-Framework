@@ -1,8 +1,8 @@
 .animateOnScrollWrapper {
 	//
-    overflow: visible !important;
-	min-height: 100% !important;
-	min-width: 100% !important;
+    overflow: visible;
+	height: inherit;
+	width: inherit;
 	//
 	> *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
 		margin-left: auto;
