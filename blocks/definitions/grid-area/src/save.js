@@ -27,10 +27,11 @@ export default function Save({
 		breakpointDefinitions
 	}
 }) {
+	console.log(backgroundColor, customBackgroundColor);
 	const innerBlocksProps = useInnerBlocksProps.save({ ...useBlockProps.save({
         style: {
 			justifyContent: verticalAlignment, 
-			...(!customBackgroundColor && ({backgroundColor: backgroundColor})),
+			...(!customBackgroundColor && ({backgroundColor: 'red'})),
 			gridArea: defaultGridArea,
 			zIndex: stackingOrder
 		},

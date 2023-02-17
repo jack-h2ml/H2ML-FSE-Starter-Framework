@@ -1,1 +1,39 @@
-.wp-block-h2ml-grid-area{border:0;display:flex;flex-direction:column;position:relative}.wp-block-h2ml-grid-area .fillGridArea{height:100%!important;max-height:100%!important;max-width:100%!important;-o-object-fit:cover;object-fit:cover;width:100%!important}.wp-block-h2ml-grid-area .fillGridArea div,.wp-block-h2ml-grid-area .fillGridArea figure,.wp-block-h2ml-grid-area .fillGridArea iframe,.wp-block-h2ml-grid-area .fillGridArea img,.wp-block-h2ml-grid-area .fillGridArea video{height:inherit!important;max-height:inherit!important;max-width:inherit!important;-o-object-fit:inherit!important;object-fit:inherit!important;width:inherit!important}.wp-block-h2ml-grid-area .fillGridArea>div>div:has(.components-resizable-box__handle){display:none!important}.wp-block-h2ml-grid-area.is-style-border{background-color:#f6f6f6;border:2px solid #000;border-radius:16px}
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+.wp-block-h2ml-grid-area {
+  border: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.wp-block-h2ml-grid-area .fillGridArea {
+  max-height: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  width: 100% !important;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.wp-block-h2ml-grid-area .fillGridArea figure,
+.wp-block-h2ml-grid-area .fillGridArea div,
+.wp-block-h2ml-grid-area .fillGridArea img,
+.wp-block-h2ml-grid-area .fillGridArea iframe,
+.wp-block-h2ml-grid-area .fillGridArea video {
+  max-height: inherit !important;
+  max-width: inherit !important;
+  height: inherit !important;
+  width: inherit !important;
+  -o-object-fit: inherit !important;
+     object-fit: inherit !important;
+}
+.wp-block-h2ml-grid-area .fillGridArea > div > div:has(.components-resizable-box__handle) {
+  display: none !important;
+}
+.wp-block-h2ml-grid-area.is-style-border {
+  border: 2px solid #000;
+  border-radius: 16px;
+  background-color: #F6F6F6;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zdHlsZS1pbmRleC5jc3MiLCJtYXBwaW5ncyI6Ijs7O0FBQUE7RUFFQztFQUNBO0VBQ0E7RUFDQTtBQUFEO0FBR0M7RUFFQztFQUNBO0VBQ0E7RUFDQTtFQUNBO0tBQUE7QUFGRjtBQUtFOzs7OztFQU1DO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7S0FBQTtBQUpIO0FBT0U7RUFFQztBQU5IO0FBV0M7RUFDQztFQUNBO0VBQ0E7QUFURixDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8va2EtZXhhbXBsZS1ibG9jay8uL3NyYy9zdHlsZS5zY3NzIl0sInNvdXJjZXNDb250ZW50IjpbIi53cC1ibG9jay1oMm1sLWdyaWQtYXJlYSB7XG5cdC8vIFN0eWxlc1xuXHRib3JkZXI6IDA7XG5cdHBvc2l0aW9uOiByZWxhdGl2ZTtcblx0ZGlzcGxheTogZmxleDtcblx0ZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcblxuXHQvLyBEZXNjZW5kZW50IFNlbGVjdG9yc1xuXHQuZmlsbEdyaWRBcmVhIHtcblx0XHQvLyBTdHlsZXNcblx0XHRtYXgtaGVpZ2h0OiAxMDAlICFpbXBvcnRhbnQ7XG5cdFx0bWF4LXdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XG5cdFx0aGVpZ2h0OiAxMDAlICFpbXBvcnRhbnQ7XG5cdFx0d2lkdGg6IDEwMCUgIWltcG9ydGFudDtcblx0XHRvYmplY3QtZml0OiBjb3ZlcjtcblxuXHRcdC8vIERlc2NlbmRlbnQgU2VsZWN0b3JzXG5cdFx0ZmlndXJlLFxuXHRcdGRpdixcblx0XHRpbWcsXG5cdFx0aWZyYW1lLFxuXHRcdHZpZGVvIHtcblx0XHRcdC8vIFN0eWxlc1xuXHRcdFx0bWF4LWhlaWdodDogaW5oZXJpdCAhaW1wb3J0YW50O1xuXHRcdFx0bWF4LXdpZHRoOiBpbmhlcml0ICFpbXBvcnRhbnQ7XG5cdFx0XHRoZWlnaHQ6IGluaGVyaXQgIWltcG9ydGFudDtcblx0XHRcdHdpZHRoOiBpbmhlcml0ICFpbXBvcnRhbnQ7XG5cdFx0XHRvYmplY3QtZml0OiBpbmhlcml0ICFpbXBvcnRhbnQ7XG5cdFx0fVxuXG5cdFx0PmRpdj5kaXY6aGFzKC5jb21wb25lbnRzLXJlc2l6YWJsZS1ib3hfX2hhbmRsZSkge1xuXHRcdFx0Ly8gU3R5bGVzXG5cdFx0XHRkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG5cdFx0fVxuXHR9XG5cblx0Ly9cblx0Ji5pcy1zdHlsZS1ib3JkZXIge1xuXHRcdGJvcmRlcjogMnB4IHNvbGlkICMwMDA7XG5cdFx0Ym9yZGVyLXJhZGl1czogMTZweDtcblx0XHRiYWNrZ3JvdW5kLWNvbG9yOiAjRjZGNkY2O1xuXHR9XG59Il0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9*/
