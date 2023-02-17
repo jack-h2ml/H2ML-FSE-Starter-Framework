@@ -108,6 +108,7 @@ export class H2mlAnimateOnScroll {
 		return wrapper;
 	}
 	//
+	/*
 	static #prepare = (selector) => {
 		document.querySelectorAll(selector).forEach(elem => {
 			const {
@@ -136,6 +137,35 @@ export class H2mlAnimateOnScroll {
 				prevRatio: 0,
 			});
 			H2mlAnimateOnScroll.#observer.observe(wrapperElem);
+		});
+	}
+	*/
+	static #prepare = (selector) => {
+		document.querySelectorAll(selector).forEach(elem => {
+			const {
+				animateIn = null,
+				animateOut = null,
+				animateOnLoadVisible = false,
+				animateInDuration,
+				animateOutDuration,
+				animateThreshold,
+				animateDirection
+			} = elem.dataset;
+			//
+			H2mlAnimateOnScroll.#elements.set(elem, {
+				elem,
+				animateIn,
+				animateOut,
+				animateOnLoadVisible,
+				animateInDuration,
+				animateOutDuration,
+				animateThreshold,
+				animateDirection,
+				isShown: undefined,
+				prevY: 0,
+				prevRatio: 0,
+			});
+			H2mlAnimateOnScroll.#observer.observe(elem);
 		});
 	}
 	//
