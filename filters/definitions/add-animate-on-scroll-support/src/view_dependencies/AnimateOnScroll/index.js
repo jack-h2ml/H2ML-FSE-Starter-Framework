@@ -18,6 +18,7 @@ export class H2mlAnimateOnScroll {
 	static #thresholdArray = steps => Array.from(Array(steps + 1)).reduce((cur, _, index) => [...cur, index / steps || 0], []);
 	//
 	static #toggleCurrentElement = (show) => { 
+		console.log('hmm');
 		const elemData = H2mlAnimateOnScroll.#currElemData
 		const {
 			elem,
@@ -44,8 +45,8 @@ export class H2mlAnimateOnScroll {
 				// Element Store
 				const elements = H2mlAnimateOnScroll.#elements;
 				// Get Element's & state.
-				const wrapperElem = H2mlAnimateOnScroll.#currElem = entry.target;
-				const elemData = H2mlAnimateOnScroll.#currElemData = elements.get(wrapperElem);
+				const anchor = H2mlAnimateOnScroll.#currElem = entry.target;
+				const elemData = H2mlAnimateOnScroll.#currElemData = elements.get(anchor);
 				const {
 					animateOnLoadVisible,
 					animateThreshold,
@@ -86,7 +87,7 @@ export class H2mlAnimateOnScroll {
 					}
 				}
 				// Update element state
-				elements.set(wrapperElem, {
+				elements.set(anchor, {
 					...elemData,
 					prevY: currY,
 					prevRatio: currRatio
@@ -108,39 +109,36 @@ export class H2mlAnimateOnScroll {
 		return wrapper;
 	}
 	//
-	/*
-	static #prepare = (selector) => {
-		document.querySelectorAll(selector).forEach(elem => {
-			const {
-				animateIn = null,
-				animateOut = null,
-				animateOnLoadVisible = false,
-				animateInDuration,
-				animateOutDuration,
-				animateThreshold,
-				animateDirection
-			} = elem.dataset;
-			//
-			const wrapperElem = H2mlAnimateOnScroll.#wrap(elem);
-			//
-			H2mlAnimateOnScroll.#elements.set(wrapperElem, {
-				elem,
-				animateIn,
-				animateOut,
-				animateOnLoadVisible,
-				animateInDuration,
-				animateOutDuration,
-				animateThreshold,
-				animateDirection,
-				isShown: undefined,
-				prevY: 0,
-				prevRatio: 0,
-			});
-			H2mlAnimateOnScroll.#observer.observe(wrapperElem);
+	static #handleResize = () => [...H2mlAnimateOnScroll.#elements.entries()].forEach(([anchor, value]) => {
+		const {
+			y: elemYOffset,
+			x: elemXOffset,
+			width,
+			height
+		} = value.elem.getBoundingClientRect();
+		//
+		const {
+			pageYOffset,
+			pageXOffset
+		} = window;
+		//
+		Object.assign(anchor.style, {
+			top: `${pageYOffset + elemYOffset}px`,
+			left: `${pageXOffset + elemXOffset}px`,
+			width: `${width}px`,
+			height: `${height}px`
 		});
+	});
+	
+	//
+	static #anchor = () => {
+		const anchor = document.createElement('div');
+		anchor.classList.add('animateOnScrollAnchor');
+		return document.body.appendChild(anchor);
 	}
-	*/
+	//
 	static #prepare = (selector) => {
+		//
 		document.querySelectorAll(selector).forEach(elem => {
 			const {
 				animateIn = null,
@@ -152,7 +150,9 @@ export class H2mlAnimateOnScroll {
 				animateDirection
 			} = elem.dataset;
 			//
-			H2mlAnimateOnScroll.#elements.set(elem, {
+			const anchor = H2mlAnimateOnScroll.#anchor();
+			//
+			H2mlAnimateOnScroll.#elements.set(anchor, {
 				elem,
 				animateIn,
 				animateOut,
@@ -165,8 +165,12 @@ export class H2mlAnimateOnScroll {
 				prevY: 0,
 				prevRatio: 0,
 			});
-			H2mlAnimateOnScroll.#observer.observe(elem);
+			//
+			H2mlAnimateOnScroll.#observer.observe(anchor);
 		});
+		//
+		H2mlAnimateOnScroll.#handleResize();
+		window.addEventListener('resize', H2mlAnimateOnScroll.#handleResize());
 	}
 	//
 	static #initObserver = () => {
