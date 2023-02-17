@@ -75,6 +75,8 @@ export class H2mlAnimateOnScroll {
 					} else if(animateOnLoadVisible) {
 						// If element is onscreen, and is animateOnLoadVisible is true, add the animateIn class.
 						H2mlAnimateOnScroll.#toggleCurrentElement(true);
+					} else {
+						elemData.isShown = true;
 					}
 				} else {
 					if(animateDirectionFilter) {
