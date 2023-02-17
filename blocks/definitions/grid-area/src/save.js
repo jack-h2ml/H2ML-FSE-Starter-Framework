@@ -30,7 +30,7 @@ export default function Save({
 	const innerBlocksProps = useInnerBlocksProps.save({ ...useBlockProps.save({
         style: {
 			justifyContent: verticalAlignment, 
-			backgroundColor: customBackgroundColor ? customBackgroundColor : backgroundColor,
+			...(!customBackgroundColor && ({backgroundColor: backgroundColor})),
 			gridArea: defaultGridArea,
 			zIndex: stackingOrder
 		},
