@@ -18,6 +18,7 @@ export class H2mlAnimateOnScroll {
 	static #thresholdArray = steps => Array.from(Array(steps + 1)).reduce((cur, _, index) => [...cur, index / steps || 0], []);
 	//
 	static #toggleCurrentElement = (show) => { 
+		console.log('hmm');
 		const elemData = H2mlAnimateOnScroll.#currElemData
 		const {
 			elem,
