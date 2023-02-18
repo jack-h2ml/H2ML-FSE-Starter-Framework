@@ -1,6 +1,6 @@
 import 'requestidlecallback-polyfill';
 
-import { switchExp } from '@h2mlagency/switchexpression';
+import { switchExp } from '@h2ml/switchexpression';
 
 import 'animate.css/animate.min.css';
 import './AnimateOnScroll.scss';

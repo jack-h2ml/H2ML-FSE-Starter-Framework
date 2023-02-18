@@ -18,7 +18,7 @@
 		"@wordpress/scripts": "^25.1.0"
 	},
 	"dependencies": {
-		"@h2mlagency/switchexpression": "^1.0.5",
+		"@h2ml/switchexpression": "^1.0.0",
 		"@wordpress/icons": "^9.15.0",
 		"animate.css": "^4.1.1",
 		"requestidlecallback-polyfill": "^1.0.2"
