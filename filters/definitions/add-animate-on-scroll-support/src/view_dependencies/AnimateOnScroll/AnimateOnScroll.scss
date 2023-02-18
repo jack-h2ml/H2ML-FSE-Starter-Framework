@@ -1,12 +1,20 @@
 .animateOnScrollWrapper {
-	//
+	// Styles
     overflow: visible;
 	height: inherit;
 	width: inherit;
-	//
+	
+	// Descendent Selectors 
 	> *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
 		margin-left: auto;
 		margin-right: auto;
 		max-width: var(--wp--style--global--content-size);
+	}
+}
+
+body .is-layout-flex {
+	// Descendent Selectors 
+	.animateOnScrollWrapper > * {
+		margin: 0;
 	}
 }
