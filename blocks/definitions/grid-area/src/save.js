@@ -33,7 +33,8 @@ export default function Save({
 			justifyContent: verticalAlignment, 
 			...(!backgroundColor && ({backgroundColor: customBackgroundColor})),
 			gridArea: defaultGridArea,
-			zIndex: stackingOrder
+			zIndex: stackingOrder,
+			alignItems: 'unset'
 		},
 		'data-breakpoint-definitions': Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
 			...res,
