@@ -105,22 +105,28 @@
 			"fontSizes": [
 				{
 					"size": "clamp(0.6rem, 0.27vw + 0.55rem, 0.75rem)",
-					"slug": "small"
+					"slug": "small",
+					"name": "Small"
 				}, {
 					"size": "clamp(0.75rem, 0.45vw + 0.66rem, 0.9rem)",
-					"slug": "medium"
+					"slug": "medium",
+					"name": "Medium"
 				}, {
 					"size": "clamp(0.94rem, 0.72vw + 0.79rem, 1.33rem)",
-					"slug": "large"
+					"slug": "large",
+					"name": "Large"
 				}, {
 					"size": "clamp(1.17rem, 1.1vw + 0.95rem, 1.78rem)",
-					"slug": "x-large"
+					"slug": "x-large",
+					"name": "Extra Large"
 				}, {
 					"size": "clamp(1.69rem, 1.48vw + 0.97rem, 3rem)",
-					"slug": "xx-large"
+					"slug": "xx-large",
+					"name": "Huge"
 				}, {
 					"size": "clamp(2.1rem, 1.7vw + 1.3rem, 5rem)",
-					"slug": "xxx-large"
+					"slug": "xxx-large",
+					"name": "Gigantic"
 				}
 			]
 		},
