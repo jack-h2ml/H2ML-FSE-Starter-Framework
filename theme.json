@@ -124,7 +124,7 @@
 					"slug": "x-large",
 					"name": "Extra Large"
 				}, {
-					"size": "clamp(1.69rem, 1.48vw + 0.97rem, 3rem)",
+					"size": "clamp(1.69rem, 1.48vw + 0.97rem, 2.5rem)",
 					"slug": "xx-large",
 					"name": "Huge"
 				}, {
