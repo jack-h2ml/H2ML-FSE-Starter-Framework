@@ -111,6 +111,10 @@
 					"size": "clamp(0.75rem, 0.45vw + 0.66rem, 0.9rem)",
 					"slug": "medium",
 					"name": "Medium"
+				},{
+					"size": "clamp(0.86rem, 0.52vw + 0.71rem, 1.1rem)",
+					"slug": "medium-l",
+					"name": "Big"
 				}, {
 					"size": "clamp(0.94rem, 0.72vw + 0.79rem, 1.33rem)",
 					"slug": "large",
