@@ -107,7 +107,7 @@
 					"size": "clamp(0.6rem, 0.27vw + 0.55rem, 0.75rem)",
 					"slug": "small"
 				}, {
-					"size": "clamp(0.75rem, 0.45vw + 0.66rem, 1rem)",
+					"size": "clamp(0.75rem, 0.45vw + 0.66rem, 0.9rem)",
 					"slug": "medium"
 				}, {
 					"size": "clamp(0.94rem, 0.72vw + 0.79rem, 1.33rem)",
