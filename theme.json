@@ -116,7 +116,7 @@
 					"size": "clamp(1.17rem, 1.1vw + 0.95rem, 1.78rem)",
 					"slug": "x-large"
 				}, {
-					"size": "clamp(1.46rem, 1.64vw + 1.14rem, 2.37rem)",
+					"size": "clamp(1.69rem, 1.9vw + 1.32rem, 2.75rem)",
 					"slug": "xx-large"
 				}
 			]
