@@ -56,9 +56,14 @@ export class H2mlAnimateOnScroll {
 				const scrollingDirection = prevY >= currY; // True = up, False = down
 				const isRamping = prevRatio < currRatio;
 				//
-				const animateDirectionFilter = !!switchExp([
+				/*const animateDirectionFilter = !!switchExp([
 					['forwards', (scrollingDirection && isRamping) === (scrollingDirection || isRamping)],
 					['backwards', (!scrollingDirection && isRamping) === (!scrollingDirection || isRamping)],
+					['both', true]
+				]).eval(animateDirection).find(res => res === true);*/
+				const animateDirectionFilter = !!switchExp([
+					['forwards', scrollingDirection],
+					['backwards', !scrollingDirection],
 					['both', true]
 				]).eval(animateDirection).find(res => res === true);
 				//
@@ -75,9 +80,9 @@ export class H2mlAnimateOnScroll {
 					}
 				} else {
 					if(entry.isIntersecting /*&& animateDirectionFilter*/) {
-						 if(isShown && (currRatio <= animateThreshold)) {
+						 if(isShown && (currRatio <= animateThreshold) && animateDirectionFilter) {
 							H2mlAnimateOnScroll.#toggleElement(elemData, false);
-						} else if (!isShown && (currRatio >= animateThreshold)) {
+						} else if (!isShown && (currRatio >= animateThreshold) && !animateDirectionFilter) {
 							H2mlAnimateOnScroll.#toggleElement(elemData, true);
 						} 
 					}
