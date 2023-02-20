@@ -65,7 +65,7 @@ export class H2mlAnimateOnScroll {
 				//
 				if(isShown !== !!isShown) {
 					// Fires the first time an element is added.
-					if(!isRamping) {
+					if(!entry.isIntersecting) {
 						// If element is offscreen, add the animateOut class.
 						H2mlAnimateOnScroll.#toggleElement(elemData, !animateDirectionFilter);
 					} else if(animateOnLoadVisible) {
@@ -75,7 +75,7 @@ export class H2mlAnimateOnScroll {
 						elemData.isShown = true;
 					}
 				} else {
-					if(animateDirectionFilter) {
+					if(element.isIntersecting && animateDirectionFilter) {
 						if(!isShown && (currRatio >= animateThreshold)) {
 							H2mlAnimateOnScroll.#toggleElement(elemData, true);
 						} else if(isShown && (currRatio <= animateThreshold)) {
