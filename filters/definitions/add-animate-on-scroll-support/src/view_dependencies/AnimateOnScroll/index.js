@@ -37,7 +37,7 @@ export class H2mlAnimateOnScroll {
 	//
 	static #observerCallback = (entries) => {
 		entries.forEach(entry => {
-			window.requestIdleCallback(() => {
+			//window.requestIdleCallback(() => {
 				// Get Element's & state.
 				const wrapperElem = entry.target;
 				const elemData = H2mlAnimateOnScroll.#elements.get(wrapperElem);
@@ -88,7 +88,7 @@ export class H2mlAnimateOnScroll {
 					prevY: currY,
 					prevRatio: currRatio
 				});
-			}, {timeout: 50});
+			//}, {timeout: 50});
 		});
 	};
 	//
