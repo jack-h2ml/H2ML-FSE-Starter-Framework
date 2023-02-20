@@ -32,7 +32,7 @@ export class H2mlAnimateOnScroll {
 		elem.classList.remove(classToRemove);
 		elem.classList.add(classToAdd);
 		//
-		elemData.isShown = !!show;
+		elemData.isShown = show;
 	}
 	//
 	static #observerCallback = (entries) => {
@@ -53,25 +53,20 @@ export class H2mlAnimateOnScroll {
 				const currY = entry.boundingClientRect.y;
 				const currRatio = entry.intersectionRatio;
 				//
-				const scrollingDirection = prevY >= currY; // True = up, False = down
+				const scrollingDirection = prevY < currY; // True = scrolling towards bottom (forwards), False = scrolling towards top (backwards)
 				const isRamping = prevRatio < currRatio;
 				//
-				/*const animateDirectionFilter = !!switchExp([
-					['forwards', (scrollingDirection && isRamping) === (scrollingDirection || isRamping)],
-					['backwards', (!scrollingDirection && isRamping) === (!scrollingDirection || isRamping)],
-					['both', true]
-				]).eval(animateDirection).find(res => res === true);*/
 				const animateDirectionFilter = !!switchExp([
-					['forwards', !scrollingDirection],
+					['forwards',  !scrollingDirection],
 					['backwards', scrollingDirection],
-					['both', true]
+					['both', isRamping]
 				]).eval(animateDirection).find(res => res === true);
 				//
 				if(isShown !== !!isShown) {
 					// Fires the first time an element is added.
 					if(!entry.isIntersecting) {
 						// If element is offscreen, add the animateOut class.
-						H2mlAnimateOnScroll.#toggleElement(elemData, false);
+						H2mlAnimateOnScroll.#toggleElement(elemData, animateDirectionFilter);
 					} else if(animateOnLoadVisible) {
 						// If element is onscreen, and is animateOnLoadVisible is true, add the animateIn class.
 						H2mlAnimateOnScroll.#toggleElement(elemData, true);
@@ -79,13 +74,13 @@ export class H2mlAnimateOnScroll {
 						elemData.isShown = true;
 					}
 				} else {
-					if(entry.isIntersecting /*&& animateDirectionFilter*/) {
-						 if(isShown && (currRatio <= animateThreshold) && animateDirectionFilter) {
-							H2mlAnimateOnScroll.#toggleElement(elemData, false);
-						} else if (!isShown && (currRatio >= animateThreshold) && animateDirectionFilter) {
+					if(entry.isIntersecting) {
+						if(animateDirectionFilter && isRamping && !isShown && (currRatio >= animateThreshold)) {
 							H2mlAnimateOnScroll.#toggleElement(elemData, true);
-						} 
-					}
+						} else if(!animateDirectionFilter && !isRamping && isShown && (currRatio <= animateThreshold)) {
+							H2mlAnimateOnScroll.#toggleElement(elemData, false);
+						}
+					} 
 				}
 				// Update element state
 				H2mlAnimateOnScroll.#elements.set(wrapperElem, {
