@@ -94,8 +94,7 @@ export class H2mlAnimateOnScroll {
 	};
 	//
 	static #observerOptions = {
-		//threshold: H2mlAnimateOnScroll.#thresholdArray(50),
-		threshold: 0,
+		threshold: H2mlAnimateOnScroll.#thresholdArray(10),
 	}
 	//
 	static #wrap = (elem) => {
