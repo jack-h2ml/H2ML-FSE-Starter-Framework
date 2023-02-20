@@ -12,13 +12,10 @@ export class H2mlAnimateOnScroll {
 	static #observer = null;
 	static #elements = new Map();
 	//
-	static #currElem = null;
-	static #currElemData = null
-	//
 	static #thresholdArray = steps => Array.from(Array(steps + 1)).reduce((cur, _, index) => [...cur, index / steps || 0], []);
 	//
-	static #toggleCurrentElement = (show) => { 
-		const elemData = H2mlAnimateOnScroll.#currElemData
+	static #toggleCurrentElement = (elemData, show) => { 
+		//
 		const {
 			elem,
 			animateIn,
@@ -41,11 +38,9 @@ export class H2mlAnimateOnScroll {
 	static #observerCallback = (entries) => {
 		entries.forEach(entry => {
 			window.requestIdleCallback(() => {
-				// Element Store
-				const elements = H2mlAnimateOnScroll.#elements;
 				// Get Element's & state.
-				const wrapperElem = H2mlAnimateOnScroll.#currElem = entry.target;
-				const elemData = H2mlAnimateOnScroll.#currElemData = elements.get(wrapperElem);
+				const wrapperElem = entry.target;
+				const elemData = H2mlAnimateOnScroll.#elements.get(wrapperElem);
 				const {
 					animateOnLoadVisible,
 					animateThreshold,
@@ -71,24 +66,24 @@ export class H2mlAnimateOnScroll {
 					// Fires the first time an element is added.
 					if(!isRamping) {
 						// If element is offscreen, add the animateOut class.
-						H2mlAnimateOnScroll.#toggleCurrentElement(!animateDirectionFilter);
+						H2mlAnimateOnScroll.#toggleCurrentElement(elemData, !animateDirectionFilter);
 					} else if(animateOnLoadVisible) {
 						// If element is onscreen, and is animateOnLoadVisible is true, add the animateIn class.
-						H2mlAnimateOnScroll.#toggleCurrentElement(true);
+						H2mlAnimateOnScroll.#toggleCurrentElement(elemData, true);
 					} else {
 						elemData.isShown = true;
 					}
 				} else {
 					if(animateDirectionFilter) {
 						if(!isShown && (currRatio >= animateThreshold)) {
-							H2mlAnimateOnScroll.#toggleCurrentElement(true);
+							H2mlAnimateOnScroll.#toggleCurrentElement(elemData, true);
 						} else if(isShown && (currRatio <= animateThreshold)) {
-							H2mlAnimateOnScroll.#toggleCurrentElement(false);
+							H2mlAnimateOnScroll.#toggleCurrentElement(elemData, false);
 						}
 					}
 				}
 				// Update element state
-				elements.set(wrapperElem, {
+				H2mlAnimateOnScroll.#elements.set(wrapperElem, {
 					...elemData,
 					prevY: currY,
 					prevRatio: currRatio
