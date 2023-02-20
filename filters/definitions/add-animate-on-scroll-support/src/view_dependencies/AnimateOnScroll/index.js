@@ -1,4 +1,5 @@
 import { switchExp } from '@h2ml/switchexpression';
+import { Timeout } from '@h2ml/bettertimeout';
 
 import 'animate.css/animate.min.css';
 import './AnimateOnScroll.scss';
@@ -9,8 +10,15 @@ export class H2mlAnimateOnScroll {
 	//
 	static #observer = null;
 	static #elements = new Map();
+	static #isFirstRun = true;
 	//
 	static #thresholdArray = steps => Array.from(Array(steps + 1)).reduce((cur, _, index) => [...cur, index / steps || 0], []);
+	//
+	static #debounceTimeout;
+	static #minId = null;
+	static #maxId = null;
+	//
+	static #scrollPosition = window.scrollY;
 	//
 	static #toggleElement = (elemData, show) => {
 		//
@@ -33,84 +41,128 @@ export class H2mlAnimateOnScroll {
 		elemData.isShown = show;
 	}
 	//
+	static #applyChanges() {
+		const minId = H2mlAnimateOnScroll.#minId;
+		const maxId = H2mlAnimateOnScroll.#maxId;
+		// perform action on elements with Id between min and max
+		if (minId !== null && maxId !== null) {
+			const elements = [...H2mlAnimateOnScroll.#elements.entries()].slice(minId, maxId + 1);
+			//
+			const prevScrollPosition = H2mlAnimateOnScroll.#scrollPosition;
+			const currScrollPosition = window.scrollY;
+			const scrollingDirection = prevScrollPosition > currScrollPosition; // False = scrolling towards bottom (forwards), True = scrolling towards top (backwards)
+			//
+			elements.forEach(([key, elemData]) => {
+				const {
+					animateOnLoadVisible,
+					animateThreshold,
+					animateDirection,
+					isShown,
+					prevY,
+					prevRatio,
+				} = elemData;
+				//
+				const wrapperElem = document.querySelector(`[data-animate-key="${key}"]`);
+				const {
+					y: currY,
+					height,
+				} = wrapperElem.getBoundingClientRect();
+				//
+				const currRatio = currY <= 0
+					? (Math.abs(currY) / height)
+					: (Math.abs(currY - window.innerHeight) / height)
+				//
+				const isRamping = prevRatio < currRatio;
+				//
+				const animateDirectionFilter = !!switchExp([
+					['forwards', !scrollingDirection || (currY < 0)],
+					['backwards', scrollingDirection || (currY > 0)],
+					['both', isRamping]
+				]).eval(animateDirection).find(res => res === true);
+				//
+				if (
+					animateDirectionFilter 
+					&& isRamping 
+					&& !isShown 
+					&& (currRatio >= animateThreshold)
+				) {
+					H2mlAnimateOnScroll.#toggleElement(elemData, true);
+				} else if (
+					!animateDirectionFilter 
+					&& !isRamping 
+					&& isShown 
+					&& (currRatio <= animateThreshold)
+				) {
+					H2mlAnimateOnScroll.#toggleElement(elemData, false);
+				}
+				//
+				H2mlAnimateOnScroll.#elements.set(key, {
+					...elemData,
+					prevY: currY,
+					prevRatio: currRatio
+				});
+				//
+			});
+			//
+			H2mlAnimateOnScroll.#scrollPosition = currScrollPosition;
+			H2mlAnimateOnScroll.#minId = null;
+			H2mlAnimateOnScroll.#maxId = null;
+		}
+	}
+	//
 	static #observerCallback = (entries) => {
-		entries.forEach(entry => {
-			// Get Element's & state.
-			const wrapperElem = entry.target;
-			const elemData = H2mlAnimateOnScroll.#elements.get(wrapperElem);
-			const {
-				animateOnLoadVisible,
-				animateThreshold,
-				animateDirection,
-				isShown,
-				prevY,
-				prevRatio,
-			} = elemData;
+		if (H2mlAnimateOnScroll.#isFirstRun) {
 			//
-			const currY = entry.boundingClientRect.y;
-			const currRatio = entry.intersectionRatio;
+			H2mlAnimateOnScroll.#scrollPosition = window.scrollY;
 			//
-			const scrollingDirection = prevY < currY; // True = scrolling towards bottom (forwards), False = scrolling towards top (backwards)
-			const isRamping = prevRatio < currRatio;
-			//
-			const animateDirectionFilter = !!switchExp([
-				['forwards', !scrollingDirection],
-				['backwards', scrollingDirection],
-				['both', isRamping]
-			]).eval(animateDirection).find(res => res === true);
-			//
-			if (isShown !== !!isShown) {
-				// Fires the first time an element is added.
+			entries.forEach(entry => {
+				//
+				const key = Number(entry.target.dataset.animateKey);
+				const elemData = H2mlAnimateOnScroll.#elements.get(key);
+				//
 				if (!entry.isIntersecting) {
 					// If element is offscreen, add the animateOut class.
-					H2mlAnimateOnScroll.#toggleElement(elemData, animateDirectionFilter);
-				} else if (animateOnLoadVisible) {
-					// If element is onscreen, and is animateOnLoadVisible is true, add the animateIn class.
-					H2mlAnimateOnScroll.#toggleElement(elemData, true);
+					H2mlAnimateOnScroll.#toggleElement(elemData, false);
 				} else {
+					// 
 					elemData.isShown = true;
 				}
-			} else {
-				/*
-				if (entry.isIntersecting) {
-					if (animateDirectionFilter && isRamping && !isShown && (currRatio >= animateThreshold)) {
-						H2mlAnimateOnScroll.#toggleElement(elemData, true);
-					} else if (!animateDirectionFilter && !isRamping && isShown && (currRatio <= animateThreshold)) {
-						H2mlAnimateOnScroll.#toggleElement(elemData, false);
-					}
-				} 
-				*/
-				if (entry.isIntersecting) {
-					if (animateDirectionFilter && isRamping && !isShown && (currRatio >= animateThreshold)) {
-						H2mlAnimateOnScroll.#toggleElement(elemData, true);
-					} else if (!animateDirectionFilter && !isRamping && isShown && (currRatio <= animateThreshold)) {
-						H2mlAnimateOnScroll.#toggleElement(elemData, false);
-					}
-				} 
-			}
-			// Update element state
-			H2mlAnimateOnScroll.#elements.set(wrapperElem, {
-				...elemData,
-				prevY: currY,
-				prevRatio: currRatio
 			});
-		});
+			H2mlAnimateOnScroll.#isFirstRun = false;
+		} else if(H2mlAnimateOnScroll.#scrollPosition !== window.scrollY) {
+			H2mlAnimateOnScroll.#debounceTimeout?.clear();
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					//
+					const elemId = Number(entry.target.dataset.animateKey);
+					if (H2mlAnimateOnScroll.#minId === null || H2mlAnimateOnScroll.#maxId === null) {
+						H2mlAnimateOnScroll.#minId = H2mlAnimateOnScroll.#maxId = elemId;
+					} else {
+						H2mlAnimateOnScroll.#minId = Math.min(H2mlAnimateOnScroll.#minId, elemId);
+						H2mlAnimateOnScroll.#maxId = Math.max(H2mlAnimateOnScroll.#maxId, elemId);
+					}
+				}
+			});
+			H2mlAnimateOnScroll.#debounceTimeout = new Timeout(H2mlAnimateOnScroll.#applyChanges, 5);
+		}
 	};
 	//
 	static #observerOptions = {
 		threshold: H2mlAnimateOnScroll.#thresholdArray(20),
+		//rootMargin: '100% 0px 100% 0px'
 	}
 	//
-	static #wrap = (elem) => {
+	static #wrap = (elem, key) => {
 		const wrapper = document.createElement('div');
 		wrapper.classList.add('animateOnScrollWrapper', 'alignfull');
+		wrapper.dataset.animateKey = key;
 		elem.replaceWith(wrapper);
 		wrapper.appendChild(elem)
 		return wrapper;
 	}
 	//
 	static #prepare = (selector) => {
-		document.querySelectorAll(selector).forEach(elem => {
+		document.querySelectorAll(selector).forEach((elem, index) => {
 			const {
 				animateIn = null,
 				animateOut = null,
@@ -121,9 +173,9 @@ export class H2mlAnimateOnScroll {
 				animateDirection
 			} = elem.dataset;
 			//
-			const wrapperElem = H2mlAnimateOnScroll.#wrap(elem);
+			const wrapperElem = H2mlAnimateOnScroll.#wrap(elem, index);
 			//
-			H2mlAnimateOnScroll.#elements.set(wrapperElem, {
+			H2mlAnimateOnScroll.#elements.set(index, {
 				elem,
 				animateIn,
 				animateOut,
