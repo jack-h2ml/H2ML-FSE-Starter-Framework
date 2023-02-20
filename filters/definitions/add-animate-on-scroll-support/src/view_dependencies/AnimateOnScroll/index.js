@@ -79,6 +79,8 @@ export class H2mlAnimateOnScroll {
 							H2mlAnimateOnScroll.#toggleElement(elemData, false);
 						} else if (!isShown && (currRatio >= animateThreshold)) {
 							H2mlAnimateOnScroll.#toggleElement(elemData, true);
+						} else {
+							elemData.isShown = true;
 						}
 					}
 				}
