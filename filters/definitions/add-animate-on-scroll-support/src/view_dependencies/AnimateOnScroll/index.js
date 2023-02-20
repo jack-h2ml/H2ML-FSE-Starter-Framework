@@ -14,7 +14,7 @@ export class H2mlAnimateOnScroll {
 	//
 	static #thresholdArray = steps => Array.from(Array(steps + 1)).reduce((cur, _, index) => [...cur, index / steps || 0], []);
 	//
-	static #toggleCurrentElement = (elemData, show) => { 
+	static #toggleElement = (elemData, show) => { 
 		//
 		const {
 			elem,
@@ -66,19 +66,19 @@ export class H2mlAnimateOnScroll {
 					// Fires the first time an element is added.
 					if(!isRamping) {
 						// If element is offscreen, add the animateOut class.
-						H2mlAnimateOnScroll.#toggleCurrentElement(elemData, !animateDirectionFilter);
+						H2mlAnimateOnScroll.#toggleElement(elemData, !animateDirectionFilter);
 					} else if(animateOnLoadVisible) {
 						// If element is onscreen, and is animateOnLoadVisible is true, add the animateIn class.
-						H2mlAnimateOnScroll.#toggleCurrentElement(elemData, true);
+						H2mlAnimateOnScroll.#toggleElement(elemData, true);
 					} else {
 						elemData.isShown = true;
 					}
 				} else {
 					if(animateDirectionFilter) {
 						if(!isShown && (currRatio >= animateThreshold)) {
-							H2mlAnimateOnScroll.#toggleCurrentElement(elemData, true);
+							H2mlAnimateOnScroll.#toggleElement(elemData, true);
 						} else if(isShown && (currRatio <= animateThreshold)) {
-							H2mlAnimateOnScroll.#toggleCurrentElement(elemData, false);
+							H2mlAnimateOnScroll.#toggleElement(elemData, false);
 						}
 					}
 				}
@@ -88,7 +88,7 @@ export class H2mlAnimateOnScroll {
 					prevY: currY,
 					prevRatio: currRatio
 				});
-			}, {timeout: 300});
+			}, {timeout: 50});
 		});
 	};
 	//
