@@ -37,7 +37,6 @@ export class H2mlAnimateOnScroll {
 	//
 	static #observerCallback = (entries) => {
 		entries.forEach(entry => {
-			console.log(entry);
 			//window.requestIdleCallback(() => {
 				// Get Element's & state.
 				const wrapperElem = entry.target;
@@ -66,6 +65,7 @@ export class H2mlAnimateOnScroll {
 				if(isShown !== !!isShown) {
 					// Fires the first time an element is added.
 					if(!entry.isIntersecting) {
+						console.log(entry);
 						// If element is offscreen, add the animateOut class.
 						H2mlAnimateOnScroll.#toggleElement(elemData, !animateDirectionFilter);
 					} else if(animateOnLoadVisible) {
