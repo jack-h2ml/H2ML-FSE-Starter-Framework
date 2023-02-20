@@ -32,7 +32,7 @@ export class H2mlAnimateOnScroll {
 		elem.classList.remove(classToRemove);
 		elem.classList.add(classToAdd);
 		//
-		elemData.isShown = show;
+		elemData.isShown = !!show;
 	}
 	//
 	static #observerCallback = (entries) => {
@@ -93,7 +93,8 @@ export class H2mlAnimateOnScroll {
 	};
 	//
 	static #observerOptions = {
-		threshold: H2mlAnimateOnScroll.#thresholdArray(50),
+		//threshold: H2mlAnimateOnScroll.#thresholdArray(50),
+		threshold: 0,
 	}
 	//
 	static #wrap = (elem) => {
@@ -138,7 +139,7 @@ export class H2mlAnimateOnScroll {
 	static #initObserver = () => {
 		H2mlAnimateOnScroll.#observer = new IntersectionObserver(
 			H2mlAnimateOnScroll.#observerCallback, 
-			//H2mlAnimateOnScroll.#observerOptions
+			H2mlAnimateOnScroll.#observerOptions
 		);
 	}
 	//
