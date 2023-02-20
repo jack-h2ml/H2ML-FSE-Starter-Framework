@@ -75,11 +75,11 @@ export class H2mlAnimateOnScroll {
 					}
 				} else {
 					if(entry.isIntersecting && animateDirectionFilter) {
-						if(!isShown && (currRatio >= animateThreshold)) {
-							H2mlAnimateOnScroll.#toggleElement(elemData, true);
-						} else /*if(isShown && (currRatio <= animateThreshold))*/ {
+						 if(isShown && (currRatio <= animateThreshold)) {
 							H2mlAnimateOnScroll.#toggleElement(elemData, false);
-						} 
+						} else /*(!isShown && (currRatio >= animateThreshold))*/ {
+							H2mlAnimateOnScroll.#toggleElement(elemData, true);
+						}
 					}
 				}
 				// Update element state
