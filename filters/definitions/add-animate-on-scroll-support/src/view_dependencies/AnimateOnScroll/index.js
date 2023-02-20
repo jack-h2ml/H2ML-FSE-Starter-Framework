@@ -37,6 +37,7 @@ export class H2mlAnimateOnScroll {
 	//
 	static #observerCallback = (entries) => {
 		entries.forEach(entry => {
+			console.log('test');
 			//window.requestIdleCallback(() => {
 				// Get Element's & state.
 				const wrapperElem = entry.target;
