@@ -37,7 +37,7 @@ export class H2mlAnimateOnScroll {
 	//
 	static #observerCallback = (entries) => {
 		entries.forEach(entry => {
-			//window.requestIdleCallback(() => {
+			window.requestIdleCallback(() => {
 				// Get Element's & state.
 				const wrapperElem = entry.target;
 				const elemData = H2mlAnimateOnScroll.#elements.get(wrapperElem);
@@ -65,7 +65,6 @@ export class H2mlAnimateOnScroll {
 				if(isShown !== !!isShown) {
 					// Fires the first time an element is added.
 					if(!entry.isIntersecting) {
-						console.log(entry);
 						// If element is offscreen, add the animateOut class.
 						H2mlAnimateOnScroll.#toggleElement(elemData, !animateDirectionFilter);
 					} else if(animateOnLoadVisible) {
@@ -91,12 +90,12 @@ export class H2mlAnimateOnScroll {
 					prevY: currY,
 					prevRatio: currRatio
 				});
-			//}, {timeout: 50});
+			}, {timeout: 50});
 		});
 	};
 	//
 	static #observerOptions = {
-		threshold: H2mlAnimateOnScroll.#thresholdArray(10),
+		threshold: H2mlAnimateOnScroll.#thresholdArray(20),
 	}
 	//
 	static #wrap = (elem) => {
