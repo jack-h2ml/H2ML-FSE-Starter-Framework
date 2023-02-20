@@ -71,13 +71,22 @@ export class H2mlAnimateOnScroll {
 					elemData.isShown = true;
 				}
 			} else {
+				/*
 				if (entry.isIntersecting) {
 					if (animateDirectionFilter && isRamping && !isShown && (currRatio >= animateThreshold)) {
 						H2mlAnimateOnScroll.#toggleElement(elemData, true);
 					} else if (!animateDirectionFilter && !isRamping && isShown && (currRatio <= animateThreshold)) {
 						H2mlAnimateOnScroll.#toggleElement(elemData, false);
 					}
-				}
+				} 
+				*/
+				if (entry.isIntersecting) {
+					if (animateDirectionFilter && isRamping && !isShown && (currRatio >= animateThreshold)) {
+						H2mlAnimateOnScroll.#toggleElement(elemData, true);
+					} else if (!animateDirectionFilter && !isRamping && isShown && (currRatio <= animateThreshold)) {
+						H2mlAnimateOnScroll.#toggleElement(elemData, false);
+					}
+				} 
 			}
 			// Update element state
 			H2mlAnimateOnScroll.#elements.set(wrapperElem, {
