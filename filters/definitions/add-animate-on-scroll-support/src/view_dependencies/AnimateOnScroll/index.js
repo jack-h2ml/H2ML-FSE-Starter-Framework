@@ -74,7 +74,7 @@ export class H2mlAnimateOnScroll {
 						elemData.isShown = true;
 					}
 				} else {
-					if(entry.isIntersecting && animateDirectionFilter) {
+					if(entry.isIntersecting /*&& animateDirectionFilter*/) {
 						 if(isShown && (currRatio <= animateThreshold)) {
 							H2mlAnimateOnScroll.#toggleElement(elemData, false);
 						} else if (!isShown && (currRatio >= animateThreshold)) {
