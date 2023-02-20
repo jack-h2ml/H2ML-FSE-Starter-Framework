@@ -62,8 +62,8 @@ export class H2mlAnimateOnScroll {
 					['both', true]
 				]).eval(animateDirection).find(res => res === true);*/
 				const animateDirectionFilter = !!switchExp([
-					['forwards', scrollingDirection],
-					['backwards', !scrollingDirection],
+					['forwards', !scrollingDirection],
+					['backwards', scrollingDirection],
 					['both', true]
 				]).eval(animateDirection).find(res => res === true);
 				//
