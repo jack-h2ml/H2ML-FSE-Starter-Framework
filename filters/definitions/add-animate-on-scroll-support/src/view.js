@@ -4,6 +4,6 @@
 
 import { H2mlAnimateOnScroll } from './view_dependencies/AnimateOnScroll';
 
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
 	H2mlAnimateOnScroll.animate('[data-animate]');
 });

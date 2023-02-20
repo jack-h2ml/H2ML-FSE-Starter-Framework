@@ -138,7 +138,7 @@ export class H2mlAnimateOnScroll {
 	static #initObserver = () => {
 		H2mlAnimateOnScroll.#observer = new IntersectionObserver(
 			H2mlAnimateOnScroll.#observerCallback, 
-			H2mlAnimateOnScroll.#observerOptions
+			//H2mlAnimateOnScroll.#observerOptions
 		);
 	}
 	//
