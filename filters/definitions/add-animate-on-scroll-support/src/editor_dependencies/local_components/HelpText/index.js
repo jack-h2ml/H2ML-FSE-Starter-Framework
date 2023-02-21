@@ -65,7 +65,7 @@ export const AnimateThresholdHelpText = (props) => (
 			{__("Set this block's 'Animate Threshold', this determines how much of the block must be visible before the animations play.", 'html')}
 		</span>
 		<span>
-			{__("By default this is '0.5', which is equal to 50% of the element being visible.", 'h2ml')}
+			{__("By default this is '0.3', which is equal to 30% of the element being visible.", 'h2ml')}
 		</span>
 	</VStack>
 );
