@@ -5,9 +5,28 @@
 import { addFilter } from '@wordpress/hooks';
 
 import {
+	InspectorControls,
+	store as blockEditorStore
+} from '@wordpress/block-editor';
+
+import {
 	useSelect,
 	dispatch
 } from '@wordpress/data';
+
+import {
+	Panel,
+	PanelBody,
+	SelectControl,
+	TextControl,
+	ExternalLink,
+	Notice,
+	__experimentalVStack as VStack,
+	__experimentalText as Text,
+	__experimentalToolsPanel as ToolsPanel,
+    __experimentalToolsPanelItem as ToolsPanelItem,
+	__experimentalNumberControl as NumberControl,
+} from '@wordpress/components';
 
 import { __ } from '@wordpress/i18n';
 
@@ -20,6 +39,14 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 import './index.scss';
 
 import {
+	HideAnimateInHelpText,
+	HideAnimateOutHelpText,
+	HideTriggerThresholdHelpText,
+	HideAnimateInDurationHelpText,
+	HideAnimateOutDurationHelpText,
+} from './editor_dependencies/local_components/HelpText';
+
+import {
 	store as h2mlFilterStore
 } from './../../../store';
 
@@ -27,27 +54,22 @@ import {
 	getAnimateCssDefinitions
 } from './../../../common/getAnimateCssDefinitions';
 
-import {
-	FilterInspectorControls
-} from './editor_dependencies/local_components/FilterInspectorControls';
-
 /**
  * External Dependencies
  */
 
 import 'animate.css/animate.min.css';
+import { FilterInspectorControls } from './editor_dependencies/local_components/FilterInspectorControls';
 
 /*
  * Global
  */
 
-const animateIsAnimatedClass = 'animate__animated';
+const elemWillHideClass = 'animate__animated';
 
-const defaultAnimateOnScrollValues = {
-	animateInDuration: '750ms',
-	animateOutDuration: '750ms',
-	animateThreshold: 0.5,
-	animateDirection: 'forwards'
+const defaultHideOnScrollValues = {
+	animateInDuration: '500ms',
+	animateOutDuration: '500ms',
 }
 
 /** 
@@ -56,26 +78,19 @@ const defaultAnimateOnScrollValues = {
 
 addFilter(
 	'blocks.registerBlockType',
-	'h2ml/add-animate-on-scroll-attribute',
+	'h2ml/add-hide-on-scroll-attribute',
 	(settings) => {
-		//
-		const {
-			h2mlAnimationOnScroll = false
-		} = settings.attributes;
-		if(h2mlAnimationOnScroll) {
-			console.log('Testing');
-		}
-		//
 		return {
 			...settings,
 			attributes: {
 				...settings.attributes,
-				h2mlAnimateOnScroll: {
+				h2mlHideOnScroll: {
 					type: 'object',
 					default: {
 						animateIn: '',
 						animateOut: '',
-						...defaultAnimateOnScrollValues
+						animateThreshold: 100,
+						...defaultHideOnScrollValues
 					}
 				}
 			}
@@ -89,58 +104,60 @@ addFilter(
 
 addFilter(
 	'editor.BlockEdit',
-	'h2ml/add-animate-on-scroll-insepctor-controls-edit',
+	'h2ml/add-hide-on-scroll-insepctor-controls-edit',
 	createHigherOrderComponent(BlockEdit => props => {
 		const {
 			attributes: {
-				h2mlAnimateOnScroll: h2mlAnimateOnScrollAttributes,
-				h2mlAnimateOnScroll: {
-					animateIn,
-					animateOut,
-				} = {}
+				h2mlHideOnScroll: h2mlHideOnScrollAttributes,
 			},
+			clientId,
 			setAttributes
 		} = props;
 		//
-		const {hasGlobal, getGlobal} = useSelect(h2mlFilterStore);
-		const {setGlobal} = dispatch(h2mlFilterStore);
-		if(!hasGlobal('ParsedAnimateDotCSS')) {
-			setGlobal('ParsedAnimateDotCSS', getAnimateCssDefinitions());
-		} 
+		const {getBlockParents, getBlockAttributes} = useSelect(blockEditorStore);
+		const hasFixedPositionParent = getBlockParents(clientId).find(parentClientId => !!getBlockAttributes(parentClientId).h2mlPositioning?.type);
 		//
-		if (animateIn !== undefined || animateOut !== undefined) {
+		if(hasFixedPositionParent) {
+
+			//
+			const {hasGlobal, getGlobal} = useSelect(h2mlFilterStore);
+			const {setGlobal} = dispatch(h2mlFilterStore);
+			if(!hasGlobal('ParsedAnimateDotCSS')) setGlobal('ParsedAnimateDotCSS', getAnimateCssDefinitions());
+			const animationClassNames = getGlobal('ParsedAnimateDotCSS');
+			//
+
 			return (<>
 				<FilterInspectorControls
-					existingAttributes={h2mlAnimateOnScrollAttributes}
-					defaultAttributes={defaultAnimateOnScrollValues}	
+					existingAttributes={h2mlHideOnScrollAttributes}
+					defaultAttributes={defaultHideOnScrollValues}	
 					animationClassNames={getGlobal('ParsedAnimateDotCSS')}
 					setAttributes={setAttributes}
 				/>
-				<BlockEdit {...props} />
+				<BlockEdit {...props}/>
 			</>);
 		}
 		return <BlockEdit {...props} />;
-	}, 'addAnimateOnScrollInspectorControlsEdit')
+	}, 'addHideOnScrollInspectorControlsEdit')
 );
 
 /**
  * 
- */
+ *
 
 addFilter(
 	'blocks.getSaveContent.extraProps',
-	'h2ml/add-animate-on-scroll-styles-save',
+	'h2ml/add-positioning-styles-save',
 	(props, type, attributes) => {
 		//
 		const {className: oldClassName} = props;
 		const {
-			h2mlAnimateOnScroll: {
+			h2mlAnimationOnScroll: {
 				animateIn,
 				animateOut,
 				animateInDuration,
 				animateOutDuration,
 				animateThreshold,
-				animateDirection,
+				animateDirection
 			} = {}
 		} = attributes;
 		//
@@ -165,5 +182,5 @@ addFilter(
 		return props;
 	}
 );
-
+*/
 

@@ -31,7 +31,8 @@ import {
 import {
 	withDispatch,
 	useSelect,
-	dispatch
+	createReduxStore,
+	register
 } from '@wordpress/data';
 
 import {
@@ -40,12 +41,6 @@ import {
 	useRef,
 	useCallback,
 } from '@wordpress/element';
-
-import {
-	createReduxStore,
-	register
-} from '@wordpress/data';
-
 
 import {
 	useRefEffect,
