@@ -104,9 +104,7 @@ addFilter(
 		//
 		const {hasGlobal, getGlobal} = useSelect(h2mlFilterStore);
 		const {setGlobal} = dispatch(h2mlFilterStore);
-		if(!hasGlobal('ParsedAnimateDotCSS')) {
-			setGlobal('ParsedAnimateDotCSS', getAnimateCssDefinitions());
-		} 
+		if(!hasGlobal('ParsedAnimateDotCSS')) setGlobal('ParsedAnimateDotCSS', getAnimateCssDefinitions());
 		//
 		if (animateIn !== undefined || animateOut !== undefined) {
 			return (<>

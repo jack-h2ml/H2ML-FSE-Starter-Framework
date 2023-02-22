@@ -161,7 +161,7 @@ addFilter(
 								/>
 								{(positioningType) && (
 									<ToolsPanel
-										label="Tools Panel (default example)"
+										label={__("Positioning Options", 'h2ml')}
 										resetAll={() => {
 											setAttributes({h2mlPositioning: {
 												type: positioningType,

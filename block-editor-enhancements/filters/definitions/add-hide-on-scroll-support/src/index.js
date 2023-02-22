@@ -5,7 +5,6 @@
 import { addFilter } from '@wordpress/hooks';
 
 import {
-	InspectorControls,
 	store as blockEditorStore
 } from '@wordpress/block-editor';
 
@@ -13,20 +12,6 @@ import {
 	useSelect,
 	dispatch
 } from '@wordpress/data';
-
-import {
-	Panel,
-	PanelBody,
-	SelectControl,
-	TextControl,
-	ExternalLink,
-	Notice,
-	__experimentalVStack as VStack,
-	__experimentalText as Text,
-	__experimentalToolsPanel as ToolsPanel,
-    __experimentalToolsPanelItem as ToolsPanelItem,
-	__experimentalNumberControl as NumberControl,
-} from '@wordpress/components';
 
 import { __ } from '@wordpress/i18n';
 
@@ -40,11 +25,11 @@ import './index.scss';
 
 import {
 	store as h2mlFilterStore
-} from './../../../store';
+} from '../../../store';
 
 import {
 	getAnimateCssDefinitions
-} from './../../../common/getAnimateCssDefinitions';
+} from '../../../common/getAnimateCssDefinitions';
 
 /**
  * External Dependencies
@@ -115,7 +100,6 @@ addFilter(
 			const {hasGlobal, getGlobal} = useSelect(h2mlFilterStore);
 			const {setGlobal} = dispatch(h2mlFilterStore);
 			if(!hasGlobal('ParsedAnimateDotCSS')) setGlobal('ParsedAnimateDotCSS', getAnimateCssDefinitions());
-			const animationClassNames = getGlobal('ParsedAnimateDotCSS');
 			//
 
 			return (<>

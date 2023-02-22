@@ -13,24 +13,30 @@
  * 
  */
 
-require_once __DIR__ . '/helpers/assetRegister.php';
-
 /**
- * 
- * Fixes for breaking issues with WordPress FSE
  * 
  */
 
- include_once __DIR__ . '/helpers/fixes.php';
+require_once __DIR__ . '/utilities/internal/assetRegister.php';
+
+/**
+ * Fixes for breaking issues with WordPress FSE
+ */
+
+ include_once __DIR__ . '/utilities/internal/fixes.php';
 
 /**
  * 
+ * External dependencies
+ * 
+ */
+
+/**
  * Yahnis Elsts' Plugin Update Checker, used to inform sites using the theme that there is an update available 
  * when the style.css Version increases within the official GitHub repo. 
- * 
  */
 
-require 'plugin-update-checker-5.0/plugin-update-checker.php';
+require 'utilities/external/plugin-update-checker-5.0/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
    
 $themeUpdateChecker = PucFactory::buildUpdateChecker(
@@ -43,24 +49,26 @@ $themeUpdateChecker->setBranch('main');
 
 /**
  * 
+ * Block Editor Enhancements 
+ * 
+ */
+
+/**
  * Register Custom Blocks
- *
  */
 
 add_action('init', function() {
-	foreach(glob(get_template_directory() . "/blocks/definitions/*") as $blockDefinitionDirectoryBuildPath) {
+	foreach(glob(get_template_directory() . "/block-editor-enhancements/blocks/definitions/*") as $blockDefinitionDirectoryBuildPath) {
 		register_block_type($blockDefinitionDirectoryBuildPath);
 	}
 }, 12);
 
 /**
- * 
- * Register Block Filters
- * 
+ * Register Block Editor Filters
  */
 
 add_action('after_setup_theme', function() {
-	foreach(glob(get_template_directory() . "/filters/definitions/*") as $filterDirectory) {
+	foreach(glob(get_template_directory() . "/block-editor-enhancements/filters/definitions/*") as $filterDirectory) {
 		//
 		$filtersServerAssist = $filterDirectory . '/index.php';
 		if(file_exists($filtersServerAssist)) {
@@ -91,11 +99,15 @@ add_action('after_setup_theme', function() {
 	}
 });
 
+/**
+ * 
+ * Child Themes Interfaces
+ * 
+ */
+
 /*
- *
  * Enque the child theme style.css, and any dependencies defined in 
- * './assets/style-dependencies/'
- *
+ * '~/child-theme-directory: ./assets/style-dependencies/'
  */ 
 
 add_action( 'wp_enqueue_scripts', function() {
@@ -145,10 +157,8 @@ add_action( 'wp_enqueue_scripts', function() {
 });
 
 /*
- *
  * Enque the child theme scripts, defined in 
- * './assets/scripts/'
- * 
+ * '~/child-theme-directory: ./assets/scripts/' 
  */ 
 
  add_action('after_setup_theme', function() {

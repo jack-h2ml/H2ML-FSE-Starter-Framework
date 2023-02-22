@@ -30,7 +30,7 @@ import {
 	HideTriggerThresholdHelpText,
 	HideAnimateInDurationHelpText,
 	HideAnimateOutDurationHelpText
-} from './../HelpText';
+} from '../HelpText';
 
 /**
  * The JSX
