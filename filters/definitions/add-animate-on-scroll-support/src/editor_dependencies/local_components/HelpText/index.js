@@ -36,7 +36,7 @@ export const AnimateInDurationHelpText = (props) => (
 			{__("Set this block's 'Animate In'", 'html')} <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/CSS/time">{__("duration", 'h2ml')}</ExternalLink>.
 		</span>
 		<span>
-			{__("By default this is '750ms'.", 'h2ml')}
+			{__("By default this is '500ms'.", 'h2ml')}
 		</span>
 	</VStack>
 );
@@ -51,7 +51,7 @@ export const AnimateOutDurationHelpText = (props) => (
 			{__("Set this block's 'Animate Out'", 'html')} <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/CSS/time">{__("duration", 'h2ml')}</ExternalLink>.
 		</span>
 		<span>
-			{__("By default this is '750ms'.", 'h2ml')}
+			{__("By default this is '500ms'.", 'h2ml')}
 		</span>
 	</VStack>
 );

@@ -39,14 +39,6 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 import './index.scss';
 
 import {
-	HideAnimateInHelpText,
-	HideAnimateOutHelpText,
-	HideTriggerThresholdHelpText,
-	HideAnimateInDurationHelpText,
-	HideAnimateOutDurationHelpText,
-} from './editor_dependencies/local_components/HelpText';
-
-import {
 	store as h2mlFilterStore
 } from './../../../store';
 

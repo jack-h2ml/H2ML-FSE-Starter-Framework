@@ -44,8 +44,8 @@ import 'animate.css/animate.min.css';
 const animateIsAnimatedClass = 'animate__animated';
 
 const defaultAnimateOnScrollValues = {
-	animateInDuration: '750ms',
-	animateOutDuration: '750ms',
+	animateInDuration: '500ms',
+	animateOutDuration: '500ms',
 	animateThreshold: 0.3,
 	animateDirection: 'forwards'
 }
