@@ -67,7 +67,7 @@ class _H2ml_GlobalIntersection_Trackers extends _H2ml_BetterArray {
 
 	/** */
 	track(Tracker) {
-		if(Tracker.constructor.name !== '_H2ml_GlobalIntersection_Tracker') {
+		if(Tracker.constructor !== _H2ml_GlobalIntersection_Tracker) {
 			console.error(Error(
 				`H2ml_GlobalIntersection_Observer: attempted to track a '${typeof Tracker}' with '_H2ml_GlobalIntersection_Tracker'.`
 			));
@@ -78,13 +78,13 @@ class _H2ml_GlobalIntersection_Trackers extends _H2ml_BetterArray {
 
 	/** */
 	constructor(observer, ...Trackers) {
-		if(observer.constructor.name !== 'IntersectionObserver') {
+		if(observer.constructor !== IntersectionObserver) {
 			throw Error(
 				`H2ml_GlobalIntersection_Observer: attempt to inititalise '_H2ml_GlobalIntersection_Trackers' without an 'IntersectionObserver' as its first parameter.`
 			);
 		}
 		Trackers.forEach(Tracker => {
-			if(Tracker.constructor.name !== '_H2ml_GlobalIntersection_Tracker') {
+			if(Tracker.constructor !== _H2ml_GlobalIntersection_Tracker) {
 				throw Error(
 					`H2ml_GlobalIntersection_Observer: attempted to initialise '_H2ml_GlobalIntersection_Trackers' with non '_H2ml_GlobalIntersection_Tracker' value.`
 				);
