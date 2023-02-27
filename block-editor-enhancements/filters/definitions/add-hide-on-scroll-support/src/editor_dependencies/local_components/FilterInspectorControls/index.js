@@ -120,7 +120,7 @@ export const FilterInspectorControls = (props) => {
 								setAttributes({
 									h2mlHideOnScroll: {
 										...existingAttributes,
-										customClasses: newCustomClasses.split(',').map(x => x.trim())
+										customClasses: newCustomClasses.split(',').map(x => x.trim()).filter(x => x !== '')
 									}
 								});
 							}}
