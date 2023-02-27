@@ -5,5 +5,5 @@
 import { H2mlAnimateOnScroll } from './view_dependencies/AnimateOnScroll';
 
 document.addEventListener('DOMContentLoaded', () => {
-	H2mlAnimateOnScroll.animate('[data-animate]');
+	H2mlAnimateOnScroll.track('[data-animate]');
 });

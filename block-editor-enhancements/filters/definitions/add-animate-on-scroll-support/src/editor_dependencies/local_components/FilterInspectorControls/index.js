@@ -49,7 +49,7 @@ export const FilterInspectorControls = (props) => {
 			animateDirection,
 			animateThreshold
 		},
-		defaultAttributes,
+		optionalAttributesDefaults,
 		animationClassNames,
 		setAttributes
 	} = props;
@@ -115,19 +115,19 @@ export const FilterInspectorControls = (props) => {
 									setAttributes({
 										h2mlAnimateOnScroll: {
 											...existingAttributes,
-											...defaultAttributes
+											...optionalAttributesDefaults
 										}
 									});
 								}}
 							>
 								<ToolsPanelItem
-									hasValue={() => animateInDuration !== defaultAttributes.animateInDuration}
+									hasValue={() => animateInDuration !== optionalAttributesDefaults.animateInDuration}
 									label={__("Animate In Duration", 'h2ml')}
 									onDeselect={() => {
 										setAttributes({
 											h2mlAnimateOnScroll: {
 												...existingAttributes,
-												animateInDuration: defaultAttributes.animateInDuration
+												animateInDuration: optionalAttributesDefaults.animateInDuration
 											}
 										});
 									}}
@@ -148,13 +148,13 @@ export const FilterInspectorControls = (props) => {
 									/>
 								</ToolsPanelItem>
 								<ToolsPanelItem
-									hasValue={() => animateOutDuration !== defaultAttributes.animateOutDuration}
+									hasValue={() => animateOutDuration !== optionalAttributesDefaults.animateOutDuration}
 									label={__("Animate Out Duration", 'h2ml')}
 									onDeselect={() => {
 										setAttributes({
 											h2mlAnimateOnScroll: {
 												...existingAttributes,
-												animateOutDuration: defaultAttributes.animateOutDuration
+												animateOutDuration: optionalAttributesDefaults.animateOutDuration
 											}
 										});
 									}}
@@ -175,13 +175,13 @@ export const FilterInspectorControls = (props) => {
 									/>
 								</ToolsPanelItem>
 								<ToolsPanelItem
-									hasValue={() => animateThreshold !== defaultAttributes.animateThreshold}
+									hasValue={() => animateThreshold !== optionalAttributesDefaults.animateThreshold}
 									label={__("Animate Threshold", 'h2ml')}
 									onDeselect={() => {
 										setAttributes({
 											h2mlAnimateOnScroll: {
 												...existingAttributes,
-												animateThreshold: defaultAttributes.animateThreshold
+												animateThreshold: optionalAttributesDefaults.animateThreshold
 											}
 										});
 									}}
@@ -205,13 +205,13 @@ export const FilterInspectorControls = (props) => {
 									/>
 								</ToolsPanelItem>
 								<ToolsPanelItem
-									hasValue={() => animateDirection !== defaultAttributes.animateDirection}
+									hasValue={() => animateDirection !== optionalAttributesDefaults.animateDirection}
 									label={__("Animate Direction", 'h2ml')}
 									onDeselect={() => {
 										setAttributes({
 											h2mlAnimateOnScroll: {
 												...existingAttributes,
-												animateDirection: defaultAttributes.animateDirection
+												animateDirection: optionalAttributesDefaults.animateDirection
 											}
 										});
 									}}

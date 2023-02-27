@@ -2,8 +2,8 @@
  * The Code
  */
 
-import { H2mlAnimateOnScroll } from './view_dependencies/AnimateOnScroll';
+import { H2mlHideOnScroll } from './view_dependencies/HideOnScroll';
 
 document.addEventListener('DOMContentLoaded', () => {
-	H2mlAnimateOnScroll.animate('[data-animate]');
+	H2mlHideOnScroll.track('[data-hide-on-scroll]');
 });

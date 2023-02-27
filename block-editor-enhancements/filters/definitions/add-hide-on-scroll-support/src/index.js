@@ -18,25 +18,18 @@ import { __ } from '@wordpress/i18n';
 import { createHigherOrderComponent } from '@wordpress/compose';
 
 /**
- * Internal Dependencies
+ * Local Dependencies
  */
 
 import './index.scss';
 
 import {
-	store as h2mlFilterStore
-} from '../../../store';
+	AnimateDotCssDefinitions
+} from '../../../common/AnimateDotCssDefinitions';
 
-import {
-	getAnimateCssDefinitions
-} from '../../../common/getAnimateCssDefinitions';
-
-/**
- * External Dependencies
- */
-
-import 'animate.css/animate.min.css';
-import { FilterInspectorControls } from './editor_dependencies/local_components/FilterInspectorControls';
+import { 
+	FilterInspectorControls 
+} from './editor_dependencies/local_components/FilterInspectorControls';
 
 /*
  * Global
@@ -44,7 +37,8 @@ import { FilterInspectorControls } from './editor_dependencies/local_components/
 
 const elemWillHideClass = 'animate__animated';
 
-const defaultHideOnScrollValues = {
+const optionalHideOnScrollValuesDefaults = {
+	breakpoint: '',
 	animateInDuration: '500ms',
 	animateOutDuration: '500ms',
 }
@@ -66,8 +60,10 @@ addFilter(
 					default: {
 						animateIn: '',
 						animateOut: '',
-						animateThreshold: 100,
-						...defaultHideOnScrollValues
+						customClasses: [],
+						triggerThreshold: 100,
+						showOnScrollUp: false,
+						...optionalHideOnScrollValuesDefaults
 					}
 				}
 			}
@@ -95,18 +91,11 @@ addFilter(
 		const hasFixedPositionParent = getBlockParents(clientId).find(parentClientId => !!getBlockAttributes(parentClientId).h2mlPositioning?.type);
 		//
 		if(hasFixedPositionParent) {
-
-			//
-			const {hasGlobal, getGlobal} = useSelect(h2mlFilterStore);
-			const {setGlobal} = dispatch(h2mlFilterStore);
-			if(!hasGlobal('ParsedAnimateDotCSS')) setGlobal('ParsedAnimateDotCSS', getAnimateCssDefinitions());
-			//
-
 			return (<>
 				<FilterInspectorControls
 					existingAttributes={h2mlHideOnScrollAttributes}
-					defaultAttributes={defaultHideOnScrollValues}	
-					animationClassNames={getGlobal('ParsedAnimateDotCSS')}
+					optionalAttributesDefaults={optionalHideOnScrollValuesDefaults}	
+					animationClassNames={AnimateDotCssDefinitions()}
 					setAttributes={setAttributes}
 				/>
 				<BlockEdit {...props}/>
@@ -118,45 +107,53 @@ addFilter(
 
 /**
  * 
- *
+ */
 
 addFilter(
 	'blocks.getSaveContent.extraProps',
-	'h2ml/add-positioning-styles-save',
+	'h2ml/add-hide-on-scroll-styles-save',
 	(props, type, attributes) => {
 		//
 		const {className: oldClassName} = props;
 		const {
-			h2mlAnimationOnScroll: {
+			h2mlHideOnScroll: {
 				animateIn,
 				animateOut,
+				customClasses,
+				triggerThreshold,
+				showOnScrollUp,
+				breakpoint,
 				animateInDuration,
-				animateOutDuration,
-				animateThreshold,
-				animateDirection
+				animateOutDuration
 			} = {}
 		} = attributes;
 		//
-		if (animateIn || animateOut) {
+		if (animateIn || animateOut || customClasses?.length) {
 			//
 			const className = (oldClassName ? oldClassName.split(' ') : []).reduce((res, cur) => {
-				return (cur !== animateIsAnimatedClass) ? `${res} ${cur}` : `${res}`
-			}, (animateIsAnimatedClass));
+				return (cur !== elemWillHideClass) ? `${res} ${cur}` : `${res}`
+			}, (elemWillHideClass));
+			//
+			const encode = (html) => {
+				let doc = new DOMParser().parseFromString(html, 'text/html');
+				return encodeURIComponent(doc.body.textContent) || "";
+			}
 			//
 			return {
 				...props,
 				className,
-				'data-animate': '',
-				...(animateIn && {'data-animate-in': animateIn}),
-				...(animateOut && {'data-animate-out': animateOut}),
-				...(animateInDuration && {'data-animate-in-duration': animateInDuration}),
-				...(animateOutDuration && {'data-animate-out-duration': animateOutDuration}),
-				...(animateDirection && {'data-animate-direction': animateDirection}),
-				...(animateThreshold && {'data-animate-Threshold': animateThreshold}),
+				'data-hide-on-scroll': '',
+				...(animateIn && {'data-hide-on-scroll-animate-in': animateIn}),
+				...(animateOut && {'data-hide-on-scroll-animate-out': animateOut}),
+				...(customClasses.length && {'data-hide-on-scroll-custom-classes': encode(customClasses.join(' '))}),
+				...(triggerThreshold && {'data-hide-on-scroll-threshold': triggerThreshold}),
+				...(showOnScrollUp && {'data-hide-on-scroll-show-on-scroll-up': showOnScrollUp}),
+				...(breakpoint && {'data-hide-on-scroll-breakpoint': encode(breakpoint)}),
+				...(animateInDuration && {'data-hide-on-scroll-animate-in-duration': animateInDuration}),
+				...(animateOutDuration && {'data-hide-on-scroll-animate-out-duration': animateOutDuration})
 			};
 		}
 		return props;
 	}
 );
-*/
 

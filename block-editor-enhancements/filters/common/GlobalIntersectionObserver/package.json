@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@h2ml/bettertimeout": "^1.0.4"
+  }
+}

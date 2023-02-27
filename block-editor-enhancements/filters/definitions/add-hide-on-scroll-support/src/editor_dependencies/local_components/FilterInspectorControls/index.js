@@ -11,6 +11,7 @@ import {
 	TextControl,
 	ExternalLink,
 	Notice,
+	ToggleControl,
 	__experimentalVStack as VStack,
 	__experimentalText as Text,
 	__experimentalToolsPanel as ToolsPanel,
@@ -27,7 +28,10 @@ import { __ } from '@wordpress/i18n';
 import {
 	HideAnimateInHelpText,
 	HideAnimateOutHelpText,
+	HideCustomClassHelpText,
 	HideTriggerThresholdHelpText,
+	HideShowOnScrollUpHelpText,
+	HideBreakpointHelpText,
 	HideAnimateInDurationHelpText,
 	HideAnimateOutDurationHelpText
 } from '../HelpText';
@@ -43,11 +47,14 @@ export const FilterInspectorControls = (props) => {
 		existingAttributes: {
 			animateOut,
 			animateIn,
+			customClasses = [],
+			triggerThreshold,
+			showOnScrollUp,
+			breakpoint,
 			animateInDuration,
-			animateOutDuration,
-			triggerThreshold
+			animateOutDuration
 		},
-		defaultAttributes,
+		optionalAttributesDefaults,
 		animationClassNames,
 		setAttributes
 	} = props;
@@ -106,7 +113,21 @@ export const FilterInspectorControls = (props) => {
 							style={{ marginBottom: 0 }}
 							__nextHasNoMarginBottom={true}
 						/>
-						{(animateIn || animateOut) && (
+						<TextControl
+							value={customClasses.join(', ')}
+							onChange={(newCustomClasses) => {
+								console.log(newCustomClasses.split(',').map(x => x.trim()));
+								setAttributes({
+									h2mlHideOnScroll: {
+										...existingAttributes,
+										customClasses: newCustomClasses.split(',').map(x => x.trim())
+									}
+								});
+							}}
+							label={__("Custom Classnames", 'h2ml')}
+							help={<HideCustomClassHelpText />}
+						/>
+						{(animateIn || animateOut || customClasses.length) && (
 							<>
 								<NumberControl
 									onChange={(newThreshold) => {
@@ -123,25 +144,65 @@ export const FilterInspectorControls = (props) => {
 									label={__("Trigger Threshold", 'h2ml')}
 									help={<HideTriggerThresholdHelpText />}
 								/>
+								<ToggleControl
+									checked={showOnScrollUp}
+									onChange={() => {
+										setAttributes({
+											h2mlHideOnScroll: {
+												...existingAttributes,
+												showOnScrollUp: !showOnScrollUp
+											}
+										})
+									}}
+									label={__("Show on scroll up", 'h2ml')}
+									help={<HideShowOnScrollUpHelpText />}
+								/>
 								<ToolsPanel
 									label={__("Hide on Scroll Additional Settings", 'h2ml')}
 									resetAll={() => {
 										setAttributes({
 											h2mlHideOnScroll: {
 												...existingAttributes,
-												...defaultAttributes
+												...optionalAttributesDefaults
 											}
 										});
 									}}
 								>
 									<ToolsPanelItem
-										hasValue={() => animateInDuration !== defaultAttributes.animateInDuration}
+										hasValue={() => breakpoint !== optionalAttributesDefaults.breakpoint}
+										label={__("Breakpoint", 'h2ml')}
+										onDeselect={() => {
+											setAttributes({
+												h2mlHideOnScroll: {
+													...existingAttributes,
+													breakpoint: optionalAttributesDefaults.breakpoint
+												}
+											});
+										}}
+										isShownByDefault={false}
+									>
+										<TextControl
+											value={breakpoint}
+											onChange={(newBreakpoint) => {
+												setAttributes({
+													h2mlHideOnScroll: {
+														...existingAttributes,
+														breakpoint: newBreakpoint
+													}
+												});
+											}}
+											label={__("Breakpoint", 'h2ml')}
+											help={<HideBreakpointHelpText />}
+										/>
+									</ToolsPanelItem>
+									<ToolsPanelItem
+										hasValue={() => animateInDuration !== optionalAttributesDefaults.animateInDuration}
 										label={__("Animate In Duration", 'h2ml')}
 										onDeselect={() => {
 											setAttributes({
 												h2mlHideOnScroll: {
 													...existingAttributes,
-													animateInDuration: defaultAttributes.animateInDuration
+													animateInDuration: optionalAttributesDefaults.animateInDuration
 												}
 											});
 										}}
@@ -162,13 +223,13 @@ export const FilterInspectorControls = (props) => {
 										/>
 									</ToolsPanelItem>
 									<ToolsPanelItem
-										hasValue={() => animateOutDuration !== defaultAttributes.animateOutDuration}
+										hasValue={() => animateOutDuration !== optionalAttributesDefaults.animateOutDuration}
 										label={__("Animate Out Duration", 'h2ml')}
 										onDeselect={() => {
 											setAttributes({
 												h2mlHideOnScroll: {
 													...existingAttributes,
-													animateOutDuration: defaultAttributes.animateOutDuration
+													animateOutDuration: optionalAttributesDefaults.animateOutDuration
 												}
 											});
 										}}

@@ -4,11 +4,6 @@
 
 import { addFilter } from '@wordpress/hooks';
 
-import {
-	useSelect,
-	dispatch
-} from '@wordpress/data';
-
 import { __ } from '@wordpress/i18n';
 
 import { createHigherOrderComponent } from '@wordpress/compose';
@@ -20,22 +15,12 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 import './index.scss';
 
 import {
-	store as h2mlFilterStore
-} from './../../../store';
-
-import {
-	getAnimateCssDefinitions
-} from './../../../common/getAnimateCssDefinitions';
+	AnimateDotCssDefinitions
+} from '../../../common/AnimateDotCssDefinitions';
 
 import {
 	FilterInspectorControls
 } from './editor_dependencies/local_components/FilterInspectorControls';
-
-/**
- * External Dependencies
- */
-
-import 'animate.css/animate.min.css';
 
 /*
  * Global
@@ -43,7 +28,7 @@ import 'animate.css/animate.min.css';
 
 const animateIsAnimatedClass = 'animate__animated';
 
-const defaultAnimateOnScrollValues = {
+const optionalAnimateOnScrollValuesDefaults = {
 	animateInDuration: '500ms',
 	animateOutDuration: '500ms',
 	animateThreshold: 0.3,
@@ -75,7 +60,7 @@ addFilter(
 					default: {
 						animateIn: '',
 						animateOut: '',
-						...defaultAnimateOnScrollValues
+						...optionalAnimateOnScrollValuesDefaults
 					}
 				}
 			}
@@ -102,16 +87,12 @@ addFilter(
 			setAttributes
 		} = props;
 		//
-		const {hasGlobal, getGlobal} = useSelect(h2mlFilterStore);
-		const {setGlobal} = dispatch(h2mlFilterStore);
-		if(!hasGlobal('ParsedAnimateDotCSS')) setGlobal('ParsedAnimateDotCSS', getAnimateCssDefinitions());
-		//
 		if (animateIn !== undefined || animateOut !== undefined) {
 			return (<>
 				<FilterInspectorControls
 					existingAttributes={h2mlAnimateOnScrollAttributes}
-					defaultAttributes={defaultAnimateOnScrollValues}	
-					animationClassNames={getGlobal('ParsedAnimateDotCSS')}
+					optionalAttributesDefaults={optionalAnimateOnScrollValuesDefaults}	
+					animationClassNames={AnimateDotCssDefinitions()}
 					setAttributes={setAttributes}
 				/>
 				<BlockEdit {...props} />

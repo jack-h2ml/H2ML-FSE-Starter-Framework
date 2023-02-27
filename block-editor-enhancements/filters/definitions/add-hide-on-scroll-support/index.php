@@ -7,7 +7,6 @@ require_once __DIR__ . '/../../../../utilities/internal/assetRegister.php';
  */
 
 add_action('wp_enqueue_scripts', function() {
-	/*
 	$stylePath = __DIR__ . '/build/view.css';
 	$styleHandle = h2mlRegisterBlockStyleHandle([
 		'name'       => 'h2ml/' . basename(__DIR__),
@@ -21,5 +20,4 @@ add_action('wp_enqueue_scripts', function() {
 		'textdomain' => 'h2ml'
 	], 'script', $scriptPath);
 	wp_enqueue_script($scriptHandle);
-	*/
 });

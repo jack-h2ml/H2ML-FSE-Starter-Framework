@@ -25,6 +25,12 @@ export const HideAnimateInHelpText = (props) => (
 	</span>
 );
 
+export const HideCustomClassHelpText = (props) => (
+	<span>
+		{__("Add a comma seperated list of custom 'Classnames' to toggle, this can be used instead of, or in addition to, the predefined animations above.", 'h2ml')}
+	</span>
+);
+
 export const HideTriggerThresholdHelpText = (props) => (
 	<VStack
 		as={'span'}
@@ -35,6 +41,31 @@ export const HideTriggerThresholdHelpText = (props) => (
 		</span>
 		<span>
 			{__("By default this is '100'.", 'h2ml')}
+		</span>
+	</VStack>
+);
+
+export const HideShowOnScrollUpHelpText = (props) => (
+	<VStack
+		as={'span'}
+		spacing={1}
+	>
+		<span>
+			{__("When enabled the block will be shown when scrolling back up the page from any point, rather than waiting until the user has scrolled back to the top of the page.", 'html')}
+		</span>
+		<span>
+			{__("By default this is disabled.", 'h2ml')}
+		</span>
+	</VStack>
+);
+
+export const HideBreakpointHelpText = (props) => (
+	<VStack
+		as={'span'}
+		spacing={1}
+	>
+		<span>
+			{__("Determening when this block's Hide on Scroll Set will take effect by setting a 'Breapoint' ", 'html')} <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/CSS/time">{__("Media Query", 'h2ml')}</ExternalLink>.
 		</span>
 	</VStack>
 );

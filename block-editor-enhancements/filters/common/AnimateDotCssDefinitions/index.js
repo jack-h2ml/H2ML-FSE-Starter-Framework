@@ -1,5 +1,33 @@
-export const getAnimateCssDefinitions = () => [...document.styleSheets].reduce((res, styleSheet) => {
+/**
+ * Wordpress Dependencies
+ */
+
+import {
+	useSelect,
+	dispatch
+} from '@wordpress/data';
+
+/**
+ * Internal Dependencies
+ */
+
+import {
+	store as h2mlFilterStore
+} from '../../store';
+
+/**
+ * External Dependencies
+ */
+
+import 'animate.css/animate.min.css';
+
+/**
+ * Parse the animate.css styles
+ */
+
+const parseAnimateCssDefinitions = () => [...document.styleSheets].reduce((res, styleSheet) => {
 	if(styleSheet.href && styleSheet.href.includes('add-animate-on-scroll-support')) {
+		console.debug('Generating Animate.css Definitions')
 		return [...styleSheet.cssRules].reduce((res, rule) => ({
 			...res,
 			...((
@@ -41,3 +69,17 @@ export const getAnimateCssDefinitions = () => [...document.styleSheets].reduce((
 		return res;
 	}
 }, []);
+
+/**
+ * Store the 
+ */
+
+export const AnimateDotCssDefinitions = () => {
+	const {hasGlobal, getGlobal} = useSelect(h2mlFilterStore);
+	const {setGlobal} = dispatch(h2mlFilterStore);
+	if(!hasGlobal('ParsedAnimateDotCSS')) {
+		console.debug('Setting Animate.css Definitions');
+		setGlobal('ParsedAnimateDotCSS', parseAnimateCssDefinitions());
+	};
+	return getGlobal('ParsedAnimateDotCSS');
+}
