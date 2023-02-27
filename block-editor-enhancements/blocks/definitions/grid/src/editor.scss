@@ -50,13 +50,17 @@
 	.components-modal__content {
 		// Styles
 		padding: 0;
-		overflow: hidden; ///////////////////
+		overflow: hidden; 
 
 		// Descendent Selectors
+		> div:not(.components-modal__header) {
+			height: 100%;
+		}
+
 		.h2mlGridBreakpointsEditorArea {
 			// Styles
 			position: relative;
-			height: 100%; ///////////////////
+			height: 100%; 
 
 			// Descendent Selectors
 			.h2mlGridBreakpointTabPanel {
