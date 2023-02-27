@@ -107,9 +107,9 @@ class _H2ml_GlobalIntersection_Tracker {
 
 	/** */
 	*[Symbol.iterator]() {
-    	yield this.target;
-    	yield this.callback;
-		yield this.id;
+    	yield this.#target;
+    	yield this.#callback;
+		yield this.#id;
   	}
 	
 	/** */
