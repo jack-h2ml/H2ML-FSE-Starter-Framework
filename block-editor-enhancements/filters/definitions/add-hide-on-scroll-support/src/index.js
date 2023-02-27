@@ -129,7 +129,6 @@ addFilter(
 		} = attributes;
 		//
 		if (animateIn || animateOut || customClasses?.length) {
-			console.log(animateIn, animateOut, customClasses);
 			//
 			const className = (oldClassName ? oldClassName.split(' ') : []).reduce((res, cur) => {
 				return (cur !== elemWillHideClass) ? `${res} ${cur}` : `${res}`

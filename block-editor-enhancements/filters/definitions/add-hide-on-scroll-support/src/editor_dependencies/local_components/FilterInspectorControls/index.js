@@ -116,7 +116,6 @@ export const FilterInspectorControls = (props) => {
 						<TextControl
 							value={customClasses.join(', ')}
 							onChange={(newCustomClasses) => {
-								console.log(newCustomClasses.split(',').map(x => x.trim()));
 								setAttributes({
 									h2mlHideOnScroll: {
 										...existingAttributes,

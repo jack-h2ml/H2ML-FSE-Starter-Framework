@@ -51,7 +51,7 @@ export class H2mlHideOnScroll {
 			),
 			...(!show 
 				? []
-				: hideOnScrollCustomClasses	
+				: (hideOnScrollCustomClasses && [hideOnScrollCustomClasses]) ?? []
 			)
 		);
 		elem.classList.add(
@@ -61,7 +61,7 @@ export class H2mlHideOnScroll {
 			),
 			...(show 
 				? []
-				: hideOnScrollCustomClasses	
+				: (hideOnScrollCustomClasses && [hideOnScrollCustomClasses]) ?? []
 			)
 		);
 		//

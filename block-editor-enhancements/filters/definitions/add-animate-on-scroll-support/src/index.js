@@ -47,9 +47,6 @@ addFilter(
 		const {
 			h2mlAnimationOnScroll = false
 		} = settings.attributes;
-		if(h2mlAnimationOnScroll) {
-			console.log('Testing');
-		}
 		//
 		return {
 			...settings,
