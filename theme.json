@@ -57,33 +57,49 @@
 			"blockGap": true,
 			"spacingSizes": [
 				{
-					"size": "clamp(0.5rem, 2vw, 0.75rem)",
+					"size": "clamp(8px, 1.2vw, 16px)",
 					"slug": "10",
 					"name": "1"
 				}, {
-					"size": "clamp(1rem, 3vw, 1.25rem)",
+					"size": "clamp(12px, 1.8vw, 24px)",
 					"slug": "20",
 					"name": "2"
 				}, {
-					"size": "clamp(1.5rem, 6vw, 2rem)",
-					"slug": "40",
+					"size": "clamp(16px, 2.4vw, 32px)",
+					"slug": "30",
 					"name": "3"
 				}, {
-					"size": "clamp(2.5rem, 8vw, 3.3rem)",
-					"slug": "50",
+					"size": "clamp(20px, 3vw, 40px)",
+					"slug": "40",
 					"name": "4"
 				}, {
-					"size": "clamp(3.75rem, 10vw, 5.1rem)",
-					"slug": "60",
+					"size": "clamp(24px, 3.6vw, 48px)",
+					"slug": "50",
 					"name": "5"
 				}, {
-					"size": "clamp(5rem, 5.25rem + ((1vw - 0.48rem) * 9.096), 8rem)",
-					"slug": "70",
+					"size": "clamp(28px, 4.2vw, 52px)",
+					"slug": "60",
 					"name": "6"
 				}, {
-					"size": "clamp(7rem, 14vw, 11rem)",
-					"slug": "80",
+					"size": "clamp(32px, 5.8vw, 64px)",
+					"slug": "70",
 					"name": "7"
+				}, {
+					"size": "clamp(36px, 6.4vw, 72px)",
+					"slug": "80",
+					"name": "8"
+				}, {
+					"size": "clamp(40px, 7vw, 80px)",
+					"slug": "90",
+					"name": "9"
+				}, {
+					"size": "clamp(44px, 7.6vw, 88px)",
+					"slug": "100",
+					"name": "10"
+				}, {
+					"size": "clamp(48px, 8.2vw, 96px)",
+					"slug": "110",
+					"name": "11"
 				}
 			],
 			"units": [
