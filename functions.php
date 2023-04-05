@@ -61,7 +61,7 @@ add_action('init', function() {
 	foreach(glob(get_template_directory() . "/block-editor-enhancements/blocks/definitions/*") as $blockDefinitionDirectoryBuildPath) {
 		register_block_type($blockDefinitionDirectoryBuildPath);
 	}
-}, 12);
+}, 2);
 
 /**
  * Register Block Editor Filters
@@ -110,7 +110,7 @@ add_action('after_setup_theme', function() {
  * '~/child-theme-directory: ./assets/style-dependencies/'
  */ 
 
-add_action( 'wp_enqueue_scripts', function() {
+add_action('wp_enqueue_scripts', function() {
 	// Ensure a child theme is in use. 
 	if(get_template_directory() !== get_stylesheet_directory()) {
 		// Cache the normalised base path, theme version, and theme slug to avoid unnecessary additional calls.

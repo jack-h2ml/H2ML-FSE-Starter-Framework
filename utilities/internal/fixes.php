@@ -56,4 +56,4 @@ add_action('init', function() {
 		remove_filter('theme_file_path', 'overrideThemeFilePath', 10);
 		return $settings;
 	}, 10, 2);
-}, 11);
+}, 2);
