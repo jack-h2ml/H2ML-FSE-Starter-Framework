@@ -1,0 +1,26 @@
+.h2mlHideOnScrollPanel {
+	--input-inset: 10px;
+	// Descendent Selectors
+	.components-notice, .components-notice > .components-notice__content {
+		margin: 0;
+	}
+	.components-base-control {
+		// Styles
+		margin-bottom: 0;
+		// Descendent Selectors
+		.components-base-control__help, .components-input-control__container, .components-text-control__input {
+			// Styles
+			margin-left: var(--input-inset);
+			width: calc(100% - var(--input-inset));
+		}
+	}
+	.components-tools-panel {
+		// Styles
+		padding: 0;
+		border-top: none;
+		//
+		.components-tools-panel-header {
+			padding: calc(var(--input-inset) / 2) 0;
+		}
+	}
+}

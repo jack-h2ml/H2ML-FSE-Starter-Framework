@@ -1,0 +1,40 @@
+body .h2mlGalleryCarousel {
+	// Styles
+	position: relative;
+
+	// Chained Selectors 
+	&.carouselEnabled {
+		// Styles
+		display: flex;
+		flex-direction: column;
+		overflow-y: visible;
+		overflow-x: clip;
+
+		// Chained Selectors
+		&:active {
+			touch-action: none;
+		}
+
+		// Descendent Selectors
+		> .wp-block-gallery {
+			// Styles
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			touch-action: pan-y pinch-zoom;
+
+			// Descendent Selectors
+			> .wp-block-image {
+				position: relative;
+				flex: 0 0 100%;
+				width: 100%;
+			}
+		}
+		.carouselNav {
+			flex: 0 0 100%;
+			width: 100%;
+			display: flex;
+		}
+	}
+}
