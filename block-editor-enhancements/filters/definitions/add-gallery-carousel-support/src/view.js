@@ -14,4 +14,3 @@ document.addEventListener('DOMContentLoaded', () => document.querySelectorAll('.
 	//
 	new H2mlCarousel(carouselElem, '.wp-block-image', '.carouselNav > button');
 }));
-

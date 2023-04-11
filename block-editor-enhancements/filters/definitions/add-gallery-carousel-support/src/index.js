@@ -114,7 +114,7 @@ wp.hooks.addFilter(
     'blocks.getSaveElement',
     'h2ml/add-h2mlCarousel-add-buttons',
     (element, settings, attributes) => {
-		if(settings.name === 'core/gallery') {
+		if(settings.name === 'core/gallery' && attributes.h2mlCarousel) {
 			return (
 				<div className='h2mlGalleryCarousel'> 
 					{element}
