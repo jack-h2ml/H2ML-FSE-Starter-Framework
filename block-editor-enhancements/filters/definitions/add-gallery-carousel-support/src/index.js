@@ -51,24 +51,6 @@ addFilter(
     }
 );
 
-/**
- * 
- */
-
-addFilter(
-    'editor.BlockListBlock',
-    'h2ml/add-h2mlCarousel-class-edit',
-    createHigherOrderComponent(BlockListBlock => props => {
-		const {attributes: {
-            h2mlCarousel
-        }} = props;
-		if(h2mlCarousel) {
-        	return <BlockListBlock {...props} className={h2mlCarouselClass} />;	
-		}
-        return <BlockListBlock {...props} />;
-    }, 'withCustomAttributeClass' )
-);
-
 /*
  * 
  */
