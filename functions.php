@@ -57,11 +57,17 @@ $themeUpdateChecker->setBranch('main');
  * Register Custom Blocks
  */
 
-add_action('init', function() {
+/*add_action('init', function() {
 	foreach(glob(get_template_directory() . "/block-editor-enhancements/blocks/definitions/*") as $blockDefinitionDirectoryBuildPath) {
 		register_block_type($blockDefinitionDirectoryBuildPath);
 	}
-}, 2);
+}, 2);*/
+
+add_action('init', function() {
+	foreach(glob(get_template_directory() . "/block-editor-enhancements/blocks/definitions/*/block.json") as $blockDefinitionDirectoryBuildPath) {
+		h2mlRegisterBlock($blockDefinitionDirectoryBuildPath);
+	}
+});
 
 /**
  * Register Block Editor Filters
