@@ -1,14 +1,1 @@
-/*!****************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/editor.scss ***!
-  \****************************************************************************************************************************************************************************************************************************************/
-.wp-block-h2ml-grid-area {
-  position: relative;
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
-}
-.wp-block-h2ml-grid-area > .block-list-appender.block-list-appender {
-  margin: var(--h2ml-grid-helper-spacing);
-  width: calc(100% - 2 * var(--h2ml-grid-helper-spacing));
-}
-
-/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguY3NzIiwibWFwcGluZ3MiOiI7OztBQUFBO0VBRUk7RUFDSDtVQUFBO0FBQUQ7QUFFQztFQUVDO0VBQ0E7QUFERixDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8va2EtZXhhbXBsZS1ibG9jay8uL3NyYy9lZGl0b3Iuc2NzcyJdLCJzb3VyY2VzQ29udGVudCI6WyIud3AtYmxvY2staDJtbC1ncmlkLWFyZWEge1xuXHQvLyBTdHlsZXNcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG5cdGJhY2tkcm9wLWZpbHRlcjogYmx1cigycHgpO1xuXHQvLyBEZXNjZW5kZW50IFNlbGVjdG9yc1xuXHQ+IC5ibG9jay1saXN0LWFwcGVuZGVyLmJsb2NrLWxpc3QtYXBwZW5kZXIge1xuXHRcdC8vIFN0eWxlc1xuXHRcdG1hcmdpbjogdmFyKC0taDJtbC1ncmlkLWhlbHBlci1zcGFjaW5nKTtcblx0XHR3aWR0aDogY2FsYygxMDAlIC0gKDIgKiB2YXIoLS1oMm1sLWdyaWQtaGVscGVyLXNwYWNpbmcpKSlcblx0fVxufSJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==*/
+.wp-block-h2ml-grid-area{-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);position:relative}.wp-block-h2ml-grid-area>.block-list-appender.block-list-appender{margin:var(--h2ml-grid-helper-spacing);width:calc(100% - var(--h2ml-grid-helper-spacing)*2)}
