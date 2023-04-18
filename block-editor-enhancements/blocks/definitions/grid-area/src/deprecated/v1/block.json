@@ -11,6 +11,18 @@
 	"description": "A single Grid Area within a Grid block.",
 	"textdomain": "h2ml",
 	"attributes": {
+		"verticalAlignment": {
+			"type": "string",
+			"default": "start"
+		},
+		"style": {
+			"type": "object",
+			"default": {
+				"color": {
+					"background": null
+				}
+			}
+		},
 		"gridArea": {
 			"type": "object",
 			"default": {
@@ -45,15 +57,7 @@
 	"supports": {
 		"__experimentalSettings": true,
 		"__experimentalLayout": {
-			"allowSwitching": false,
-			"allowInheriting": false,
-			"allowEditing": true,
-			"default": {
-				"type": "flex",
-				"flexWrap": "nowrap",
-				"verticalAlignment": "top",
-				"orientation": "vertical"
-			}
+			"allowSizingOnChildren": false
 		},
 		"anchor": true,
 		"reusable": false,

@@ -4,7 +4,6 @@
 
 import {
 	BlockControls,
-	BlockVerticalAlignmentToolbar,
 	InspectorControls,
 	InnerBlocks,
 	useBlockProps,
@@ -50,20 +49,13 @@ import './editor.scss';
 const GridAreaEdit = ({
 	// Attributes.
 	attributes: {
-		verticalAlignment,
 		gridArea,
 		stackingOrder,
 		requestEdit,
 		number,
-		style: {
-			color: {
-				background: customBackgroundColor
-			} = {} 
-		} = {},
 		breakpointDefinitions
 	},
 	// Attribute Setters.
-	setVerticalAlignment,
 	setRequestEdit,
 	setStackingOrder,
 	// Other.
@@ -140,8 +132,6 @@ const GridAreaEdit = ({
 		useBlockProps({
 			className: [`h2mlGridArea${number}`],
 			style: {
-				justifyContent: verticalAlignment,
-				backgroundColor: customBackgroundColor ? customBackgroundColor : 'null',
 				gridArea: gridArea.parsed,
 				zIndex: isSelectedGridArea ? isSelectedGridArea.editorStackingOrder : stackingOrder
 			},
@@ -161,10 +151,6 @@ const GridAreaEdit = ({
 	return (
 		<>
 			<BlockControls>
-				<BlockVerticalAlignmentToolbar
-					value={verticalAlignment}
-					onChange={setVerticalAlignment}
-				/>
                 <ToolbarGroup>
                     <ToolbarButton
                         icon={resizeCornerNE}
@@ -198,24 +184,6 @@ const GridAreaEdit = ({
 
 const GridAreaEditWrapper = withDispatch(
 	(dispatch, ownProps, registry) => ({
-		//
-		// Set the Grid Area's vertical alignment (Start, Center, End)
-		//
-		setVerticalAlignment(newVerticalAlignment) {
-			const {setAttributes} = ownProps;
-			const verticalAlignment = (() => {switch(newVerticalAlignment) {
-				case 'center': {
-					return 'center';
-				}
-				case 'bottom': {
-					return 'end';
-				}
-				default: {
-					return 'start';
-				}
-			}})();
-			setAttributes({verticalAlignment});
-		},
 		//
 		// Set the 'requestEdit' attribute, this is picked up by the parent Grid in order to update the Grid Area's size.
 		//

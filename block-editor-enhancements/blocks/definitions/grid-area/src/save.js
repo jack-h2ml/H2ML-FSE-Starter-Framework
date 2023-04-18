@@ -3,7 +3,6 @@
  */
 
 import {
-	useInnerBlocksProps,
 	useBlockProps,
 	InnerBlocks
 } from '@wordpress/block-editor';
@@ -15,31 +14,32 @@ import {
 export default function Save({
 	attributes: {
 		stackingOrder,
-		breakpointDefinitions
+		breakpointDefinitions,
+		gridArea: {
+			parsed: defaultGridArea
+		},
 	}
 }) {
-	const innerBlocksProps = useInnerBlocksProps.save({
-		...useBlockProps.save({
-			style: {
-				zIndex: stackingOrder
-			},
-			'data-breakpoint-definitions': Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
-				...res,
-				[`${breakpointDefinition.mediaQuery}`]: {
-					...(breakpointDefinition.coords ? {
-						gridArea: breakpointDefinition.coords,
-						display: 'flex'
-					} : {
-						display: 'none'
-					})
-				}
-			}), {}))) : undefined
-		})
+	const blockProps = useBlockProps.save({
+		style: {
+			zIndex: stackingOrder,
+			gridArea: defaultGridArea
+		},
+		'data-breakpoint-definitions': Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
+			...res,
+			[`${breakpointDefinition.mediaQuery}`]: {
+				...(breakpointDefinition.coords ? {
+					gridArea: breakpointDefinition.coords,
+					display: 'flex'
+				} : {
+					display: 'none'
+				})
+			}
+		}), {}))) : undefined
 	});
-
 	return (
-		<div {...innerBlocksProps}>
-			<InnerBlocks />
+		<div {...blockProps}>
+			<InnerBlocks.Content/>
 		</div>
 	);
 }
