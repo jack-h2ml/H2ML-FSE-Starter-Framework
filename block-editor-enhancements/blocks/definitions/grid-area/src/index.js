@@ -19,6 +19,7 @@ import './style.scss';
 import metadata from './../block.json';
 import Edit from './edit';
 import Save from './save';
+import SaveV1 from './save_v1'
 
 /**
  * Register the Block
@@ -27,5 +28,10 @@ import Save from './save';
 registerBlockType(metadata.name, {
 	icon,
 	edit: Edit,
-	save: Save
+	save: Save,
+	deprecated: [{
+		attributes: metadata.attributes,
+		supports: metadata.supports,
+		save: SaveV1
+    }],
 });
