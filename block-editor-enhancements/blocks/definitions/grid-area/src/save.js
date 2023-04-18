@@ -21,6 +21,7 @@ export default function Save({
 	}
 }) {
 	const blockProps = useBlockProps.save({
+		className: 'alignfull',
 		style: {
 			zIndex: stackingOrder,
 			gridArea: defaultGridArea
