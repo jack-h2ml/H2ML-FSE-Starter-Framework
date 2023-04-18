@@ -28,7 +28,7 @@ export default function Save({
 				[`${breakpointDefinition.mediaQuery}`]: {
 					...(breakpointDefinition.coords ? {
 						gridArea: breakpointDefinition.coords,
-						//display: 'flex'
+						display: 'flex'
 					} : {
 						display: 'none'
 					})
