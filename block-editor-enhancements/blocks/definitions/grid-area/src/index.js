@@ -19,7 +19,7 @@ import './style.scss';
 import metadata from './../block.json';
 import Edit from './edit';
 import Save from './save';
-import SaveV1 from './save_v1'
+import SaveV1 from './deprecated/v1/save';
 
 /**
  * Register the Block

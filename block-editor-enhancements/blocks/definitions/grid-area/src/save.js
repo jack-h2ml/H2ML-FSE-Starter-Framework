@@ -20,7 +20,6 @@ export default function Save({
 }) {
 	const innerBlocksProps = useInnerBlocksProps.save({
 		...useBlockProps.save({
-			className: 'is-layout-flex',
 			style: {
 				zIndex: stackingOrder
 			},
