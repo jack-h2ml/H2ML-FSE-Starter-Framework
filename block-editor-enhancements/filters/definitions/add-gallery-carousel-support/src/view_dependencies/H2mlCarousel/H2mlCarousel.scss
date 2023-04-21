@@ -28,6 +28,7 @@ body .h2mlGalleryCarousel {
 			> .wp-block-image {
 				position: relative;
 				flex: 0 0 100%;
+				height: min-content;
 				width: 100%;
 			}
 		}
