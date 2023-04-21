@@ -16,3 +16,7 @@ body .is-layout-flex {
 		margin: 0;
 	}
 }
+
+.animateOnScrollWrapper:has(.fillGridArea) {
+	height: 100%;
+}
