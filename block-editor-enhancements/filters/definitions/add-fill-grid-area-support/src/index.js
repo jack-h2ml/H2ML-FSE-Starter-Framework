@@ -33,23 +33,25 @@ addFilter(
     'h2ml/add-canFillGridArea-attribute',
     (settings) => {
 		//
-        const {category} = settings;
-        if(allowedFillChildCategories.includes(category)) {
-            return {
-                ...settings, 
-                attributes: {
-                    ...settings.attributes, 
-                    h2mlFillGridArea: {
-                        type: 'boolean',
-                        default: false
-                    },
-                    h2mlCanFillGridArea: {
-                        type: 'boolean',
-                        default: false
-                    } 
-                }
-            }
-        }
+		if(settings?.attributes) {
+			const {category} = settings;
+			if(allowedFillChildCategories.includes(category)) {
+				return {
+					...settings, 
+					attributes: {
+						...settings.attributes, 
+						h2mlFillGridArea: {
+							type: 'boolean',
+							default: false
+						},
+						h2mlCanFillGridArea: {
+							type: 'boolean',
+							default: false
+						} 
+					}
+				}
+			}
+		}
         return settings;
     }
 );

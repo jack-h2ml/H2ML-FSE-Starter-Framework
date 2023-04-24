@@ -34,19 +34,20 @@ addFilter(
     'blocks.registerBlockType',
     'h2ml/add-h2mlCarousel-attribute',
     (settings) => {
-		if(settings.name === 'core/gallery') {
-			return {
-                ...settings, 
-                attributes: {
-                    ...settings.attributes, 
-                    h2mlCarousel: {
-                        type: 'boolean',
-                        default: false
-                    }
-                }
-            }
+		if(settings?.attributes) {
+			if(settings?.name === 'core/gallery') {
+				return {
+					...settings, 
+					attributes: {
+						...settings.attributes, 
+						h2mlCarousel: {
+							type: 'boolean',
+							default: false
+						}
+					}
+				}
+			}
 		}
-		//
 		return settings;
     }
 );

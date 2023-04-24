@@ -67,7 +67,7 @@ add_action('init', function() {
  * Register Block Editor Filters
  */
 
-add_action('after_setup_theme', function() {
+add_action('init', function() {
 	foreach(glob(get_template_directory() . "/block-editor-enhancements/filters/definitions/*") as $filterDirectory) {
 		//
 		$filtersServerAssist = $filterDirectory . '/index.php';
@@ -97,7 +97,7 @@ add_action('after_setup_theme', function() {
 			});
 		}
 	}
-});
+}, 9);
 
 /**
  * 

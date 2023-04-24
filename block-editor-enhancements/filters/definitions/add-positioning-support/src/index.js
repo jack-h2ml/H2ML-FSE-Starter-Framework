@@ -56,23 +56,25 @@ addFilter(
 	'blocks.registerBlockType',
 	'h2ml/add-positioning-attribute',
 	(settings) => {
-		const { name } = settings;
-		if (allowedPositioningBlocksNames.includes(name)) {
-			return {
-				...settings,
-				attributes: {
-					...settings.attributes,
-					h2mlPositioning: {
-						type: 'object',
-						default: {
-							'type': '',
-							'values': {
-								'top': '',
-								'right': '',
-								'bottom': '',
-								'left': ''
-							},
-							'zIndex': ''
+		if(settings?.attributes) {
+			const { name } = settings;
+			if (allowedPositioningBlocksNames.includes(name)) {
+				return {
+					...settings,
+					attributes: {
+						...settings.attributes,
+						h2mlPositioning: {
+							type: 'object',
+							default: {
+								'type': '',
+								'values': {
+									'top': '',
+									'right': '',
+									'bottom': '',
+									'left': ''
+								},
+								'zIndex': ''
+							}
 						}
 					}
 				}

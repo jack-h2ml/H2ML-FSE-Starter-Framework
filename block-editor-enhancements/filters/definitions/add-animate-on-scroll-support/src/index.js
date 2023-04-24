@@ -44,24 +44,31 @@ addFilter(
 	'h2ml/add-animate-on-scroll-attribute',
 	(settings) => {
 		//
-		const {
-			h2mlAnimationOnScroll = false
-		} = settings.attributes;
-		//
-		return {
-			...settings,
-			attributes: {
-				...settings.attributes,
-				h2mlAnimateOnScroll: {
-					type: 'object',
-					default: {
-						animateIn: '',
-						animateOut: '',
-						...optionalAnimateOnScrollValuesDefaults
+		if(settings?.attributes) {
+			//
+			const {
+				h2mlAnimationOnScroll = false
+			} = settings.attributes;
+			//
+			if(!settings.name?.includes('gravityforms')) {
+				//
+				return {
+					...settings,
+					attributes: {
+						...settings.attributes,
+						h2mlAnimateOnScroll: {
+							type: 'object',
+							default: {
+								animateIn: '',
+								animateOut: '',
+								...optionalAnimateOnScrollValuesDefaults
+							}
+						}
 					}
 				}
 			}
-		}
+		}	
+		return settings;
 	}
 );
 

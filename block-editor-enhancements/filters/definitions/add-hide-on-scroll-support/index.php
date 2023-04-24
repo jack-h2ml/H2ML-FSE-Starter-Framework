@@ -21,3 +21,26 @@ add_action('wp_enqueue_scripts', function() {
 	], 'script', $scriptPath);
 	wp_enqueue_script($scriptHandle);
 });
+
+/**
+ * Fix for SSR Blocks
+ */
+
+ add_action( 'wp_loaded', function() {
+	$registered_blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
+	foreach( $registered_blocks as $name => $block ) {
+		$block->attributes['h2mlHideOnScroll'] = array(
+			'type'    => 'object',
+			'default' => array(
+				'animateIn' => '',
+				'animateOut' => '',
+				'breakpoint' => '',
+				'customClasses' => array(),
+				'animateInDuration' => '500ms',
+				'animateOutDuration' => '500ms',
+				'triggerThreshold' => 0.3,
+				'showOnScrollUp' => false
+			),
+		);
+	}
+}, 100);

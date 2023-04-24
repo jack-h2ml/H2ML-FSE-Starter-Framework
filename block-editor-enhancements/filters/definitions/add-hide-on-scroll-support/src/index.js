@@ -51,23 +51,26 @@ addFilter(
 	'blocks.registerBlockType',
 	'h2ml/add-hide-on-scroll-attribute',
 	(settings) => {
-		return {
-			...settings,
-			attributes: {
-				...settings.attributes,
-				h2mlHideOnScroll: {
-					type: 'object',
-					default: {
-						animateIn: '',
-						animateOut: '',
-						customClasses: [],
-						triggerThreshold: 100,
-						showOnScrollUp: false,
-						...optionalHideOnScrollValuesDefaults
+		if(settings?.attributes) {
+			return {
+				...settings,
+				attributes: {
+					...settings.attributes,
+					h2mlHideOnScroll: {
+						type: 'object',
+						default: {
+							animateIn: '',
+							animateOut: '',
+							customClasses: [],
+							triggerThreshold: 100,
+							showOnScrollUp: false,
+							...optionalHideOnScrollValuesDefaults
+						}
 					}
 				}
 			}
 		}
+		return settings;
 	}
 );
 

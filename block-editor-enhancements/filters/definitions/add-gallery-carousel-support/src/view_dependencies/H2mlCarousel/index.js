@@ -109,7 +109,6 @@ class H2mlSlide extends H2mlDomBase {
 		super();
 		this.#dom.elem = slideElem;
 		this.#dom.button = buttonElem;
-		console.log(this.#dom.button, buttonEvent);
 		if(buttonEvent) this.attachButtonEvent(buttonEvent);
 		this.setBounds();
 	}

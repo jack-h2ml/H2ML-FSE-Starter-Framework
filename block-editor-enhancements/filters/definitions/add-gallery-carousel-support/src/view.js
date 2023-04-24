@@ -8,7 +8,7 @@ import { H2mlCarousel } from './view_dependencies/H2mlCarousel';
 
 window.addEventListener('load', () => document.querySelectorAll('.h2mlGalleryCarousel').forEach((carouselElem) => {
 	const slides = [...carouselElem.querySelectorAll('.wp-block-image')];
-	carouselElem.querySelector('.carouselNav').append(...slides.map((_, index) => Object.assign(document.createElement('button'), {
+	carouselElem.querySelector('.carouselNav')?.append(...slides.map((_, index) => Object.assign(document.createElement('button'), {
 		ariaLabel: sprintf(__('Go to slide %d of %d'), index + 1, slides.length)
 	})));
 	//
