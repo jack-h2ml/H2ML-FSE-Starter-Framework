@@ -45,6 +45,7 @@ export const FilterInspectorControls = (props) => {
 		existingAttributes: {
 			animateIn,
 			animateOut,
+			customClasses,
 			animateInDuration,
 			animateOutDuration,
 			animateDirection,
@@ -120,7 +121,7 @@ export const FilterInspectorControls = (props) => {
 								});
 							}}
 							label={__("Custom Classnames", 'h2ml')}
-							help={<HideCustomClassHelpText />}
+							help={<AnimateCustomClassHelpText />}
 						/>
 						{(animateIn || animateOut) && (
 							<ToolsPanel

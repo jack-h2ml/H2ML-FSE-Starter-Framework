@@ -34,22 +34,30 @@ export class H2mlAnimateOnScroll {
 			elem,
 			animateIn,
 			animateOut,
+			customClasses,
 			animateInDuration,
 			animateOutDuration,
 		} = elemData;
 		//
 		elem.style.setProperty('--animate-duration', show ? animateInDuration : animateOutDuration);
-		//
-		elem.classList.add(
-			...(show
+		elem.classList.remove(
+			...(!show  
 				? (animateIn && [animateIn]) ?? []
 				: (animateOut && [animateOut]) ?? []
+			),
+			...(!show 
+				? []
+				: (customClasses && [customClasses]) ?? []
 			)
 		);
-		elem.classList.remove(
-			...(!show
+		elem.classList.add(
+			...(show  
 				? (animateIn && [animateIn]) ?? []
 				: (animateOut && [animateOut]) ?? []
+			),
+			...(show 
+				? []
+				: (customClasses && [customClasses]) ?? []
 			)
 		);
 		//
@@ -191,6 +199,7 @@ export class H2mlAnimateOnScroll {
 			const {
 				animateIn = null,
 				animateOut = null,
+				customClasses,
 				animateOnLoadVisible = false,
 				animateInDuration,
 				animateOutDuration,
@@ -204,6 +213,7 @@ export class H2mlAnimateOnScroll {
 					key: Symbol(),
 					animateIn,
 					animateOut,
+					customClasses,
 					animateOnLoadVisible,
 					animateInDuration,
 					animateOutDuration,
