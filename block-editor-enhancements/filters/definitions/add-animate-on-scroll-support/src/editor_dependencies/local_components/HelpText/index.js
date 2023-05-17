@@ -83,3 +83,14 @@ export const AnimateDirectionHelpText = (props) => (
 		</span>
 	</VStack>
 );
+
+export const AnimateCustomClassHelpText = (props) => (
+	<VStack
+		as={'span'}
+		spacing={1}
+	>
+		<span>
+			{__("Add a comma seperated list of custom 'Classnames' to toggle, this can be used instead of, or in addition to, the predefined animations above.", 'h2ml')}
+		</span>
+	</VStack>
+);

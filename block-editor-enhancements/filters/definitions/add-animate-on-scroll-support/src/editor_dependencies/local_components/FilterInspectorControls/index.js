@@ -30,7 +30,8 @@ import {
 	AnimateInDurationHelpText,
 	AnimateOutDurationHelpText,
 	AnimateThresholdHelpText,
-	AnimateDirectionHelpText
+	AnimateDirectionHelpText,
+	AnimateCustomClassHelpText
 } from './../HelpText';
 
 /**
@@ -107,6 +108,19 @@ export const FilterInspectorControls = (props) => {
 							help={<AnimateOutHelpText />}
 							style={{ marginBottom: 0 }}
 							__nextHasNoMarginBottom={true}
+						/>
+						<TextControl
+							value={customClasses.join(', ')}
+							onChange={(newCustomClasses) => {
+								setAttributes({
+									h2mlAnimateOnScroll: {
+										...existingAttributes,
+										customClasses: newCustomClasses.split(',').map(x => x.trim()).filter(x => x !== '')
+									}
+								});
+							}}
+							label={__("Custom Classnames", 'h2ml')}
+							help={<HideCustomClassHelpText />}
 						/>
 						{(animateIn || animateOut) && (
 							<ToolsPanel

@@ -120,14 +120,15 @@ addFilter(
 			h2mlAnimateOnScroll: {
 				animateIn,
 				animateOut,
+				customClasses,
 				animateInDuration,
 				animateOutDuration,
 				animateThreshold,
-				animateDirection,
+				animateDirection
 			} = {}
 		} = attributes;
 		//
-		if (animateIn || animateOut) {
+		if (animateIn || animateOut || customClasses?.length) {
 			//
 			const className = (oldClassName ? oldClassName.split(' ') : []).reduce((res, cur) => {
 				return (cur !== animateIsAnimatedClass) ? `${res} ${cur}` : `${res}`
@@ -139,9 +140,11 @@ addFilter(
 				'data-animate': '',
 				...(animateIn && {'data-animate-in': animateIn}),
 				...(animateOut && {'data-animate-out': animateOut}),
+				...(customClasses?.length && {'data-hide-on-scroll-custom-classes': encode(customClasses.join(' '))}),
 				...(animateInDuration && {'data-animate-in-duration': animateInDuration}),
 				...(animateOutDuration && {'data-animate-out-duration': animateOutDuration}),
 				...(animateDirection && {'data-animate-direction': animateDirection}),
+				...(animateThreshold && {'data-animate-Threshold': animateThreshold}),
 				...(animateThreshold && {'data-animate-Threshold': animateThreshold}),
 			};
 		}
