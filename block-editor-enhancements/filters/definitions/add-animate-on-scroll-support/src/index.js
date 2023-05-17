@@ -87,12 +87,13 @@ addFilter(
 				h2mlAnimateOnScroll: {
 					animateIn,
 					animateOut,
+					customClasses,
 				} = {}
 			},
 			setAttributes
 		} = props;
 		//
-		if (animateIn !== undefined || animateOut !== undefined) {
+		if (animateIn || animateOut || customClasses?.length) {
 			return (<>
 				<FilterInspectorControls
 					existingAttributes={h2mlAnimateOnScrollAttributes}
