@@ -61,7 +61,7 @@ addFilter(
 							default: {
 								animateIn: '',
 								animateOut: '',
-								customClasses: [],
+								animateCustomClasses: [],
 								...optionalAnimateOnScrollValuesDefaults
 							}
 						}
@@ -87,13 +87,13 @@ addFilter(
 				h2mlAnimateOnScroll: {
 					animateIn,
 					animateOut,
-					customClasses,
+					animateCustomClasses
 				} = {}
 			},
 			setAttributes
 		} = props;
 		//
-		if (animateIn || animateOut || customClasses?.length) {
+		if (animateIn !== undefined || animateOut !== undefined || animateCustomClasses !== undefined) {
 			return (<>
 				<FilterInspectorControls
 					existingAttributes={h2mlAnimateOnScrollAttributes}
@@ -122,7 +122,7 @@ addFilter(
 			h2mlAnimateOnScroll: {
 				animateIn,
 				animateOut,
-				customClasses,
+				animateCustomClasses,
 				animateInDuration,
 				animateOutDuration,
 				animateThreshold,
@@ -130,11 +130,16 @@ addFilter(
 			} = {}
 		} = attributes;
 		//
-		if (animateIn || animateOut || customClasses?.length) {
+		if (animateIn || animateOut || animateCustomClasses?.length) {
 			//
 			const className = (oldClassName ? oldClassName.split(' ') : []).reduce((res, cur) => {
 				return (cur !== animateIsAnimatedClass) ? `${res} ${cur}` : `${res}`
 			}, (animateIsAnimatedClass));
+			//
+			const encode = (html) => {
+				let doc = new DOMParser().parseFromString(html, 'text/html');
+				return encodeURIComponent(doc.body.textContent) || "";
+			}
 			//
 			return {
 				...props,
@@ -142,7 +147,7 @@ addFilter(
 				'data-animate': '',
 				...(animateIn && {'data-animate-in': animateIn}),
 				...(animateOut && {'data-animate-out': animateOut}),
-				...(customClasses?.length && {'data-hide-on-scroll-custom-classes': encode(customClasses.join(' '))}),
+				...(animateCustomClasses?.length && {'data-animate-custom-classes': encode(animateCustomClasses.join(' '))}),
 				...(animateInDuration && {'data-animate-in-duration': animateInDuration}),
 				...(animateOutDuration && {'data-animate-out-duration': animateOutDuration}),
 				...(animateDirection && {'data-animate-direction': animateDirection}),

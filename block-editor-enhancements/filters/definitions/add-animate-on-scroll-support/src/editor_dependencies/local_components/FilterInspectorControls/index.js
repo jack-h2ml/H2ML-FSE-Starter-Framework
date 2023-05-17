@@ -45,7 +45,7 @@ export const FilterInspectorControls = (props) => {
 		existingAttributes: {
 			animateIn,
 			animateOut,
-			customClasses,
+			animateCustomClasses,
 			animateInDuration,
 			animateOutDuration,
 			animateDirection,
@@ -111,19 +111,19 @@ export const FilterInspectorControls = (props) => {
 							__nextHasNoMarginBottom={true}
 						/>
 						<TextControl
-							value={customClasses.join(', ')}
+							value={animateCustomClasses?.join(', ')}
 							onChange={(newCustomClasses) => {
 								setAttributes({
 									h2mlAnimateOnScroll: {
 										...existingAttributes,
-										customClasses: newCustomClasses.split(',').map(x => x.trim()).filter(x => x !== '')
+										animateCustomClasses: newCustomClasses.split(',').map(x => x.trim()).filter(x => x !== '')
 									}
 								});
 							}}
 							label={__("Custom Classnames", 'h2ml')}
 							help={<AnimateCustomClassHelpText />}
 						/>
-						{(animateIn || animateOut) && (
+						{(animateIn || animateOut || animateCustomClasses) && (
 							<ToolsPanel
 								label={__("Animate on Scroll Additional Settings", 'h2ml')}
 								resetAll={() => {
