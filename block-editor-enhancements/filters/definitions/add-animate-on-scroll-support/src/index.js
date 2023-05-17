@@ -61,6 +61,7 @@ addFilter(
 							default: {
 								animateIn: '',
 								animateOut: '',
+								customClasses: [],
 								...optionalAnimateOnScrollValuesDefaults
 							}
 						}
