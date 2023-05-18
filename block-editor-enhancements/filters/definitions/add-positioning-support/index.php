@@ -11,8 +11,10 @@ add_filter('render_block', function($blockContent, $block) {
 	if(array_key_exists('attrs', $block)) {
 		$blockAttributes = $block['attrs'];
 		if($block['blockName'] === 'core/template-part' && array_key_exists('h2mlPositioning', $blockAttributes)) {
+
 			$properties           = $blockAttributes['h2mlPositioning'];
 			$type                 = $properties['type'];
+
 			//
 			if($type !== null && trim($type) !== '') {
 				$rawValues        = $properties['values'];
@@ -30,7 +32,7 @@ add_filter('render_block', function($blockContent, $block) {
 				//
 				$dom              = new DOMDocument; // initialize the domdocument
 				@$dom->loadHTML($blockContent);
-				$node             = $dom->firstElementChild->firstElementChild->firstElementChild; //html -> body -> header
+				$node             = $dom->documentElement->childNodes->item(0)->childNodes->item(0); //html -> body -> target
 				$node->setAttribute('style', $injectedStyle);
 				return $dom->saveHTML($node);
 			}
@@ -60,3 +62,4 @@ add_filter('render_block', function($blockContent, $block) {
 		);
 	}
 }, 100);
+
