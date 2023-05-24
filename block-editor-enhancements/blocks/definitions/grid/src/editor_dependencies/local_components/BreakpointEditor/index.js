@@ -657,7 +657,6 @@ export const BreakpointModal = (props) => {
 					canvas: await html2canvas(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`)),
 					represents: gridArea.clientId,
 				}
-				console.log(width);
 				gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`).style.width = width;
 				return x;
 			})).then(generatedPreviews => setGeneratedPreviews(generatedPreviews));
