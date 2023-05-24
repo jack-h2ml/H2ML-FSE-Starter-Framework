@@ -2,7 +2,7 @@
 	// Styles
     position: relative;
 	backdrop-filter: blur(2px);
-	overflow: hidden;
+	overflow: hidden !important;
 	// Descendent Selectors
 	> .block-list-appender.block-list-appender {
 		// Styles
