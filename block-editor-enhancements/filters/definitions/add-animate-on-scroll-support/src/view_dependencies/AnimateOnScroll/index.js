@@ -79,6 +79,7 @@ export class H2mlAnimateOnScroll {
 					animateDirection,
 					isShown,
 				} = elemData;
+				console.log(elem);
 				//
 				const {
 					y: currY,
