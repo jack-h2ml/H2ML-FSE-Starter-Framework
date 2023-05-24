@@ -649,6 +649,10 @@ export const BreakpointModal = (props) => {
 	const [generatedPreviews, setGeneratedPreviews] = useState(null);
 	useEffect(() => {
 		if(open) {
+			console.log(
+				gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`),
+				window.getComputedStyle(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`))
+			);
 			Promise.all(gridAreas.map(async gridArea => ({
 				title: 'Grid Area',
 				canvas: await html2canvas(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`)),
