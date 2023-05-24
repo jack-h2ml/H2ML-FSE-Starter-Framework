@@ -73,6 +73,7 @@ export class H2mlAnimateOnScroll {
 		//
 		H2mlAnimateOnScroll.#elements.forEach((elemData, key) => {
 			if ((key >= minId) && (key <= maxId + 1)) {
+				//console.log('hmm');
 				//
 				const {
 					elem,
@@ -185,6 +186,7 @@ export class H2mlAnimateOnScroll {
 		const wrapper = document.createElement('div');
 		wrapper.classList.add('animateOnScrollWrapper', 'alignfull');
 		wrapper.dataset.animateOnScrollKey = key;
+		elem.style.position = 'absolute';
 		elem.replaceWith(wrapper);
 		wrapper.appendChild(elem);
 		//
