@@ -2,6 +2,7 @@
 	// Styles
     overflow: visible;
 	width: inherit;
+	overflow: hidden;
 	
 	// Descendent Selectors 
 	> *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {

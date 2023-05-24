@@ -32,6 +32,7 @@ export class H2mlAnimateOnScroll {
 		//
 		const {
 			elem,
+			wrapper,
 			animateIn,
 			animateOut,
 			animateCustomClasses,
@@ -75,16 +76,16 @@ export class H2mlAnimateOnScroll {
 				//
 				const {
 					elem,
+					wrapper,
 					animateThreshold,
 					animateDirection,
 					isShown,
 				} = elemData;
-				console.log(elem);
 				//
 				const {
 					y: currY,
 					height,
-				} = elem.getBoundingClientRect();
+				} = wrapper.getBoundingClientRect();
 				//
 				const currRatio = currY <= 0
 					? (height + currY) / height
@@ -132,6 +133,7 @@ export class H2mlAnimateOnScroll {
 					y: currY
 				}
 			} = entry;
+
 			//
 			const elemData = H2mlAnimateOnScroll.#elements.get(key);
 			const {
@@ -186,7 +188,7 @@ export class H2mlAnimateOnScroll {
 		elem.replaceWith(wrapper);
 		wrapper.appendChild(elem);
 		//
-		this.#elements.set(key, elemData);
+		this.#elements.set(key, {...elemData, wrapper});
 		//
 		return wrapper;
 	}
@@ -207,6 +209,7 @@ export class H2mlAnimateOnScroll {
 				animateThreshold,
 				animateDirection
 			} = elem.dataset;
+			
 			startObserving(
 				H2mlAnimateOnScroll.#wrap({
 					elem,
