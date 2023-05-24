@@ -650,13 +650,14 @@ export const BreakpointModal = (props) => {
 	useEffect(() => {
 		if(open) {
 			Promise.all(gridAreas.map(async gridArea => {
-				const width = window.getComputedStyle(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`));
+				const width = window.getComputedStyle(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`)).width;
 				gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`).style.width = '400px';
 				const x =  {
 					title: 'Grid Area',
 					canvas: await html2canvas(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`)),
 					represents: gridArea.clientId,
 				}
+				console.log(width);
 				gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`).style.width = width;
 				return x;
 			})).then(generatedPreviews => setGeneratedPreviews(generatedPreviews));
