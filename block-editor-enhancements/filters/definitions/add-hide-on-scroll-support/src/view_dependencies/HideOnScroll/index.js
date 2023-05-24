@@ -89,7 +89,6 @@ export class H2mlHideOnScroll {
 			const breakpoint = hideOnScrollBreakpoint ? window.matchMedia(hideOnScrollBreakpoint).matches : true;
 			//
 			if(!entry.isIntersetcing) {
-				//entry.target.style.top = `${scrollY}px`;
 				entry.target.style.bottom = 0;
 				if(!isShown && H2mlHideOnScroll.#scrollDirection) {
 					H2mlHideOnScroll.#toggleElement(elemData, true);
