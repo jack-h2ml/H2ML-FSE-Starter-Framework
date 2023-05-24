@@ -186,7 +186,6 @@ export class H2mlAnimateOnScroll {
 		const wrapper = document.createElement('div');
 		wrapper.classList.add('animateOnScrollWrapper', 'alignfull');
 		wrapper.dataset.animateOnScrollKey = key;
-		elem.style.position = 'absolute';
 		elem.replaceWith(wrapper);
 		wrapper.appendChild(elem);
 		//

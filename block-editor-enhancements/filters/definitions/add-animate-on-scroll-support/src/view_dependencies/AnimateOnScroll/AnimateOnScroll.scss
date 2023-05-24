@@ -1,9 +1,19 @@
+body {
+	overflow-x: hidden;
+	height: 100%;
+}
+
 .animateOnScrollWrapper {
 	// Styles
     overflow: visible;
 	width: inherit;
+	position: relative;
 	
 	// Descendent Selectors 
+	> * {
+		transform-origin: 0 0;
+	}
+
 	> *:where(:not(.alignleft):not(.alignright):not(.alignfull)) {
 		margin-left: auto;
 		margin-right: auto;
