@@ -649,17 +649,17 @@ export const BreakpointModal = (props) => {
 	const [generatedPreviews, setGeneratedPreviews] = useState(null);
 	useEffect(() => {
 		if(open) {
-			gridAreas.map(gridArea => {
-				console.log(
-					gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`),
-					window.getComputedStyle(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`))
-				);
-			});
-			Promise.all(gridAreas.map(async gridArea => ({
-				title: 'Grid Area',
-				canvas: await html2canvas(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`)),
-				represents: gridArea.clientId,
-			}))).then(generatedPreviews => setGeneratedPreviews(generatedPreviews));
+			Promise.all(gridAreas.map(async gridArea => {
+				const width = window.getComputedStyle(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`));
+				gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`).style.width = '400px';
+				const x =  {
+					title: 'Grid Area',
+					canvas: await html2canvas(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`)),
+					represents: gridArea.clientId,
+				}
+				gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`).style.width = width;
+				return x;
+			})).then(generatedPreviews => setGeneratedPreviews(generatedPreviews));
 		} else {
 			setGeneratedPreviews(null);
 		}
