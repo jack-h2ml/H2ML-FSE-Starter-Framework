@@ -38,7 +38,7 @@ import {
 	useMemo
 } from '@wordpress/element';
 
-import { plus } from '@wordpress/icons';
+import { grid, plus } from '@wordpress/icons';
 
 /**
  * External dependencies.
@@ -649,10 +649,12 @@ export const BreakpointModal = (props) => {
 	const [generatedPreviews, setGeneratedPreviews] = useState(null);
 	useEffect(() => {
 		if(open) {
-			console.log(
-				gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`),
-				window.getComputedStyle(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`))
-			);
+			gridAreas.map(gridArea => {
+				console.log(
+					gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`),
+					window.getComputedStyle(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`))
+				);
+			});
 			Promise.all(gridAreas.map(async gridArea => ({
 				title: 'Grid Area',
 				canvas: await html2canvas(gridRef.current.querySelector(`[data-block="${gridArea.clientId}"]`)),
