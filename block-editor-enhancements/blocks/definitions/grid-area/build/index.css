@@ -1,1 +1,1 @@
-.wp-block-h2ml-grid-area{-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);position:relative}.wp-block-h2ml-grid-area>.block-list-appender.block-list-appender{margin:var(--h2ml-grid-helper-spacing);width:calc(100% - var(--h2ml-grid-helper-spacing)*2)}
+.wp-block-h2ml-grid-area{-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);overflow:hidden!important;position:relative}.wp-block-h2ml-grid-area>.block-list-appender.block-list-appender{margin:var(--h2ml-grid-helper-spacing);width:calc(100% - var(--h2ml-grid-helper-spacing)*2)}
