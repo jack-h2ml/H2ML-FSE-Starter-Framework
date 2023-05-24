@@ -89,7 +89,8 @@ export class H2mlHideOnScroll {
 			const breakpoint = hideOnScrollBreakpoint ? window.matchMedia(hideOnScrollBreakpoint).matches : true;
 			//
 			if(!entry.isIntersetcing) {
-				entry.target.style.top = `${scrollY}px`;
+				//entry.target.style.top = `${scrollY}px`;
+				entry.target.style.bottom = 0;
 				if(!isShown && H2mlHideOnScroll.#scrollDirection) {
 					H2mlHideOnScroll.#toggleElement(elemData, true);
 				} else if(isShown && !H2mlHideOnScroll.#scrollDirection && (scrollY > hideOnScrollThreshold) && breakpoint) {
@@ -133,8 +134,8 @@ export class H2mlHideOnScroll {
 			//
 			const newGlobalTracker = document.createElement('div');
 			window.addEventListener('resize', (e) => {
-				console.log(newGlobalTracker, (ownerDocument.documentElement.scrollHeight - window.innerHeight), ownerDocument.documentElement.scrollHeight, window.innerHeight);
-				newGlobalTracker.style.top = ownerDocument.documentElement.scrollHeight - window.innerHeight;
+				//console.log(newGlobalTracker, (ownerDocument.documentElement.scrollHeight - window.innerHeight), ownerDocument.documentElement.scrollHeight, window.innerHeight);
+				//newGlobalTracker.style.top = ownerDocument.documentElement.scrollHeight - window.innerHeight;
 			});
 			newGlobalTracker.classList.add('hideOnScrollGlobalTracker');
 			body.insertBefore(newGlobalTracker, firstElementChild);
