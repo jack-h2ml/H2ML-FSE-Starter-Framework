@@ -108,7 +108,8 @@
 				"em",
 				"rem",
 				"vh",
-				"vw"
+				"vw",
+				"ch"
 			]
 		},
 		"typography": {
