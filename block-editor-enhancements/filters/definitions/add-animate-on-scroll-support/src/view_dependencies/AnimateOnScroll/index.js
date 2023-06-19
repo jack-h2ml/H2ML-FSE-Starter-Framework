@@ -73,7 +73,7 @@ export class H2mlAnimateOnScroll {
 		//
 		H2mlAnimateOnScroll.#elements.forEach((elemData, key) => {
 			if ((key >= minId) && (key <= maxId + 1)) {
-				//console.log('hmm');
+				console.log('hmm');
 				//
 				const {
 					elem,
