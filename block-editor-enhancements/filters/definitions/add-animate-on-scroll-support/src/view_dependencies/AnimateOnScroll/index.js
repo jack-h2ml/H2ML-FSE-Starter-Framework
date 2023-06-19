@@ -73,7 +73,6 @@ export class H2mlAnimateOnScroll {
 		//
 		H2mlAnimateOnScroll.#elements.forEach((elemData, key) => {
 			if ((key >= minId) && (key <= maxId + 1)) {
-				console.log(elemData);
 				//
 				const {
 					elem,
@@ -100,12 +99,8 @@ export class H2mlAnimateOnScroll {
 				//
 				switch(animateDirection) {
 					case ('forwards'): {
-						if(thresholdHide) console.log('hmm1'); else console.log('hmm2');
-						//doShow = !isShown && scrollingDirection && !thresholdHide && (currY > 0);
-						//doHide = isShown && !scrollingDirection && thresholdHide && (currY > 0);
 						doShow = !isShown && !thresholdHide;
-						doHide = !doShow && !scrollingDirection && isShown && thresholdHide;
-						console.log(doShow, doHide);
+						doHide = !doShow && !scrollingDirection && isShown && thresholdHide;s
 						break;
 					}
 					case ('backwards'): {
