@@ -99,8 +99,8 @@ export class H2mlAnimateOnScroll {
 				//
 				switch(animateDirection) {
 					case ('forwards'): {
-						doShow = !thresholdHide && scrollingDirection;
-						doHide = !doShow && scrollingDirection && isShown && thresholdHide;
+						doShow = !isShown && scrollingDirection && !thresholdHide;
+						doHide = !doShow && isShown && !scrollingDirection && thresholdHide;
 						break;
 					}
 					case ('backwards'): {
@@ -224,7 +224,7 @@ export class H2mlAnimateOnScroll {
 					animateOutDuration,
 					animateThreshold,
 					animateDirection,
-					isShown: true,
+					isShown: false,
 				}),
 				H2mlAnimateOnScroll.#trackerCallback,
 				index
