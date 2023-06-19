@@ -103,8 +103,9 @@ export class H2mlAnimateOnScroll {
 						if(thresholdHide) console.log('hmm1'); else console.log('hmm2');
 						//doShow = !isShown && scrollingDirection && !thresholdHide && (currY > 0);
 						//doHide = isShown && !scrollingDirection && thresholdHide && (currY > 0);
-						doHide = !scrollingDirection && isShown && thresholdHide;
 						doShow = !isShown && !thresholdHide;
+						doHide = !doShow && !scrollingDirection && isShown && thresholdHide;
+						console.log(doShow, doHide);
 						break;
 					}
 					case ('backwards'): {
