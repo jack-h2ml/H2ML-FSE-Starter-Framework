@@ -93,14 +93,11 @@ export class H2mlAnimateOnScroll {
 					: (window.innerHeight - currY) / height
 				//
 				const thresholdHide = currRatio < animateThreshold;
-				//
-				console.log(currRatio, thresholdHide, currY);
 
 				//
 				let doShow;
 				let doHide;
 				//
-				//switch (animateDirection) {
 				switch(animateDirection) {
 					case ('forwards'): {
 						if(thresholdHide) console.log('hmm1'); else console.log('hmm2');
