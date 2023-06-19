@@ -94,6 +94,9 @@ export class H2mlAnimateOnScroll {
 				//
 				const thresholdHide = currRatio < animateThreshold;
 				//
+				console.log(currRatio, thresholdHide, currY);
+
+				//
 				let doShow;
 				let doHide;
 				//
