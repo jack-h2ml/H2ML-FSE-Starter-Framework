@@ -226,7 +226,7 @@ export class H2mlAnimateOnScroll {
 					animateOutDuration,
 					animateThreshold,
 					animateDirection,
-					isShown: false,
+					isShown: true,
 				}),
 				H2mlAnimateOnScroll.#trackerCallback,
 				index
