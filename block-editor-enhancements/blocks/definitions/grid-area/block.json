@@ -44,7 +44,7 @@
 	},
 	"supports": {
 		"__experimentalSettings": true,
-		"__experimentalLayout": {
+		"layout": {
 			"allowSwitching": false,
 			"allowInheriting": false,
 			"allowEditing": true,
