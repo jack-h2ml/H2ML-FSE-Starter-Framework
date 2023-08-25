@@ -123,7 +123,6 @@ const GridAreaEdit = ({
 		type: 'flex', 
 		orientation: 'vertical'
 	};
-	console.log(layout, themeSupportsLayout);
 
 	//
 	// Register the Block / InnerBlock Props.
