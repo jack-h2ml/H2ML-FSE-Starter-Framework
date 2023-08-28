@@ -48,19 +48,21 @@ import './editor.scss';
 
 const GridAreaEdit = ({
 	// Attributes.
-	attributes: {
-		gridArea,
-		stackingOrder,
-		requestEdit,
-		number,
-		breakpointDefinitions
-	},
+	attributes,
 	// Attribute Setters.
 	setRequestEdit,
 	setStackingOrder,
 	// Other.
 	clientId
 }) => {
+
+	const {
+		gridArea,
+		stackingOrder,
+		requestEdit,
+		number,
+		breakpointDefinitions
+	} = attributes;
 	
 	//
 	// Get Information about the current Block, and its children (Used for setting the editor stacking order).
@@ -128,6 +130,8 @@ const GridAreaEdit = ({
 		vertical: 'column',
 		horizontal: 'row'
 	}[layout.orientation ?? 'vertical'];
+
+	console.log('hmm', attributes, layout.orientation, flexDirection);
 
 	//
 	// Register the Block / InnerBlock Props.
