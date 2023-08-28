@@ -26,6 +26,8 @@ export default function Save({
 		horizontal: 'row'
 	}[layout.orientation];
 
+	console.log('hmm', layout.orientation, flexDirection);
+
 	const blockProps = useBlockProps.save({
 		className: 'alignfull',
 		style: {
