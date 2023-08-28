@@ -3,6 +3,15 @@
     position: relative;
 	backdrop-filter: blur(2px);
 	overflow: hidden !important;
+
+	//
+	&.is-horizontal {
+		flex-direction: row;
+	}
+
+	&.is-vertical {
+		flex-direction: column;
+	}
 	
 	// Descendent Selectors
 	> .block-list-appender.block-list-appender {
@@ -11,3 +20,4 @@
 		width: calc(100% - (2 * var(--h2ml-grid-helper-spacing)))
 	}
 }
+
