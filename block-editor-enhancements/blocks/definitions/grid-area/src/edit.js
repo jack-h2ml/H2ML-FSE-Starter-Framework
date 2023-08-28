@@ -63,8 +63,6 @@ const GridAreaEdit = (args) => {
 		// Other.
 		clientId
 	} = args;
-
-	console.log(args);
 	
 	//
 	// Get Information about the current Block, and its children (Used for setting the editor stacking order).
@@ -133,7 +131,7 @@ const GridAreaEdit = (args) => {
 		horizontal: 'row'
 	}[layout.orientation ?? 'vertical'];
 
-	console.log('hmm', attributes, layout, flexDirection);
+	console.log('hmm', args, layout, flexDirection);
 
 	//
 	// Register the Block / InnerBlock Props.
