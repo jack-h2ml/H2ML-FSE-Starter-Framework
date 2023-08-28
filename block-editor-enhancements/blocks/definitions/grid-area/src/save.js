@@ -11,20 +11,22 @@ import {
  * The Save Function
  */
 
-export default function Save(args) {
+export default function Save({
+	attributes: {
+		stackingOrder,
+		breakpointDefinitions,
+		gridArea: {
+			parsed: defaultGridArea
+		},
+		layout = {orientation: 'vertical'}
+	}
+}) {
+	const flexDirection = {
+		veritcal: 'column',
+		horizontal: 'row'
+	}[layout.orientation];
 
-	const {
-		attributes: {
-			stackingOrder,
-			breakpointDefinitions,
-			gridArea: {
-				parsed: defaultGridArea
-			},
-			layout = {orientation: 'vertical'}
-		}
-	} = args;
-
-	console.log(args, layout.orientation);
+	console.log(flexDirection, layout.orientation);
 
 	const blockProps = useBlockProps.save({
 		className: 'alignfull',
