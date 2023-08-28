@@ -20,10 +20,13 @@ export default function Save(args) {
 			gridArea: {
 				parsed: defaultGridArea
 			},
+			layout: {
+				orientation = 'vertical'
+			}
 		}
 	} = args;
 
-	console.log(args);
+	console.log(args, orientation);
 
 	const blockProps = useBlockProps.save({
 		className: 'alignfull',
