@@ -46,23 +46,25 @@ import './editor.scss';
  * The Edit Function Container
  */
 
-const GridAreaEdit = ({
-	// Attributes.
-	attributes,
-	// Attribute Setters.
-	setRequestEdit,
-	setStackingOrder,
-	// Other.
-	clientId
-}) => {
+const GridAreaEdit = (args) => {
 
 	const {
-		gridArea,
-		stackingOrder,
-		requestEdit,
-		number,
-		breakpointDefinitions
-	} = attributes;
+		// Attributes.
+		attributes: {
+			gridArea,
+			stackingOrder,
+			requestEdit,
+			number,
+			breakpointDefinitions
+		},
+		// Attribute Setters.
+		setRequestEdit,
+		setStackingOrder,
+		// Other.
+		clientId
+	} = args;
+
+	console.log(args);
 	
 	//
 	// Get Information about the current Block, and its children (Used for setting the editor stacking order).
