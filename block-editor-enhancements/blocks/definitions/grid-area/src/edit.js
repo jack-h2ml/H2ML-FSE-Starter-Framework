@@ -61,7 +61,9 @@ const GridAreaEdit = (args) => {
 		setRequestEdit,
 		setStackingOrder,
 		// Other.
-		clientId
+		clientId,
+		//
+		__unstableLayoutClassNames: layoutClassNames
 	} = args;
 	
 	//
@@ -122,16 +124,9 @@ const GridAreaEdit = (args) => {
 
 	const layout = { 
 		...useSetting('layout'), 
-		//type: 'flex', 
-		//orientation: 'vertical'
+		type: 'flex', 
+		orientation: 'vertical'
 	};
-
-	const flexDirection = {
-		vertical: 'column',
-		horizontal: 'row'
-	}[layout.orientation ?? 'vertical'];
-
-	console.log('hmm', args, layout, flexDirection);
 
 	//
 	// Register the Block / InnerBlock Props.
@@ -139,7 +134,7 @@ const GridAreaEdit = (args) => {
 	
 	const innerBlocksProps = useInnerBlocksProps( 
 		useBlockProps({
-			className: [`h2mlGridArea${number}`],
+			className: [`h2mlGridArea${number} ${layoutClassNames}`],
 			style: {
 				gridArea: gridArea.parsed,
 				zIndex: isSelectedGridArea ? isSelectedGridArea.editorStackingOrder : stackingOrder,
