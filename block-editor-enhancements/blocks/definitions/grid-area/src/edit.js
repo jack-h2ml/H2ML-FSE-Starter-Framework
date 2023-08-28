@@ -124,14 +124,10 @@ const GridAreaEdit = ({
 		orientation: 'vertical'
 	};
 
-	/*
 	const flexDirection = {
 		vertical: 'column',
 		horizontal: 'row'
-	}[layout.orientation];
-	*/
-
-	console.log('hmm', layout);
+	}[layout.orientation ?? 'vertical'];
 
 	//
 	// Register the Block / InnerBlock Props.
@@ -142,7 +138,8 @@ const GridAreaEdit = ({
 			className: [`h2mlGridArea${number}`],
 			style: {
 				gridArea: gridArea.parsed,
-				zIndex: isSelectedGridArea ? isSelectedGridArea.editorStackingOrder : stackingOrder
+				zIndex: isSelectedGridArea ? isSelectedGridArea.editorStackingOrder : stackingOrder,
+				flexDirection
 			},
 			'aria-label': __(`Grid-Area (${gridAreaIds.indexOf(clientId) + 1} of ${gridAreaIds.length})`, 'h2ml'),
 		}), {
