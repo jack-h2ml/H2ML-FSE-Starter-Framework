@@ -124,6 +124,15 @@ const GridAreaEdit = ({
 		orientation: 'vertical'
 	};
 
+	/*
+	const flexDirection = {
+		vertical: 'column',
+		horizontal: 'row'
+	}[layout.orientation];
+	*/
+
+	console.log('hmm', layout);
+
 	//
 	// Register the Block / InnerBlock Props.
 	//

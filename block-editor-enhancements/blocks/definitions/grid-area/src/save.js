@@ -22,7 +22,7 @@ export default function Save({
 	}
 }) {
 	const flexDirection = {
-		veritcal: 'column',
+		vertical: 'column',
 		horizontal: 'row'
 	}[layout.orientation];
 
@@ -32,7 +32,8 @@ export default function Save({
 		className: 'alignfull',
 		style: {
 			zIndex: stackingOrder,
-			gridArea: defaultGridArea
+			gridArea: defaultGridArea,
+			flexDirection
 		},
 		'data-breakpoint-definitions': Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
 			...res,
