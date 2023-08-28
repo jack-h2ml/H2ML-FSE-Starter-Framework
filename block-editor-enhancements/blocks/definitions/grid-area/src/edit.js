@@ -122,8 +122,8 @@ const GridAreaEdit = ({
 
 	const layout = { 
 		...useSetting('layout'), 
-		type: 'flex', 
-		orientation: 'vertical'
+		//type: 'flex', 
+		//orientation: 'vertical'
 	};
 
 	const flexDirection = {
