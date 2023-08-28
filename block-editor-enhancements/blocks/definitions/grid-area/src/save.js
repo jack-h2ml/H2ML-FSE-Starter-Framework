@@ -11,15 +11,20 @@ import {
  * The Save Function
  */
 
-export default function Save({
-	attributes: {
-		stackingOrder,
-		breakpointDefinitions,
-		gridArea: {
-			parsed: defaultGridArea
-		},
-	}
-}) {
+export default function Save(args) {
+
+	const {
+		attributes: {
+			stackingOrder,
+			breakpointDefinitions,
+			gridArea: {
+				parsed: defaultGridArea
+			},
+		}
+	} = args;
+
+	console.log(args);
+
 	const blockProps = useBlockProps.save({
 		className: 'alignfull',
 		style: {
