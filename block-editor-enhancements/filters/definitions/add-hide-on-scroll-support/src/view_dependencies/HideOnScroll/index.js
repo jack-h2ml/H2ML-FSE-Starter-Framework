@@ -86,7 +86,7 @@ export class H2mlHideOnScroll {
 				isShown
 			} = elemData;
 			//
-			console.log('hmm', tracker);
+			console.log('hmm', Tracker);
 			//
 			const breakpoint = hideOnScrollBreakpoint ? window.matchMedia(hideOnScrollBreakpoint).matches : true;
 			//
