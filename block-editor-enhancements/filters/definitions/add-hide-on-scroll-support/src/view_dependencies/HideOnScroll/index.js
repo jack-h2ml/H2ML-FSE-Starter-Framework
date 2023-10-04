@@ -74,6 +74,7 @@ export class H2mlHideOnScroll {
 		const {
 			scrollY
 		} = window;
+
 		H2mlHideOnScroll.#scrollDirection = scrollY !== H2mlHideOnScroll.#scrollPosition 
 			? (scrollY < H2mlHideOnScroll.#scrollPosition)
 			: H2mlHideOnScroll.#scrollDirection;
@@ -86,7 +87,8 @@ export class H2mlHideOnScroll {
 				isShown
 			} = elemData;
 			//
-			console.log('hmm', Tracker);
+			//const scrollTop = (document.documentElement || document.body.parentNode || document.body).scrollTop;
+			Tracker.target.style.top = `${scrollY}px`;
 			//
 			const breakpoint = hideOnScrollBreakpoint ? window.matchMedia(hideOnScrollBreakpoint).matches : true;
 			//
