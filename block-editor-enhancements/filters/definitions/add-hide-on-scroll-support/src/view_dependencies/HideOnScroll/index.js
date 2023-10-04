@@ -134,10 +134,8 @@ export class H2mlHideOnScroll {
 			const newGlobalTracker = document.createElement('div');
 			window.addEventListener('resize', (e) => {
 				const scrollTop = (document.documentElement || document.body.parentNode || document.body).scrollTop;
-
-				console.log('hmm1', newGlobalTracker, scrollTop);
-				newGlobalTracker.style.top = `${scrollTop}px`;
-				console.log('hmm2', newGlobalTracker, scrollTop);
+				//newGlobalTracker.style.top = `${scrollTop}px`;
+				newGlobalTracker.style.bottom = `${0}px`;
 			});
 			newGlobalTracker.classList.add('hideOnScrollGlobalTracker');
 			body.insertBefore(newGlobalTracker, firstElementChild);
