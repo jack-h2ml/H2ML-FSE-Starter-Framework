@@ -87,7 +87,6 @@ export class H2mlHideOnScroll {
 				isShown
 			} = elemData;
 			//
-			//const scrollTop = (document.documentElement || document.body.parentNode || document.body).scrollTop;
 			Tracker.target.style.top = `${scrollY}px`;
 			//
 			const breakpoint = hideOnScrollBreakpoint ? window.matchMedia(hideOnScrollBreakpoint).matches : true;
@@ -137,8 +136,10 @@ export class H2mlHideOnScroll {
 			//
 			const newGlobalTracker = document.createElement('div');
 			window.addEventListener('resize', (e) => {
+				newGlobalTracker.style.height = 0;
 				const scrollTop = (document.documentElement || document.body.parentNode || document.body).scrollTop;
 				newGlobalTracker.style.top = `${scrollTop}px`;
+				newGlobalTracker.style.height = null;
 			});
 			newGlobalTracker.classList.add('hideOnScrollGlobalTracker');
 			body.insertBefore(newGlobalTracker, firstElementChild);
