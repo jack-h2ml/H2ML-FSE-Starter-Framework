@@ -333,7 +333,7 @@ const BreakpointSidebarSettings = (props) => {
 					</Text>
 					<TextControl
 						label={__("Breakpoint Name", 'h2ml')}
-						value={context.breakpoint.name}
+						value={context.breakpoint.name ?? ''}
 						help={isNew
 							? __("Set the name of this Breakpoint.", 'h2ml')
 							: __("This Breakpoint's name, this cannot be edited.", 'h2ml')
@@ -346,7 +346,7 @@ const BreakpointSidebarSettings = (props) => {
 					/>
 					<TextControl
 						label={__("Breakpoint Media Query", 'h2ml')}
-						value={context.breakpoint.mediaQuery}
+						value={context.breakpoint.mediaQuery ?? ''}
 						help={__("Set the 'CSS Media Query' for this Breakpoint.", 'h2ml')}
 						onChange={value => context.setBreakpointAttributes({
 							mediaQuery: value,
