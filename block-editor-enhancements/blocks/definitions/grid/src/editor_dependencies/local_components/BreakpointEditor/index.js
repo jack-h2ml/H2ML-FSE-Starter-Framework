@@ -627,9 +627,8 @@ export const BreakpointModal = (props) => {
 	//
 	// Set / Get Breakpoint attributes.
 	//
-	const [breakpoint, configureBreakpoint] = useState();
+	const [breakpoint, configureBreakpoint] = useState(breakpointDefinitions[0]);
 	const setBreakpointAttributes = (attributesDefinitions) => {
-		console.log('ahh');
 		const breakpointCopy = JSON.parse(JSON.stringify(breakpoint));
 		Object.entries(attributesDefinitions).forEach(([attribute, value]) => {
 			breakpointCopy[attribute] = value;
@@ -640,7 +639,7 @@ export const BreakpointModal = (props) => {
 	// Update / Determine whether the breakpoint can be saved. 
 	//
 	const [canSave, setCanSave] = useState(null);
-	useEffect(() => {
+	useMemo(() => {
 		if (canSave !== !!canSave) {
 			setCanSave(false); // Mount Gaurd
 		} else if (!canSave && breakpoint.name && breakpoint.saved === false) {
@@ -676,7 +675,7 @@ export const BreakpointModal = (props) => {
 	//
 	const [gridEditorIsEditing, setGridEditorIsEditing] = useState(false);
 
-	console.log('hmm', breakpointDefinitions)
+	//console.log('hmm', breakpointDefinitions)
 
 	//
 	return (
