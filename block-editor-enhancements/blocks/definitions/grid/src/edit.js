@@ -143,8 +143,6 @@ const GridEdit = ({
 	clientId
 }) => {
 
-	console.log(breakpointDefinitions);
-
 	//
 	// Get information about the current Block, and its children. 
 	// (Used htmlFor setting the editor stacking order, and adding / editing Grid-Area's)
