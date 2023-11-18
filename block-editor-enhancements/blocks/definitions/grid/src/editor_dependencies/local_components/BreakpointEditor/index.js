@@ -611,8 +611,6 @@ export const BreakpointModal = (props) => {
 		saveFunction
 	} = props;
 
-	console.log(props);
-
 	//
 	// Inherited values from Grid.
 	//
@@ -626,6 +624,9 @@ export const BreakpointModal = (props) => {
 		},
 		innerBlocks: gridAreas
 	} = gridBlock;
+
+	console.log(gridBlock);
+
 	//
 	// Set / Get Breakpoint attributes.
 	//
