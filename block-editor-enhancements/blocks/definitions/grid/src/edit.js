@@ -494,6 +494,7 @@ const GridEditWrapper = withDispatch(
 		// Update Breakpoint
 		//
 		updateBreakpoint(breakpoint) {
+			console.log('hmmmmmmm')
 
 			const {
 				clientId,
