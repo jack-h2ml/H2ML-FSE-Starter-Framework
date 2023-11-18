@@ -624,9 +624,6 @@ export const BreakpointModal = (props) => {
 		},
 		innerBlocks: gridAreas
 	} = gridBlock;
-
-	console.log(gridBlock);
-
 	//
 	// Set / Get Breakpoint attributes.
 	//
