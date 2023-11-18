@@ -257,7 +257,7 @@ const BreakpointSidebarDefinitions = (useInnerBlocksProps) => {
 							<TextControl
 								key={`breakpoint-col-settings-${i}`}
 								label={sprintf(__("Breakpoint column %1$d Width", 'h2ml'), i + 1)}
-								value={context.breakpoint.colDefinitions.templates[i]}
+								value={context?.breakpoint?.colDefinitions.templates[i]}
 								onChange={template => {
 									const templatesCopy = [...context.breakpoint.colDefinitions.templates];
 									// Update the given Column / Row template and set the attribute.
@@ -516,18 +516,18 @@ const BreakpointGridEditor = (props) => {
 						className={'h2mlBreakpointGridEditor'}
 						style={{
 							gridTemplateAreas: generateGridTemplateAreas(
-								context.breakpoint.colDefinitions.count,
-								context.breakpoint.rowDefinitions.count
+								context?.breakpoint?.colDefinitions.count ?? 0,
+								context?.breakpoint?.rowDefinitions.count ?? 0
 							),
 							gridTemplateColumns: generateGridTemplateColumnsOrRows(context.breakpoint.colDefinitions.templates),
 							gridTemplateRows: generateGridTemplateColumnsOrRows(context.breakpoint.rowDefinitions.templates),
-							minHeight: context.breakpoint.minHeight
+							minHeight: context?.breakpoint?.minHeight ?? ''
 						}}
 					>
 						<GridEditor
 							gridClientId={null}
-							colCount={context.breakpoint.colDefinitions.count}
-							rowCount={context.breakpoint.rowDefinitions.count}
+							colCount={context?.breakpoint?.colDefinitions.count ?? 0}
+							rowCount={context?.breakpoint?.rowDefinitions.count ?? 0}
 							target={target}
 							saveFunction={saveFunction}
 						/>
@@ -538,7 +538,7 @@ const BreakpointGridEditor = (props) => {
 										key={`breakpointGridArea_${gridArea.clientId}`}
 										clientId={gridArea.clientId}
 										breakpoint={context.breakpoint}
-										breakpointName={context.breakpoint.name}
+										breakpointName={context?.breakpoint?.name ?? ''}
 										gridAreaBlock={gridArea}
 									/>
 								))
