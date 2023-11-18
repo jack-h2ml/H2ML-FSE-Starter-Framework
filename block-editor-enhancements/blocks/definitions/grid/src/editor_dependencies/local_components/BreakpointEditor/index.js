@@ -193,7 +193,7 @@ const BreakpointSidebarDefinitions = (useInnerBlocksProps) => {
 					>
 						<RangeControl
 							label={__("Breakpoint area number of Columns", 'h2ml')}
-							value={context.breakpoint.colDefinitions.count}
+							value={context?.breakpoint?.colDefinitions.count ?? ''}
 							onChange={count => {
 								// Create a copy of the existing Column / Row definition.
 								const definitionsCopy = JSON.parse(JSON.stringify(context.breakpoint.colDefinitions));
@@ -219,7 +219,7 @@ const BreakpointSidebarDefinitions = (useInnerBlocksProps) => {
 						/>
 						<RangeControl
 							label={__("Breakpoint area number of Rows", 'h2ml')}
-							value={context.breakpoint.rowDefinitions.count}
+							value={context?.breakpoint?.rowDefinitions.count ?? ''}
 							onChange={count => {
 								// Create a copy of the existing Column / Row definition.
 								const definitionsCopy = JSON.parse(JSON.stringify(context.breakpoint.rowDefinitions));
@@ -243,7 +243,7 @@ const BreakpointSidebarDefinitions = (useInnerBlocksProps) => {
 							help={<GridNoRowsHelpText />}
 							__nextHasNoMarginBottom={true}
 						/>
-						{(context.breakpoint.colDefinitions.count * context.breakpoint.rowCount) > 49 && (
+						{(context?.breakpoint?.colDefinitions.count ?? 0 * context?.breakpoint?.rowCount ?? 0) > 49 && (
 							<Notice status="warning" isDismissible={false}>
 								{__(
 									'The number of cells is greater than the recommended limit.',
@@ -253,7 +253,7 @@ const BreakpointSidebarDefinitions = (useInnerBlocksProps) => {
 						)}
 					</VStack>
 					<PanelBody title={__("Grid Columns Settings", 'h2ml')} initialOpen={false}>
-						{[...Array(context.breakpoint.colDefinitions.count)].map((_, i) => (
+						{[...Array(context?.breakpoint?.colDefinitions.count ?? null)].map((_, i) => (
 							<TextControl
 								key={`breakpoint-col-settings-${i}`}
 								label={sprintf(__("Breakpoint column %1$d Width", 'h2ml'), i + 1)}
@@ -275,7 +275,7 @@ const BreakpointSidebarDefinitions = (useInnerBlocksProps) => {
 						))}
 					</PanelBody>
 					<PanelBody title={__("Grid Rows Settings", 'h2ml')} initialOpen={false}>
-						{[...Array(context.breakpoint.rowDefinitions.count)].map((_, i) => (
+						{[...Array(context?.breakpoint?.rowDefinitions.count ?? null)].map((_, i) => (
 							<TextControl
 								key={`breakpoint-row-settings-${i}`}
 								label={sprintf(__("Breakpoint row %1$d Height", 'h2ml'), i + 1)}
@@ -299,7 +299,7 @@ const BreakpointSidebarDefinitions = (useInnerBlocksProps) => {
 					<PanelBody title={__("Breakpoint Minimum Height", 'h2ml')} initialOpen={false}>
 						<TextControl
 							label={__("Breakpoint Minimum Height", 'h2ml')}
-							value={context.breakpoint.minHeight}
+							value={context?.breakpoint?.minHeight ?? ''}
 							onChange={newMinHeight => setBreakpointAttributes({
 								minHeight: newMinHeight,
 								saved: false
@@ -333,7 +333,7 @@ const BreakpointSidebarSettings = (props) => {
 					</Text>
 					<TextControl
 						label={__("Breakpoint Name", 'h2ml')}
-						value={context.breakpoint.name ?? ''}
+						value={context?.breakpoint?.name ?? ''}
 						help={isNew
 							? __("Set the name of this Breakpoint.", 'h2ml')
 							: __("This Breakpoint's name, this cannot be edited.", 'h2ml')
@@ -346,7 +346,7 @@ const BreakpointSidebarSettings = (props) => {
 					/>
 					<TextControl
 						label={__("Breakpoint Media Query", 'h2ml')}
-						value={context.breakpoint.mediaQuery ?? ''}
+						value={context?.breakpoint?.mediaQuery ?? ''}
 						help={__("Set the 'CSS Media Query' for this Breakpoint.", 'h2ml')}
 						onChange={value => context.setBreakpointAttributes({
 							mediaQuery: value,
