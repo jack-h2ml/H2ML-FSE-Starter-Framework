@@ -35,7 +35,8 @@ import {
 	useEffect,
 	useRef,
 	createContext,
-	useMemo
+	useMemo,
+	useContext
 } from '@wordpress/element';
 
 import { grid, plus } from '@wordpress/icons';
@@ -315,6 +316,10 @@ const BreakpointSidebarSettings = (props) => {
 	const {
 		isNew
 	} = props;
+
+	const hmm = useContext(BreakpointConfigureBreakpointContext);
+	console.log(hmm);
+
 	//
 	return (
 		<BreakpointConfigureBreakpointContext.Consumer>
@@ -605,6 +610,7 @@ export const BreakpointModal = (props) => {
 		gridClientId,
 		saveFunction
 	} = props;
+
 	//
 	// Inherited values from Grid.
 	//
