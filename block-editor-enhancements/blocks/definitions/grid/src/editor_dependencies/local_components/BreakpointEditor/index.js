@@ -674,6 +674,9 @@ export const BreakpointModal = (props) => {
 	// State for determining whether the Grid Editor is editing a Grid Area. 
 	//
 	const [gridEditorIsEditing, setGridEditorIsEditing] = useState(false);
+
+	console.log('hmm', breakpointDefinitions)
+
 	//
 	return (
 		<>
