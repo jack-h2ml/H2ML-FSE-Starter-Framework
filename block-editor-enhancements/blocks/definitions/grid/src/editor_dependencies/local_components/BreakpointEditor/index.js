@@ -519,8 +519,8 @@ const BreakpointGridEditor = (props) => {
 								context?.breakpoint?.colDefinitions.count ?? 0,
 								context?.breakpoint?.rowDefinitions.count ?? 0
 							),
-							gridTemplateColumns: generateGridTemplateColumnsOrRows(context.breakpoint.colDefinitions.templates),
-							gridTemplateRows: generateGridTemplateColumnsOrRows(context.breakpoint.rowDefinitions.templates),
+							gridTemplateColumns: generateGridTemplateColumnsOrRows(context?.breakpoint?.colDefinitions.templates ?? []),
+							gridTemplateRows: generateGridTemplateColumnsOrRows(context?.breakpoint?.rowDefinitions.templates ?? []),
 							minHeight: context?.breakpoint?.minHeight ?? ''
 						}}
 					>
