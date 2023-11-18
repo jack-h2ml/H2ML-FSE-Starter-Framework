@@ -611,6 +611,8 @@ export const BreakpointModal = (props) => {
 		saveFunction
 	} = props;
 
+	console.log(props);
+
 	//
 	// Inherited values from Grid.
 	//
