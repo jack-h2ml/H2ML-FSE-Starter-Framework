@@ -493,7 +493,7 @@ const BreakpointGridEditorGridAreaPreview = (props) => {
 			<BreakpointSidebarGridAreaPreviewContext.Consumer>
 				{(context) => context.generatedPreviews && (
 					<BreakpointGridEditorGridAreaPreviewCanvas
-						canvas={context.generatedPreviews.find(generatedPreview => generatedPreview.represents === clientId).canvas}
+						canvas={context.generatedPreviews?.find(generatedPreview => generatedPreview.represents === clientId).canvas}
 					/>
 				)}
 			</BreakpointSidebarGridAreaPreviewContext.Consumer>
