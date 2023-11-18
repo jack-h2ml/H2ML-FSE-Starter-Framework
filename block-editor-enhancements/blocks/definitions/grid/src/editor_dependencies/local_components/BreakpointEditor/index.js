@@ -480,8 +480,11 @@ const BreakpointGridEditorGridAreaPreview = (props) => {
 		breakpointName,
 		gridAreaBlock,
 	} = props;
+
+	console.log(breakpoint);
+
 	//
-	const coords = breakpoint.gridAreasDefinitions.find(gridAreaDefinition => gridAreaDefinition.clientId === clientId)?.coords;
+	const coords = breakpoint?.gridAreasDefinitions.find(gridAreaDefinition => gridAreaDefinition.clientId === clientId)?.coords;
 	//
 	return (coords && (
 		<div
