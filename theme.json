@@ -151,6 +151,9 @@
 				}
 			]
 		},
+		"dimensions": {
+			"minHeight": true
+		},
 		"useRootPaddingAwareAlignments": true
 	},
 	"styles": {
