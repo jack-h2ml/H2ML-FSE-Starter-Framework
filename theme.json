@@ -55,6 +55,8 @@
 			"margin": true,
 			"padding": true,
 			"blockGap": true,
+			"defaultSpacingSizes": false,
+			"customSpacingSize": true,
 			"spacingSizes": [
 				{
 					"size": "clamp(8px, 1.2vw, 16px)",
@@ -113,6 +115,8 @@
 			]
 		},
 		"typography": {
+			"defaultFontSizes": false,
+			"customFontSize": true,
 			"dropCap": true,
 			"fontFamilies": [{
 				"fontFamily": "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif",
