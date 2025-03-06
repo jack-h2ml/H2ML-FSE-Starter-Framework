@@ -28,12 +28,6 @@ export default function Save({
 	}[layout.orientation];*/
 
 	const blockProps = useBlockProps.save({
-		className: 'alignfull',
-		style: {
-			zIndex: stackingOrder,
-			gridArea: defaultGridArea,
-			//flexDirection
-		},
 		'data-breakpoint-definitions': Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
 			...res,
 			[`${breakpointDefinition.mediaQuery}`]: {
@@ -47,9 +41,18 @@ export default function Save({
 		}), {}))) : undefined
 	});
 
+	/*
+	className: 'alignfull',
+		style: {
+			zIndex: stackingOrder,
+			gridArea: defaultGridArea,
+			//flexDirection
+		},
+	*/
+
 	const innerBlocksProps = useInnerBlocksProps.save(blockProps);
 
-	console.log(innerBlocksProps, useInnerBlocksProps.save());
+	console.log(blockProps, useBlockProps.save());
 
 	return (
 		<div {...innerBlocksProps}/>
