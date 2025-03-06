@@ -45,6 +45,7 @@ export default function Save({
 		}
 	}), {
 		__experimentalLayout: layout,
+		layout
 	});
 
 	console.log(blockProps);

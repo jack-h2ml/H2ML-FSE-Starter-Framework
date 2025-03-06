@@ -49,11 +49,13 @@
 			"allowInheriting": false,
 			"allowEditing": true,
 			"default": {
-				"type": "flex",
-				"flexWrap": "nowrap",
-				"verticalAlignment": "top",
-				"orientation": "vertical"
-			}
+			  "type": "flex",
+			  "flexWrap": "wrap",
+			  "verticalAlignment": "top",
+			  "justifyContent": "left",
+			  "orientation": "vertical"
+			},
+			"allowSizingOnChildren": true
 		},
 		"anchor": true,
 		"reusable": false,
