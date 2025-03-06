@@ -22,6 +22,9 @@ export default function Save({
 		layout = {orientation: 'vertical'}
 	}
 }) {
+
+	console.log(layout);
+
 	/*const flexDirection = {
 		vertical: 'column',
 		horizontal: 'row'
@@ -47,8 +50,6 @@ export default function Save({
 		__experimentalLayout: layout,
 		layout
 	});
-
-	console.log(blockProps);
 
 	return (
 		<div {...blockProps} data-breakpoint-definitions={Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
