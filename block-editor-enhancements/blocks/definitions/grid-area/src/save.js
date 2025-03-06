@@ -23,14 +23,10 @@ export default function Save({
 	}
 }) {
 
-	console.log(layout);
-
-	/*
 	const flexDirection = {
 		vertical: 'column',
 		horizontal: 'row'
-	}[layout.orientation];
-	*/
+	}[layout.orientation ?? 'vertical'];
 
 	/*
 	if(!blockProps.style) blockProps.style = {};
@@ -46,7 +42,7 @@ export default function Save({
 		style: {
 			zIndex: stackingOrder,
 			gridArea: defaultGridArea,
-			//flexDirection: flexDirection
+			flexDirection: flexDirection
 		}
 	}), {
 		__experimentalLayout: layout,
