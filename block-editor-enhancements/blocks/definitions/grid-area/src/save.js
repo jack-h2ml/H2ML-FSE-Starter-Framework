@@ -42,7 +42,9 @@ export default function Save({
 	});
 
 
-	if(blockProps.style) Object.assign(blockProps.style, {
+	if(!blockProps.style) blockProps.style = {};
+		
+	Object.assign(blockProps.style, {
 		zIndex: stackingOrder,
 		gridArea: defaultGridArea,
 		//flexDirection
