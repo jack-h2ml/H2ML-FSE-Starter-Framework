@@ -30,6 +30,7 @@ export default function Save({
 	const blockProps = useBlockProps.save();
 
 
+	/*
 	if(!blockProps.style) blockProps.style = {};
 		
 	Object.assign(blockProps.style, {
@@ -37,14 +38,6 @@ export default function Save({
 		gridArea: defaultGridArea,
 		//flexDirection
 	});
-
-	/*
-	className: 'alignfull',
-		style: {
-			zIndex: stackingOrder,
-			gridArea: defaultGridArea,
-			//flexDirection
-		},
 	*/
 
 	const innerBlocksProps = useInnerBlocksProps.save(blockProps);
