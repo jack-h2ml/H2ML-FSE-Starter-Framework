@@ -27,7 +27,7 @@ export default function Save({
 		horizontal: 'row'
 	}[layout.orientation];*/
 
-	const {children, blockProps} = useInnerBlockProps.save(useBlockProps.save({
+	const {children, blockProps} = useInnerBlocksProps.save(useBlockProps.save({
 		className: 'alignfull',
 		style: {
 			zIndex: stackingOrder,
