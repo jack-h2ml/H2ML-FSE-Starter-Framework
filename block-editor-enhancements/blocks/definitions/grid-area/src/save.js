@@ -26,17 +26,7 @@ export default function Save({
 	const flexDirection = {
 		vertical: 'column',
 		horizontal: 'row'
-	}[layout.orientation ?? 'vertical'];
-
-	/*
-	if(!blockProps.style) blockProps.style = {};
-		
-	Object.assign(blockProps.style, {
-		zIndex: stackingOrder,
-		gridArea: defaultGridArea,
-		//flexDirection
-	});
-	*/
+	}[layout?.orientation ?? 'vertical'];
 
 	const {children, ...blockProps} = useInnerBlocksProps.save(useBlockProps.save({
 		style: {
@@ -64,34 +54,4 @@ export default function Save({
 			{children}
 		</div>
 	);
-
-	/*
-	const blockProps = useBlockProps.save({
-		className: 'alignfull',
-		style: {
-			zIndex: stackingOrder,
-			gridArea: defaultGridArea,
-			flexDirection
-		},
-		'data-breakpoint-definitions': Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
-			...res,
-			[`${breakpointDefinition.mediaQuery}`]: {
-				...(breakpointDefinition.coords ? {
-					gridArea: breakpointDefinition.coords,
-					display: 'flex'
-				} : {
-					display: 'none'
-				})
-			}
-		}), {}))) : undefined
-	});
-
-
-
-	return (
-		<div {...blockProps}>
-			<InnerBlocks.Content/>
-		</div>
-	);
-	*/
 }
