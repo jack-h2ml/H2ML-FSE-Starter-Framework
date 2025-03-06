@@ -41,6 +41,8 @@ export default function Save({
 		}), {}))) : undefined
 	});
 
+	if(!blockProps.style) blockProps.style = {};
+
 	Object.assign(blockProps.style, {
 		zIndex: stackingOrder,
 		gridArea: defaultGridArea,
