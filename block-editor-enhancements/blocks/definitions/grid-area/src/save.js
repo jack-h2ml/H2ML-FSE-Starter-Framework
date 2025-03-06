@@ -4,6 +4,7 @@
 
 import {
 	useBlockProps,
+	useInnerBlocksProps,
 	InnerBlocks
 } from '@wordpress/block-editor';
 
