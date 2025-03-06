@@ -27,7 +27,7 @@ export default function Save({
 		horizontal: 'row'
 	}[layout.orientation];*/
 
-	const {children, blockProps} = useInnerBlocksProps.save(useBlockProps.save({
+	const blockProps = useBlockProps.save({
 		className: 'alignfull',
 		style: {
 			zIndex: stackingOrder,
@@ -45,14 +45,14 @@ export default function Save({
 				})
 			}
 		}), {}))) : undefined
-	}));
+	});
 
-	console.log(blockProps, useBlockProps.save());
+	const innerBlocksProps = useInnerBlocksProps.save(blockProps);
+
+	console.log(innerBlocksProps, useBlockProps.save());
 
 	return (
-		<div {...blockProps}>
-			{children}
-		</div>
+		<div {...innerBlocksProps}/>
 	);
 
 	/*
