@@ -41,6 +41,12 @@ export default function Save({
 		}), {}))) : undefined
 	});
 
+	Object.assign(blockProps.style, {
+		zIndex: stackingOrder,
+		gridArea: defaultGridArea,
+		//flexDirection
+	});
+
 	/*
 	className: 'alignfull',
 		style: {
