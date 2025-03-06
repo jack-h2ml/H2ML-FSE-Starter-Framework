@@ -21,17 +21,17 @@ export default function Save({
 		layout = {orientation: 'vertical'}
 	}
 }) {
-	const flexDirection = {
+	/*const flexDirection = {
 		vertical: 'column',
 		horizontal: 'row'
-	}[layout.orientation];
+	}[layout.orientation];*/
 
 	const blockProps = useBlockProps.save({
 		className: 'alignfull',
 		style: {
 			zIndex: stackingOrder,
 			gridArea: defaultGridArea,
-			flexDirection
+			//flexDirection
 		},
 		'data-breakpoint-definitions': Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
 			...res,
@@ -45,6 +45,9 @@ export default function Save({
 			}
 		}), {}))) : undefined
 	});
+
+
+
 	return (
 		<div {...blockProps}>
 			<InnerBlocks.Content/>
