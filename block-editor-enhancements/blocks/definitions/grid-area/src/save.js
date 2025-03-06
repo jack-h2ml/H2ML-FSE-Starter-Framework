@@ -37,12 +37,9 @@ export default function Save({
 	});
 	*/
 
-	const {children, ...blockProps} = useInnerBlocksProps.save(useBlockProps.save({
-		style: {
-			zIndex: stackingOrder,
-			gridArea: defaultGridArea
-		},
-	}));
+	const {children, ...blockProps} = useInnerBlocksProps.save(useBlockProps.save());
+
+	console.log(blockProps);
 
 	return (
 		<div {...blockProps} data-breakpoint-definitions={Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
