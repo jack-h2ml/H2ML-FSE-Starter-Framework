@@ -27,19 +27,7 @@ export default function Save({
 		horizontal: 'row'
 	}[layout.orientation];*/
 
-	const blockProps = useBlockProps.save({
-		'data-breakpoint-definitions': Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
-			...res,
-			[`${breakpointDefinition.mediaQuery}`]: {
-				...(breakpointDefinition.coords ? {
-					gridArea: breakpointDefinition.coords,
-					display: 'flex'
-				} : {
-					display: 'none'
-				})
-			}
-		}), {}))) : undefined
-	});
+	const blockProps = useBlockProps.save();
 
 
 	if(!blockProps.style) blockProps.style = {};
@@ -61,10 +49,18 @@ export default function Save({
 
 	const innerBlocksProps = useInnerBlocksProps.save(blockProps);
 
-	console.log(blockProps, useBlockProps.save());
-
 	return (
-		<div {...innerBlocksProps}/>
+		<div {...innerBlocksProps} data-breakpoint-definitions={Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
+			...res,
+			[`${breakpointDefinition.mediaQuery}`]: {
+				...(breakpointDefinition.coords ? {
+					gridArea: breakpointDefinition.coords,
+					display: 'flex'
+				} : {
+					display: 'none'
+				})
+			}
+		}), {}))) : undefined}/>
 	);
 
 	/*
