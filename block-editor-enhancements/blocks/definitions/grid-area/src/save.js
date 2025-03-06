@@ -27,9 +27,6 @@ export default function Save({
 		horizontal: 'row'
 	}[layout.orientation];*/
 
-	const blockProps = useBlockProps.save();
-
-
 	/*
 	if(!blockProps.style) blockProps.style = {};
 		
@@ -40,8 +37,7 @@ export default function Save({
 	});
 	*/
 
-	//const {children, ...blockProps} = useInnerBlocksProps.save(useBlockProps.save());
-	console.log(blockProps);
+	const {children, ...blockProps} = useInnerBlocksProps.save(useBlockProps.save());
 
 	return (
 		<div {...blockProps} data-breakpoint-definitions={Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
@@ -55,7 +51,7 @@ export default function Save({
 				})
 			}
 		}), {}))) : undefined}>
-			<InnerBlocks.Content/>
+			{children}
 		</div>
 	);
 
