@@ -40,10 +40,11 @@ export default function Save({
 	});
 	*/
 
-	const innerBlocksProps = useInnerBlocksProps.save(blockProps);
+	//const {children, ...blockProps} = useInnerBlocksProps.save(useBlockProps.save());
+	console.log(blockProps);
 
 	return (
-		<div {...innerBlocksProps} data-breakpoint-definitions={Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
+		<div {...blockProps} data-breakpoint-definitions={Object.keys(breakpointDefinitions) ? btoa(JSON.stringify(Object.values(breakpointDefinitions).reduce((res, breakpointDefinition) => ({
 			...res,
 			[`${breakpointDefinition.mediaQuery}`]: {
 				...(breakpointDefinition.coords ? {
@@ -53,7 +54,9 @@ export default function Save({
 					display: 'none'
 				})
 			}
-		}), {}))) : undefined}/>
+		}), {}))) : undefined}>
+			<InnerBlocks.Content/>
+		</div>
 	);
 
 	/*
