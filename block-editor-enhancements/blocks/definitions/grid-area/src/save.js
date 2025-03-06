@@ -37,13 +37,15 @@ export default function Save({
 	});
 	*/
 
-	const {children, ...blockProps} = useInnerBlocksProps.save({
+	const {children, ...blockProps} = useInnerBlocksProps.save(useBlockProps.save({
 		style: {
 			zIndex: stackingOrder,
 			gridArea: defaultGridArea,
 			//flexDirection
 		}
-	}, useBlockProps.save());
+	}), {
+		__experimentalLayout: layout,
+	});
 
 	console.log(blockProps);
 
