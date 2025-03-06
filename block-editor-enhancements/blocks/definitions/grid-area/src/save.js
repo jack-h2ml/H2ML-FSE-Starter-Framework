@@ -37,7 +37,13 @@ export default function Save({
 	});
 	*/
 
-	const {children, ...blockProps} = useInnerBlocksProps.save(useBlockProps.save());
+	const {children, ...blockProps} = useInnerBlocksProps.save({
+		style: {
+			zIndex: stackingOrder,
+			gridArea: defaultGridArea,
+			//flexDirection
+		}
+	}, useBlockProps.save());
 
 	console.log(blockProps);
 
